@@ -51,8 +51,6 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import com.heveamobile.mapbystep.navigation.NavigationHandler
 import com.heveamobile.mapbystep.navigation.Route
-import com.heveamobile.mapbystep.theme.OnSurface
-import com.heveamobile.mapbystep.theme.SurfaceContainerHigh
 import com.heveamobile.mapbystep.ui.common.LocalScaffoldPadding
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
@@ -237,6 +235,9 @@ fun HomeContent(
                 },
                 topBar = {
                     TopAppBar(
+                        colors = TopAppBarDefaults
+                            .topAppBarColors()
+                            .copy(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         title = {
                             Text(
                                 text = stringResource(
@@ -254,7 +255,6 @@ fun HomeContent(
                                 Icon(
                                     imageVector = Icons.Filled.Menu,
                                     contentDescription = stringResource(Res.string.navigation_drawer_icon_description),
-                                    tint = OnSurface,
                                 )
                             }
                         },
@@ -370,9 +370,6 @@ fun HomeContent(
                                 }
                             }
                         },
-                        colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = SurfaceContainerHigh,
-                        ),
                     )
                 },
             ) { paddingValues ->

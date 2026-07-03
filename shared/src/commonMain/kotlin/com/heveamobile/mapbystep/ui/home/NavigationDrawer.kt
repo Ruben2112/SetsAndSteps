@@ -14,11 +14,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
-import com.heveamobile.mapbystep.theme.Background
-import com.heveamobile.mapbystep.theme.Outline
 import com.heveamobile.mapbystep.theme.spacing
 import com.heveamobile.mapbystep.ui.common.StepsDivider
 import mapbystep.shared.generated.resources.Res
@@ -32,48 +32,50 @@ fun NavigationDrawer(
     modifier: Modifier = Modifier,
     onDrawerItemClicked: (NavigationDrawerRoute) -> Unit,
 ) {
-    Row(
+    Surface(
         modifier = modifier
             .fillMaxWidth(0.666F)
-            .fillMaxHeight()
-            .background(Background),
+            .fillMaxHeight(),
     ) {
-        Column(
-            modifier = Modifier.weight(1F),
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .statusBarsPadding()
-                    .navigationBarsPadding()
-                    .height(40.dp),
-            )
-            Image(
-                modifier = Modifier
-                    .padding(
-                        horizontal = MaterialTheme.spacing.large,
-                    )
-                    .padding(bottom = MaterialTheme.spacing.extraLarge),
-                painter = painterResource(Res.drawable.logo_svg),
-                contentDescription = stringResource(Res.string.logo_description),
-            )
-            StepsDivider(modifier = Modifier.fillMaxWidth())
-            Spacer(modifier = Modifier.height(MaterialTheme.spacing.large))
-            NavigationDrawerRoute.entries.forEach { route ->
-                NavigationDrawerItem(
-                    route = route,
-                    onClick = {
-                        onDrawerItemClicked(route)
-                    },
+        Row {
+            Column(
+                modifier = Modifier.weight(1F),
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .statusBarsPadding()
+                        .navigationBarsPadding()
+                        .height(40.dp),
                 )
+                Image(
+                    modifier = Modifier
+                        .padding(
+                            horizontal = MaterialTheme.spacing.large,
+                        )
+                        .padding(bottom = MaterialTheme.spacing.extraLarge),
+                    painter = painterResource(Res.drawable.logo_svg),
+                    contentDescription = stringResource(Res.string.logo_description),
+                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                )
+                StepsDivider(modifier = Modifier.fillMaxWidth())
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.large))
+                NavigationDrawerRoute.entries.forEach { route ->
+                    NavigationDrawerItem(
+                        route = route,
+                        onClick = {
+                            onDrawerItemClicked(route)
+                        },
+                    )
+                }
             }
+            Box(
+                // Side border
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width(1.dp)
+                    .background(MaterialTheme.colorScheme.outlineVariant),
+            )
         }
-        Box(
-            // Side border
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(1.dp)
-                .background(Outline),
-        )
     }
 }

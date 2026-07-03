@@ -33,7 +33,7 @@ fun MapDropDownMenu(
                 Text(
                     modifier = Modifier.weight(1F),
                     text = map.name,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurface),
                 )
             }
         },

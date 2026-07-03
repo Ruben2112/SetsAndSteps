@@ -28,8 +28,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import com.heveamobile.mapbystep.FormatMode
 import com.heveamobile.mapbystep.formatAmount
-import com.heveamobile.mapbystep.theme.OnSurface
-import com.heveamobile.mapbystep.theme.SecondaryContainer
 import com.heveamobile.mapbystep.theme.spacing
 import mapbystep.shared.generated.resources.Res
 import mapbystep.shared.generated.resources.footsteps_icon_description
@@ -51,7 +49,7 @@ fun StepProgressPill(
             modifier = modifier
                 .padding(horizontal = MaterialTheme.spacing.small)
                 .clip(shape = MaterialTheme.shapes.medium)
-                .background(SecondaryContainer)
+                .background(MaterialTheme.colorScheme.secondaryContainer)
                 .clickable {
                     onTap()
                 }
@@ -73,7 +71,7 @@ fun StepProgressPill(
                         availableSteps,
                         FormatMode.Long,
                     ),
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSecondaryContainer),
                 )
                 if (availableSteps >= requiredSteps) {
                     Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
@@ -84,7 +82,7 @@ fun StepProgressPill(
                         modifier = Modifier.size(16.dp),
                         painter = painterResource(Res.drawable.ic_steps),
                         contentDescription = stringResource(Res.string.footsteps_icon_description),
-                        tint = OnSurface,
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
                     )
                 }
             }
@@ -129,7 +127,7 @@ private fun WalkingFootsteps() {
         Icon(
             painter = painterResource(Res.drawable.ic_footstep),
             contentDescription = null,
-            tint = OnSurface,
+            tint = MaterialTheme.colorScheme.onSecondaryContainer,
             modifier = Modifier
                 .size(16.dp)
                 .graphicsLayer {
@@ -145,7 +143,7 @@ private fun WalkingFootsteps() {
     }
 
     Box(
-        contentAlignment = Alignment.Center, // Start from the left
+        contentAlignment = Alignment.Center,
     ) {
         AnimatedFootstep(
             isTop = true,

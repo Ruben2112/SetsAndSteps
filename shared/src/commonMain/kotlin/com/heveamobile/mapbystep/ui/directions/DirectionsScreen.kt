@@ -1,6 +1,5 @@
 package com.heveamobile.mapbystep.ui.directions
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,9 +44,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.heveamobile.mapbystep.FormatMode
 import com.heveamobile.mapbystep.domain.model.Rarity
 import com.heveamobile.mapbystep.formatAmount
-import com.heveamobile.mapbystep.theme.DisabledContainer
-import com.heveamobile.mapbystep.theme.DisabledContainerOutline
-import com.heveamobile.mapbystep.theme.OnDisabledContainer
 import com.heveamobile.mapbystep.theme.color
 import com.heveamobile.mapbystep.theme.spacing
 import com.heveamobile.mapbystep.ui.common.Card
@@ -139,7 +135,7 @@ fun DirectionsContent(
             .consumeWindowInsets(LocalScaffoldPadding.current)
             .imePadding(),
         contentPadding = PaddingValues(MaterialTheme.spacing.medium),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
     ) {
         item {
             InfoCard(
@@ -191,8 +187,7 @@ fun DirectionsContent(
                 ) {
                     MapStatisticsList(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(MaterialTheme.spacing.medium),
+                            .fillMaxWidth(),
                         map = state.selectedMap,
                         showExpandIcon = false,
                     )
@@ -258,7 +253,6 @@ fun DirectionsContent(
                         }
                     },
                 ) {
-                    Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
                     Rarity.entries.forEach { rarity ->
                         val amountOwned = state.selectedMap.directions.count { it == rarity }
                         val cost = state.selectedMap.storePrice(rarity)
@@ -299,17 +293,13 @@ private fun DirectionsShopRow(
 ) {
     Row(
         modifier = modifier
-            .fillMaxWidth()
-            .padding(
-                horizontal = MaterialTheme.spacing.medium,
-                vertical = MaterialTheme.spacing.extraSmall,
-            ),
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             modifier = Modifier.weight(1F),
             text = "${rarity.name} ($amountOwned)",
-            style = MaterialTheme.typography.bodyMedium.copy(color = rarity.color),
+            style = MaterialTheme.typography.bodyMedium.copy(color = rarity.color(MaterialTheme.colorScheme.onPrimary)),
         )
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
         Icon(
@@ -412,15 +402,7 @@ private fun ShopControls(
             modifier = Modifier.size(20.dp),
             enabled = minusEnabled,
             colors = IconButtonDefaults
-                .outlinedIconButtonColors()
-                .copy(
-                    containerColor = MaterialTheme.colorScheme.surfaceContainer,
-                    disabledContainerColor = DisabledContainer,
-                ),
-            border = BorderStroke(
-                width = 1.dp,
-                color = if (minusEnabled) MaterialTheme.colorScheme.outlineVariant else DisabledContainerOutline,
-            ),
+                .outlinedIconButtonColors(),
             onClick = {
                 onAction(
                     DirectionsAction.UpdateCartAmount(
@@ -435,7 +417,6 @@ private fun ShopControls(
                 modifier = Modifier.size(14.dp),
                 imageVector = Icons.Default.Remove,
                 contentDescription = stringResource(Res.string.decrease_icon_description),
-                tint = if (minusEnabled) MaterialTheme.colorScheme.onSurface else OnDisabledContainer,
             )
         }
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
@@ -461,15 +442,7 @@ private fun ShopControls(
             modifier = Modifier.size(20.dp),
             enabled = plusEnabled,
             colors = IconButtonDefaults
-                .outlinedIconButtonColors()
-                .copy(
-                    containerColor = MaterialTheme.colorScheme.surfaceContainer,
-                    disabledContainerColor = DisabledContainer,
-                ),
-            border = BorderStroke(
-                width = 1.dp,
-                color = if (plusEnabled) MaterialTheme.colorScheme.outlineVariant else DisabledContainerOutline,
-            ),
+                .outlinedIconButtonColors(),
             onClick = {
                 onAction(
                     DirectionsAction.UpdateCartAmount(
@@ -484,7 +457,6 @@ private fun ShopControls(
                 modifier = Modifier.size(14.dp),
                 imageVector = Icons.Default.Add,
                 contentDescription = stringResource(Res.string.increase_icon_description),
-                tint = if (plusEnabled) MaterialTheme.colorScheme.onSurface else OnDisabledContainer,
             )
         }
     }

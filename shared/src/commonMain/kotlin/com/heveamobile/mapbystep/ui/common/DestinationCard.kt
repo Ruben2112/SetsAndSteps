@@ -37,9 +37,6 @@ import com.heveamobile.mapbystep.FormatMode
 import com.heveamobile.mapbystep.domain.model.Destination
 import com.heveamobile.mapbystep.domain.model.Info
 import com.heveamobile.mapbystep.formatAmount
-import com.heveamobile.mapbystep.theme.Outline
-import com.heveamobile.mapbystep.theme.PrimaryContainer
-import com.heveamobile.mapbystep.theme.SurfaceContainer
 import com.heveamobile.mapbystep.theme.color
 import com.heveamobile.mapbystep.theme.spacing
 import mapbystep.shared.generated.resources.Res
@@ -135,7 +132,7 @@ private fun CardFront(
                     color = MaterialTheme.colorScheme.outline,
                     shape = if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium,
                 )
-                .background(if (destination.totalVisits > 0) SurfaceContainer else PrimaryContainer),
+                .background(if (destination.totalVisits > 0) MaterialTheme.colorScheme.surfaceContainer else MaterialTheme.colorScheme.primaryContainer),
         ) {
             Box(
                 modifier = Modifier
@@ -169,7 +166,7 @@ private fun CardFront(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(if (isLarge) 4.dp else 1.dp)
-                    .background(Outline),
+                    .background(MaterialTheme.colorScheme.outline),
             )
             Box(
                 modifier = Modifier
@@ -183,7 +180,7 @@ private fun CardFront(
                 Text(
                     text = destination.name,
                     textAlign = TextAlign.Center,
-                    style = if (isLarge) MaterialTheme.typography.bodyLarge else MaterialTheme.typography.bodySmall,
+                    style = if (isLarge) MaterialTheme.typography.bodyLarge.copy(destination.rarity.color(MaterialTheme.colorScheme.onPrimary)) else MaterialTheme.typography.bodySmall.copy(destination.rarity.color(MaterialTheme.colorScheme.onPrimary)),
                     overflow = TextOverflow.Ellipsis,
                 )
             }
@@ -212,7 +209,7 @@ private fun CardFront(
                             Icons.Default.Star,
                             modifier = Modifier.size(8.dp),
                             contentDescription = stringResource(Res.string.new_icon_description),
-                            tint = MaterialTheme.colorScheme.onSurface,
+                            tint = MaterialTheme.colorScheme.onSecondary,
                         )
                     }
                 }
@@ -274,7 +271,7 @@ private fun CardBack(
                 color = MaterialTheme.colorScheme.outline,
                 shape = if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium,
             )
-            .background(if (destination.totalVisits > 0) SurfaceContainer else PrimaryContainer),
+            .background(if (destination.totalVisits > 0) MaterialTheme.colorScheme.surfaceContainer else MaterialTheme.colorScheme.primaryContainer),
     ) {
         Box(
             modifier = Modifier
@@ -285,14 +282,14 @@ private fun CardBack(
                 modifier = Modifier.fillMaxSize(),
                 painter = painterResource(resource = Res.drawable.ic_question_mark),
                 contentDescription = stringResource(Res.string.unrevealed_card_icon_description),
-                tint = if (raritySpoiler) destination.rarity.color else MaterialTheme.colorScheme.onSurface,
+                tint = if (raritySpoiler) destination.rarity.color(MaterialTheme.colorScheme.onPrimary) else MaterialTheme.colorScheme.onSurface,
             )
         }
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(if (isLarge) 4.dp else 1.dp)
-                .background(Outline),
+                .background(MaterialTheme.colorScheme.outline),
         )
         Box(
             modifier = Modifier
@@ -306,7 +303,7 @@ private fun CardBack(
             Text(
                 text = stringResource(Res.string.destination_card_unrevealed_card_title),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurface),
             )
         }
     }

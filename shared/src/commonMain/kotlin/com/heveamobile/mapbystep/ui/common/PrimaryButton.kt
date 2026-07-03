@@ -20,14 +20,14 @@ fun PrimaryButton(
         onClick = onClick,
         border = BorderStroke(
             width = 1.dp,
-            color = if (isDestructive) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant,
+            color = if (isDestructive) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.outlineVariant,
         ),
     ) {
         Text(
             text = label,
             style = MaterialTheme.typography.bodySmall.copy(
                 color = if (isDestructive) {
-                    MaterialTheme.colorScheme.error
+                    MaterialTheme.colorScheme.onErrorContainer
                 } else {
                     MaterialTheme.colorScheme.onSurface
                 },

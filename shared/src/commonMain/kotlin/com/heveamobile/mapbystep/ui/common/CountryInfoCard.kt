@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.heveamobile.mapbystep.domain.model.Destination
 import com.heveamobile.mapbystep.domain.model.Info
+import com.heveamobile.mapbystep.domain.model.Rarity
 import com.heveamobile.mapbystep.formatPopulation
 import com.heveamobile.mapbystep.theme.color
 import com.heveamobile.mapbystep.theme.spacing
@@ -54,27 +55,29 @@ fun CountryInfoCard(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                modifier = Modifier.padding(MaterialTheme.spacing.medium),
+                modifier = Modifier.padding(bottom = MaterialTheme.spacing.medium),
                 text = destination.name,
                 style = MaterialTheme.typography.titleLarge.copy(
-                    color = destination.rarity.color,
+                    color = if (destination.rarity == Rarity.Common) MaterialTheme.colorScheme.onSurface else destination.rarity.color(MaterialTheme.colorScheme.onPrimary),
                 ),
             )
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.outline,
+                color = MaterialTheme.colorScheme.outlineVariant,
             )
-            Box(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
-                Card(modifier = Modifier.height(160.dp)) {
-                    MapboxMap(
-                        modifier = Modifier.fillMaxSize(),
-                        boundingBox = destination.info.boundingBox,
-                    )
-                }
+            Box(
+                modifier = Modifier
+                    .padding(vertical = MaterialTheme.spacing.medium)
+                    .height(160.dp),
+            ) {
+                MapboxMap(
+                    modifier = Modifier.fillMaxSize(),
+                    boundingBox = destination.info.boundingBox,
+                )
             }
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.outline,
+                color = MaterialTheme.colorScheme.outlineVariant,
             )
             Row(
                 modifier = Modifier
@@ -95,7 +98,7 @@ fun CountryInfoCard(
                             .padding(MaterialTheme.spacing.small)
                             .size(48.dp),
                         painter = painterResource(Res.drawable.ic_steps),
-                        tint = destination.rarity.color,
+                        tint = if (destination.rarity == Rarity.Common) MaterialTheme.colorScheme.onSurface else destination.rarity.color(MaterialTheme.colorScheme.onPrimary),
                         contentDescription = stringResource(
                             Res.string.rarity_icon_description,
                             destination.rarity.name,
@@ -104,13 +107,15 @@ fun CountryInfoCard(
                     Text(
                         text = destination.rarity.name,
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = destination.rarity.color,
+                            color = if (destination.rarity == Rarity.Common) MaterialTheme.colorScheme.onSurface else destination.rarity.color(MaterialTheme.colorScheme.onPrimary),
                         ),
                     )
                 }
                 VerticalDivider(
-                    modifier = Modifier.fillMaxHeight(),
-                    color = MaterialTheme.colorScheme.outline,
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(vertical = MaterialTheme.spacing.medium),
+                    color = MaterialTheme.colorScheme.outlineVariant,
                 )
                 Column(
                     modifier = Modifier
@@ -136,8 +141,10 @@ fun CountryInfoCard(
                     )
                 }
                 VerticalDivider(
-                    modifier = Modifier.fillMaxHeight(),
-                    color = MaterialTheme.colorScheme.outline,
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(vertical = MaterialTheme.spacing.medium),
+                    color = MaterialTheme.colorScheme.outlineVariant,
                 )
                 Column(
                     modifier = Modifier
@@ -168,12 +175,12 @@ fun CountryInfoCard(
             }
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.outline,
+                color = MaterialTheme.colorScheme.outlineVariant,
             )
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(MaterialTheme.spacing.medium),
+                    .padding(top = MaterialTheme.spacing.medium),
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
             ) {
                 val population = info.population

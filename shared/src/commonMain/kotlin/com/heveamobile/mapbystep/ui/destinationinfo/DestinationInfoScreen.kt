@@ -48,7 +48,7 @@ fun DestinationInfoContent(
         modifier = modifier
             .fillMaxSize(),
         contentPadding = PaddingValues(MaterialTheme.spacing.medium),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
     ) {
         if (state.maps.size > 1) {
             item {
@@ -77,7 +77,7 @@ fun DestinationInfoContent(
                     Text(
                         modifier = Modifier.fillMaxWidth(),
                         text = destination.name,
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodyMedium.copy(MaterialTheme.colorScheme.onPrimaryContainer),
                     )
                 }
             }

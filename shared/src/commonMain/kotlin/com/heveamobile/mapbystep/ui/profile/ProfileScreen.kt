@@ -2,6 +2,7 @@ package com.heveamobile.mapbystep.ui.profile
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,9 +46,11 @@ import com.patrykandpatrick.vico.compose.cartesian.Scroll
 import com.patrykandpatrick.vico.compose.cartesian.axis.HorizontalAxis
 import com.patrykandpatrick.vico.compose.cartesian.axis.VerticalAxis
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberAxisGuidelineComponent
+import com.patrykandpatrick.vico.compose.cartesian.axis.rememberAxisLineComponent
+import com.patrykandpatrick.vico.compose.cartesian.axis.rememberAxisTickComponent
 import com.patrykandpatrick.vico.compose.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.compose.cartesian.data.CartesianValueFormatter
-import com.patrykandpatrick.vico.compose.cartesian.data.columnSeries
+import com.patrykandpatrick.vico.compose.cartesian.data.columnModel
 import com.patrykandpatrick.vico.compose.cartesian.layer.ColumnCartesianLayer.ColumnProvider
 import com.patrykandpatrick.vico.compose.cartesian.layer.rememberColumnCartesianLayer
 import com.patrykandpatrick.vico.compose.cartesian.rememberCartesianChart
@@ -133,7 +136,9 @@ fun ProfileContent(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(MaterialTheme.spacing.medium),
+            .padding(MaterialTheme.spacing.medium)
+            .background(MaterialTheme.colorScheme.surface),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
     ) {
         AnimatedVisibility(state.isLoading) {
             Column {
@@ -154,7 +159,6 @@ fun ProfileContent(
                         )
                     }
                 }
-                Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             }
         }
         AnimatedContent(targetState = state.healthPermissionState) { permissionState ->
@@ -167,17 +171,14 @@ fun ProfileContent(
                         actionLabel = stringResource(Res.string.profile_error_action_request_permissions),
                         onAction = onPermissionRequest,
                     )
-                    Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
                 }
 
                 PermissionStatus.NotInstalled -> Column(modifier = Modifier.fillMaxWidth()) {
                     ErrorCard(errorMessage = stringResource(Res.string.profile_error_health_connect_not_installed))
-                    Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
                 }
             }
         }
         HistoricDataCard(state = state)
-        Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
         PersonalRecordsDataCard(state = state)
     }
 }
@@ -207,20 +208,11 @@ private fun HistoricDataCard(state: ProfileState) {
         title = stringResource(Res.string.historic_step_data_title),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(MaterialTheme.spacing.medium),
+            modifier = Modifier.fillMaxWidth(),
         ) {
-            Card(modifier = Modifier.height(160.dp)) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(MaterialTheme.spacing.small),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    if (state.dailyStepData.isNotEmpty()) {
-                        DailyStepsChart(state.dailyStepData)
-                    }
+            Box(modifier = Modifier.height(160.dp)) {
+                if (state.dailyStepData.isNotEmpty()) {
+                    DailyStepsChart(state.dailyStepData)
                 }
             }
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
@@ -271,7 +263,7 @@ private fun DailyStepsChart(dailyStepData: Map<Instant, Long>) {
 
     LaunchedEffect(dailyStepData) {
         modelProducer.runTransaction {
-            columnSeries {
+            columnModel {
                 series(
                     x = dailyStepData.keys.map { it.epochSeconds },
                     y = dailyStepData.values,
@@ -281,12 +273,11 @@ private fun DailyStepsChart(dailyStepData: Map<Instant, Long>) {
     }
 
     CartesianChartHost(
-        modifier = Modifier,
         chart = rememberCartesianChart(
             rememberColumnCartesianLayer(
                 columnProvider = ColumnProvider.series(
                     rememberLineComponent(
-                        fill = Fill(MaterialTheme.colorScheme.surfaceContainerHigh),
+                        fill = Fill(MaterialTheme.colorScheme.onBackground),
                         thickness = 32.dp,
                         shape = MaterialTheme.shapes.small.copy(
                             bottomStart = CornerSize(0.dp),
@@ -294,24 +285,45 @@ private fun DailyStepsChart(dailyStepData: Map<Instant, Long>) {
                         ),
                     ),
                 ),
-                dataLabel = rememberTextComponent(MaterialTheme.typography.bodySmall),
+                dataLabel = rememberTextComponent(MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurface)),
                 dataLabelPosition = Position.Vertical.Top,
                 dataLabelValueFormatter = dataValueFormatter,
                 columnCollectionSpacing = MaterialTheme.spacing.small,
             ),
             startAxis = VerticalAxis.rememberStart(
                 valueFormatter = verticalAxisValueFormatter,
+                line = rememberAxisLineComponent(
+                    fill = Fill(
+                        color = MaterialTheme.colorScheme.onSurface,
+                    ),
+                ),
+                tick = rememberAxisTickComponent(
+                    fill = Fill(
+                        color = MaterialTheme.colorScheme.onSurface,
+                    ),
+                ),
                 guideline = rememberAxisGuidelineComponent(
                     fill = Fill(
-                        color = MaterialTheme.colorScheme.background,
+                        color = MaterialTheme.colorScheme.onSurface,
                     ),
-                ).copy(),
-                label = TextComponent(MaterialTheme.typography.bodySmall),
+                ),
+
+                label = TextComponent(MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurface)),
             ),
             bottomAxis = HorizontalAxis.rememberBottom(
                 valueFormatter = horizontalAxisValueFormatter,
+                line = rememberAxisLineComponent(
+                    fill = Fill(
+                        color = MaterialTheme.colorScheme.onSurface,
+                    ),
+                ),
+                tick = rememberAxisTickComponent(
+                    fill = Fill(
+                        color = MaterialTheme.colorScheme.onSurface,
+                    ),
+                ),
                 guideline = null,
-                label = TextComponent(MaterialTheme.typography.bodySmall),
+                label = TextComponent(MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurface)),
             ),
         ),
         modelProducer = modelProducer,
@@ -326,9 +338,7 @@ private fun PersonalRecordsDataCard(state: ProfileState) {
         subtitle = stringResource(Res.string.personal_records_subtitle),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(MaterialTheme.spacing.medium),
+            modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         ) {
             KeyValueRow(

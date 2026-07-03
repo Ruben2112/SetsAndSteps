@@ -3,7 +3,6 @@ package com.heveamobile.mapbystep.ui.common
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -33,27 +32,28 @@ fun ErrorCard(
             if (actionLabel != null && onAction != null) {
                 PrimaryButton(
                     label = actionLabel,
+                    isDestructive = true, // Not really destructive but the color works better this way
                     onClick = onAction,
                 )
             }
         },
+        showOutline = false,
+        containerColor = MaterialTheme.colorScheme.errorContainer,
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(MaterialTheme.spacing.medium),
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
                 Icons.Filled.Warning,
                 contentDescription = stringResource(Res.string.error_card_icon_description),
                 modifier = Modifier.size(24.dp),
-                tint = MaterialTheme.colorScheme.error,
+                tint = MaterialTheme.colorScheme.onError,
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
             Text(
                 errorMessage,
-                style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.error),
+                style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onError),
             )
         }
     }

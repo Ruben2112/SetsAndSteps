@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -50,7 +51,6 @@ import com.heveamobile.mapbystep.ui.common.AlertDialog
 import com.heveamobile.mapbystep.ui.common.Card
 import com.heveamobile.mapbystep.ui.common.ErrorCard
 import com.heveamobile.mapbystep.ui.common.FilePickerHandlerEffect
-import com.heveamobile.mapbystep.ui.common.InfoCard
 import com.heveamobile.mapbystep.ui.common.PermissionStatus
 import com.heveamobile.mapbystep.ui.common.PrimaryButton
 import com.heveamobile.mapbystep.ui.common.SecondaryButton
@@ -179,24 +179,30 @@ private fun SettingsContent(
         NotificationSettingsDialog(onAction = onAction)
     }
 
-    Column(
+    LazyColumn(
         modifier = modifier
             .fillMaxWidth()
             .padding(MaterialTheme.spacing.medium),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
     ) {
-        ReminderCard(
-            reminderIsEnabled = state.reminderIsEnabled,
-            reminderTime = state.reminderTime,
-            notificationPermissionStatus = state.notificationPermissionStatus,
-            onAction = onAction,
-            onPermissionRequest = onPermissionRequest,
-        )
-        DistanceMultiplierCard(
-            distanceMultiplier = state.distanceMultiplier,
-            onAction = onAction,
-        )
-        ExportImportDataCard(onAction = onAction)
+        item {
+            ReminderCard(
+                reminderIsEnabled = state.reminderIsEnabled,
+                reminderTime = state.reminderTime,
+                notificationPermissionStatus = state.notificationPermissionStatus,
+                onAction = onAction,
+                onPermissionRequest = onPermissionRequest,
+            )
+        }
+        item {
+            DistanceMultiplierCard(
+                distanceMultiplier = state.distanceMultiplier,
+                onAction = onAction,
+            )
+        }
+        item {
+            ExportImportDataCard(onAction = onAction)
+        }
     }
 }
 
@@ -208,16 +214,14 @@ private fun ReminderCard(
     onAction: (SettingsAction) -> Unit,
     onPermissionRequest: () -> Unit,
 ) {
-    Card {
+    Card(title = "Daily reminder") {
         Column(
-            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
             horizontalAlignment = Alignment.End,
         ) {
-            InfoCard(
-                modifier = Modifier
-                    .padding(horizontal = MaterialTheme.spacing.medium)
-                    .padding(top = MaterialTheme.spacing.medium),
+            Text(
                 text = stringResource(Res.string.settings_daily_reminder_explanation),
+                style = MaterialTheme.typography.bodyMedium,
             )
 
             AnimatedContent(
@@ -239,9 +243,7 @@ private fun ReminderCard(
                             horizontalAlignment = Alignment.End,
                         ) {
                             Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = MaterialTheme.spacing.medium),
+                                modifier = Modifier.fillMaxWidth(),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large),
                             ) {
@@ -259,7 +261,6 @@ private fun ReminderCard(
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(horizontal = MaterialTheme.spacing.medium)
                                     .padding(bottom = MaterialTheme.spacing.medium),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large),
@@ -292,9 +293,6 @@ private fun ReminderCard(
 
                     PermissionStatus.NotGranted, PermissionStatus.RationaleRequired -> {
                         ErrorCard(
-                            modifier = Modifier
-                                .padding(horizontal = MaterialTheme.spacing.medium)
-                                .padding(bottom = MaterialTheme.spacing.medium),
                             errorMessage = stringResource(
                                 if (status == PermissionStatus.RationaleRequired) {
                                     Res.string.permissions_not_granted_error
@@ -328,7 +326,7 @@ fun TimePickerDialog(
     )
 
     AlertDialog(
-        containerColor = MaterialTheme.colorScheme.primaryContainer,
+        containerColor = MaterialTheme.colorScheme.surface,
         onDismissRequest = { onAction(SettingsAction.ToggleTimePickerAlertDialog) },
         confirmButton = {
             PrimaryButton(label = stringResource(Res.string.label_save)) {
@@ -388,20 +386,16 @@ private fun DistanceMultiplierCard(
         onAction(SettingsAction.UpdateDistanceMultiplier(sliderState.value + 1F))
     }
 
-    Card {
+    Card(title = "Distance multiplier") {
         Column {
-            InfoCard(
-                modifier = Modifier
-                    .padding(horizontal = MaterialTheme.spacing.medium)
-                    .padding(top = MaterialTheme.spacing.medium),
+            Text(
                 text = stringResource(
                     Res.string.settings_distance_multiplier_explanation,
                 ),
+                style = MaterialTheme.typography.bodyMedium,
             )
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = MaterialTheme.spacing.medium),
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large),
             ) {
@@ -451,18 +445,18 @@ private fun DistanceMultiplierCard(
 private fun ExportImportDataCard(
     onAction: (SettingsAction) -> Unit,
 ) {
-    Card {
-        Column(horizontalAlignment = Alignment.End) {
-            InfoCard(
-                modifier = Modifier
-                    .padding(horizontal = MaterialTheme.spacing.medium)
-                    .padding(top = MaterialTheme.spacing.medium),
+    Card(title = "Export and import") {
+        Column(
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        ) {
+            Text(
                 text = stringResource(
                     Res.string.settings_export_import_explanation,
                 ),
+                style = MaterialTheme.typography.bodyMedium,
             )
             Row(
-                modifier = Modifier.padding(MaterialTheme.spacing.medium),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
             ) {

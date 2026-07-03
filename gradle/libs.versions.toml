@@ -28,6 +28,8 @@ datastore = "1.2.1"
 coil = "3.4.0"
 mapbox = "11.23.1"
 vico = "3.2.2"
+materialkolor = "4.1.1"
+materialKolorVersion = "4.1.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -83,6 +85,8 @@ mapbox-maps-compose = { module = "com.mapbox.extension:maps-compose-ndk27", vers
 
 vico-compose = { group = "com.patrykandpatrick.vico", name = "compose", version.ref = "vico" }
 vico-compose-m3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "vico" }
+
+material-kolor = { group = "com.materialkolor", name = "material-kolor", version.ref = "materialKolorVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

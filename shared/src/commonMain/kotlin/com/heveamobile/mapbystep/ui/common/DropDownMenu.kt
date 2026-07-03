@@ -6,7 +6,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,7 +27,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.unit.dp
 import com.heveamobile.mapbystep.theme.spacing
 import mapbystep.shared.generated.resources.Res
 import mapbystep.shared.generated.resources.expand_icon_description
@@ -53,11 +51,6 @@ fun <T> DropDownMenu(
                 .fillMaxWidth()
                 .clip(MaterialTheme.shapes.small)
                 .background(MaterialTheme.colorScheme.surfaceContainer)
-                .border(
-                    width = 1.dp,
-                    color = MaterialTheme.colorScheme.outline,
-                    shape = MaterialTheme.shapes.small,
-                )
                 .clickable { expanded = !expanded }
                 .padding(MaterialTheme.spacing.medium),
             verticalAlignment = Alignment.CenterVertically,
@@ -89,11 +82,6 @@ fun <T> DropDownMenu(
                         color = MaterialTheme.colorScheme.surfaceContainer,
                         shape = MaterialTheme.shapes.small,
                     )
-                    .border(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline,
-                        shape = MaterialTheme.shapes.small,
-                    ),
             ) {
                 items.forEach { item ->
                     Box(

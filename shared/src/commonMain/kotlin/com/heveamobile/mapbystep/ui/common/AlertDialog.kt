@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BasicAlertDialog
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,26 +32,28 @@ fun AlertDialog(
         onDismissRequest = onDismissRequest,
     ) {
         Card(
-            colors = CardDefaults
-                .cardColors()
-                .copy(containerColor = MaterialTheme.colorScheme.primaryContainer),
+            containerColor = MaterialTheme.colorScheme.surface,
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(MaterialTheme.spacing.large),
+                    .padding(MaterialTheme.spacing.medium),
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large),
                 horizontalAlignment = Alignment.End,
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = title,
-                    style = MaterialTheme.typography.titleMedium.copy(if (isPrimaryActionDestructive) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface),
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        if
+                                (isPrimaryActionDestructive) MaterialTheme.colorScheme.onErrorContainer else
+                            MaterialTheme.colorScheme.onSurface,
+                    ),
                 )
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = body,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurface),
                 )
                 if (primaryActionLabel != null && primaryAction != null) {
                     Row(

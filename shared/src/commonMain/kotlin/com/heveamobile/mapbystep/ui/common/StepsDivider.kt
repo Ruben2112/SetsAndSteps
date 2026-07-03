@@ -3,13 +3,13 @@ package com.heveamobile.mapbystep.ui.common
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.heveamobile.mapbystep.theme.OnSurface
 import mapbystep.shared.generated.resources.Res
 import mapbystep.shared.generated.resources.ic_footstep
 import mapbystep.shared.generated.resources.steps_divider_icon_description
@@ -112,7 +112,7 @@ fun Step(
                 .size(iconSize),
             painter = painterResource(Res.drawable.ic_footstep),
             contentDescription = stringResource(Res.string.steps_divider_icon_description),
-            tint = OnSurface.copy(alpha = if (stepPosition == StepPosition.Top) 1F else 0F),
+            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = if (stepPosition == StepPosition.Top) 1F else 0F),
         )
         Icon(
             modifier = Modifier
@@ -120,7 +120,7 @@ fun Step(
                 .size(iconSize),
             painter = painterResource(Res.drawable.ic_footstep),
             contentDescription = stringResource(Res.string.steps_divider_icon_description),
-            tint = OnSurface.copy(alpha = if (stepPosition == StepPosition.Bottom) 1F else 0F),
+            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = if (stepPosition == StepPosition.Bottom) 1F else 0F),
         )
     }
 }

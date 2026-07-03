@@ -68,7 +68,6 @@ actual fun formatDate(
         val format = when (formatMode) {
             FormatMode.Medium -> DateFormat.MEDIUM
             FormatMode.Long -> DateFormat.LONG
-            else -> DateFormat.SHORT // Fallback, though Short is handled above
         }
         DateFormat
             .getDateInstance(

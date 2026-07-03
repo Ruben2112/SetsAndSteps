@@ -8,72 +8,183 @@ import androidx.compose.material3.SwitchColors
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.TimePickerColors
 import androidx.compose.material3.TimePickerDefaults
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 import com.heveamobile.mapbystep.domain.model.Rarity
 
-private val Brown50 = Color(color = 0xFFFBFAF8)
-private val Brown400 = Color(color = 0xFFAF9797)
-private val Brown600 = Color(color = 0xFF534340)
+// https://coolors.co/palette/f0ead2-dde5b6-adc178-a98467-6c584c
+private val VanillaCream = Color(color = 0xFFF0EAD2)
 
+// Updated from original to be between MutedOlive and VanillaCream
+private val Cream = Color(color = 0xFFDDE5B6)
+private val MutedOlive = Color(color = 0xFFADC178)
+private val FadedCopper = Color(color = 0xFFA98467)
+private val AshBrown = Color(color = 0xFF6C584C)
+private val CoffeeBean = Color(color = 0xFF362C26) // 50% #000000 (Black), 50% AshBrown
+
+private val Gray0 = Color(color = 0xFF000000)
+private val Gray10 = Color(color = 0xFF333333)
+private val Gray20 = Color(color = 0xFF4C4C4C)
+private val Gray30 = Color(color = 0xFF666666)
+private val Gray40 = Color(color = 0xFF808080)
+private val Gray50 = Color(color = 0xFF999999)
+private val Gray60 = Color(color = 0xFFB3B3B3)
+private val Gray70 = Color(color = 0xFFCCCCCC)
+private val Gray80 = Color(color = 0xFFE6E6E6)
+private val Gray90 = Color(color = 0xFFF2F2F2)
 private val Gray100 = Color(color = 0xFFFFFFFF)
-private val Gray200 = Color(color = 0xFFDFDFDF)
-private val Gray300 = Color(color = 0xFFBFBFBF)
-private val Gray400 = Color(color = 0xFF9F9F9F)
-private val Gray500 = Color(color = 0xFF808080)
-private val Gray600 = Color(color = 0xFF534340)
-private val Gray700 = Color(color = 0xFF404040)
-private val Gray800 = Color(color = 0xFF202020)
-private val Gray900 = Color(color = 0xFF000000)
 
-private val Green50 = Color(color = 0xFFF5F8ED)
-private val Green100 = Color(color = 0xFFE7EFD8)
-private val Green200 = Color(color = 0xFFC5D8A4)
+val lightScheme = lightColorScheme(
+    primary = MutedOlive,
+    onPrimary = AshBrown,
+    primaryContainer = Cream,
+    onPrimaryContainer = AshBrown,
+    secondary = Cream,
+    onSecondary = AshBrown,
+    secondaryContainer = MutedOlive,
+    onSecondaryContainer = AshBrown,
+    tertiary = AshBrown,
+    onTertiary = Cream,
+    tertiaryContainer = Color.Transparent,
+    onTertiaryContainer = AshBrown,
+    error = lerp(
+        Cream,
+        Color(color = 0xFFFF0000),
+        0.2F,
+    ),
+    onError = lerp(
+        AshBrown,
+        Color(color = 0xFFFF0000),
+        0.5F,
+    ),
+    errorContainer = lerp(
+        Cream,
+        Color(color = 0xFFFF0000),
+        0.2F,
+    ),
+    onErrorContainer = lerp(
+        AshBrown,
+        Color(color = 0xFFFF0000),
+        0.5F,
+    ),
+    background = VanillaCream,
+    onBackground = AshBrown,
+    surface = VanillaCream,
+    onSurface = AshBrown,
+    surfaceVariant = FadedCopper,
+    onSurfaceVariant = AshBrown,
+    outline = MutedOlive,
+    outlineVariant = AshBrown,
+    scrim = Gray0,
+    inverseSurface = AshBrown,
+    inverseOnSurface = VanillaCream,
+    inversePrimary = VanillaCream,
+    surfaceDim = MutedOlive,
+    surfaceBright = Gray0,
+    surfaceContainerLowest = VanillaCream,
+    surfaceContainerLow = VanillaCream,
+    surfaceContainer = Cream,
+    surfaceContainerHigh = MutedOlive,
+    surfaceContainerHighest = MutedOlive,
+)
 
-val Background = Green100
-val SurfaceContainer = Green50
-val SurfaceContainerHigh = Green200
-val OnSurface = Brown600
-val Outline = Green200
-val PrimaryContainer = Brown50
-val OnPrimaryContainer = Brown600
-val SecondaryContainer = Green100
-val OnSecondaryContainer = Brown600
-val TertiaryContainer = Gray900
-val OnTertiaryContainer = Brown400
+val darkScheme = darkColorScheme(
+    primary = AshBrown,
+    onPrimary = VanillaCream,
+    primaryContainer = CoffeeBean,
+    onPrimaryContainer = MutedOlive,
+    secondary = MutedOlive,
+    onSecondary = AshBrown,
+    secondaryContainer = MutedOlive,
+    onSecondaryContainer = AshBrown,
+    tertiary = MutedOlive,
+    onTertiary = AshBrown,
+    tertiaryContainer = Color.Transparent,
+    onTertiaryContainer = AshBrown,
+    error = lerp(
+        FadedCopper,
+        Color(color = 0xFFFF0000),
+        0.2F,
+    ),
+    onError = lerp(
+        CoffeeBean,
+        Color(color = 0xFFFF0000),
+        0.5F,
+    ),
+    errorContainer = lerp(
+        FadedCopper,
+        Color(color = 0xFFFF0000),
+        0.2F,
+    ),
+    onErrorContainer = lerp(
+        CoffeeBean,
+        Color(color = 0xFFFF0000),
+        0.5F,
+    ),
+    background = Gray0,
+    onBackground = FadedCopper,
+    surface = Gray0,
+    onSurface = MutedOlive,
+    surfaceVariant = Gray10,
+    onSurfaceVariant = Cream,
+    outline = AshBrown,
+    outlineVariant = AshBrown,
+    scrim = Gray0,
+    inverseSurface = VanillaCream,
+    inverseOnSurface = AshBrown,
+    inversePrimary = MutedOlive,
+    surfaceDim = Gray0,
+    surfaceBright = Gray10,
+    surfaceContainerLowest = MutedOlive,
+    surfaceContainerLow = MutedOlive,
+    surfaceContainer = CoffeeBean,
+    surfaceContainerHigh = MutedOlive,
+    surfaceContainerHighest = VanillaCream,
+)
 
-val OutlineVariant = Brown600
-val DisabledContainer = Gray200
-val DisabledContainerOutline = Gray500
-val OnDisabledContainer = Gray500
+fun Rarity.color(onPrimaryColor: Color): Color {
+    return when (this) {
+        Rarity.Common -> onPrimaryColor
+        Rarity.Uncommon -> lerp(
+            onPrimaryColor,
+            Color(0xFF00FF00),
+            0.5F,
+        )
 
-val Error = Color(0xFFA92220)
-val RarityCommon = Brown600
-val RarityUncommon = Color(0xFF2AA120)
-val RarityRare = Color(0xFF2A22A0)
-val RarityEpic = Color(0xFFA922A0)
-val RarityLegendary = Color(0xFFA96120)
+        Rarity.Rare -> lerp(
+            onPrimaryColor,
+            Color(0xFF0000FF),
+            0.5F,
+        )
 
-val Rarity.color: Color
-    get() = when (this) {
-        Rarity.Common -> RarityCommon
-        Rarity.Uncommon -> RarityUncommon
-        Rarity.Rare -> RarityRare
-        Rarity.Epic -> RarityEpic
-        Rarity.Legendary -> RarityLegendary
+        Rarity.Epic -> lerp(
+            onPrimaryColor,
+            Color(0xFF800080),
+            0.5F,
+        )
+
+        Rarity.Legendary -> lerp(
+            onPrimaryColor,
+            Color(0xFFFF8000),
+            0.5F,
+        )
     }
+}
 
 @Composable
 fun switchColors(): SwitchColors {
     return SwitchDefaults
         .colors()
         .copy(
-            uncheckedBorderColor = MaterialTheme.colorScheme.onTertiaryContainer,
-            uncheckedThumbColor = MaterialTheme.colorScheme.onTertiaryContainer,
+            uncheckedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            uncheckedThumbColor = MaterialTheme.colorScheme.onPrimaryContainer,
             uncheckedTrackColor = MaterialTheme.colorScheme.primaryContainer,
-            checkedBorderColor = MaterialTheme.colorScheme.onSurface,
+            checkedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,
             checkedThumbColor = MaterialTheme.colorScheme.primaryContainer,
-            checkedTrackColor = MaterialTheme.colorScheme.onSurface,
+            checkedTrackColor = MaterialTheme.colorScheme.onPrimaryContainer,
         )
 }
 
@@ -83,18 +194,18 @@ fun timePickerColors(): TimePickerColors {
     return TimePickerDefaults
         .colors()
         .copy(
-            clockDialColor = MaterialTheme.colorScheme.secondaryContainer,
-            selectorColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-            clockDialSelectedContentColor = MaterialTheme.colorScheme.onSurface,
-            clockDialUnselectedContentColor = MaterialTheme.colorScheme.onSurface,
-            periodSelectorBorderColor = MaterialTheme.colorScheme.outline,
-            periodSelectorSelectedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-            periodSelectorUnselectedContainerColor = MaterialTheme.colorScheme.background,
-            periodSelectorSelectedContentColor = MaterialTheme.colorScheme.onSurface,
+            clockDialColor = MaterialTheme.colorScheme.primaryContainer,
+            selectorColor = MaterialTheme.colorScheme.secondaryContainer,
+            clockDialSelectedContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            clockDialUnselectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            periodSelectorBorderColor = MaterialTheme.colorScheme.primaryContainer,
+            periodSelectorSelectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+            periodSelectorUnselectedContainerColor = MaterialTheme.colorScheme.surface,
+            periodSelectorSelectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
             periodSelectorUnselectedContentColor = MaterialTheme.colorScheme.onSurface,
-            timeSelectorSelectedContainerColor = MaterialTheme.colorScheme.background,
-            timeSelectorUnselectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
-            timeSelectorSelectedContentColor = MaterialTheme.colorScheme.onSurface,
+            timeSelectorSelectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+            timeSelectorUnselectedContainerColor = MaterialTheme.colorScheme.surface,
+            timeSelectorSelectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
             timeSelectorUnselectedContentColor = MaterialTheme.colorScheme.onSurface,
         )
 }
@@ -104,8 +215,8 @@ fun sliderColors(): SliderColors {
     return SliderDefaults
         .colors()
         .copy(
-            activeTrackColor = MaterialTheme.colorScheme.onSurface,
-            inactiveTrackColor = MaterialTheme.colorScheme.onTertiaryContainer,
+            activeTrackColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            inactiveTrackColor = MaterialTheme.colorScheme.onSurfaceVariant,
             activeTickColor = Color.Transparent,
             inactiveTickColor = Color.Transparent,
         )

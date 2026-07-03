@@ -1,5 +1,6 @@
 package com.heveamobile.mapbystep.ui.common
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -36,7 +37,8 @@ import mapbystep.shared.generated.resources.Res
 import mapbystep.shared.generated.resources.map_image_description
 import mapbystep.shared.generated.resources.mapbox_access_token
 import mapbystep.shared.generated.resources.mapbox_image_loading_failed
-import mapbystep.shared.generated.resources.mapbox_style_id
+import mapbystep.shared.generated.resources.mapbox_style_id_dark
+import mapbystep.shared.generated.resources.mapbox_style_id_light
 import mapbystep.shared.generated.resources.mapbox_username
 import mapbystep.shared.generated.resources.warning_card_icon_description
 import org.jetbrains.compose.resources.stringResource
@@ -54,7 +56,9 @@ fun MapboxImage(
      * public repository. Use commented out variables below instead to disable static mapbox image.
      **/
     val token = stringResource(Res.string.mapbox_access_token)
-    val styleId = stringResource(Res.string.mapbox_style_id)
+    val styleId = stringResource(
+        if (isSystemInDarkTheme()) Res.string.mapbox_style_id_dark else Res.string.mapbox_style_id_light,
+    )
     val username = stringResource(Res.string.mapbox_username)
 
 //    val token = ""
@@ -66,7 +70,9 @@ fun MapboxImage(
     val lonMax = countryInfo.boundingBox[2]
     val latMax = countryInfo.boundingBox[3]
 
-    val highlightColor = rarity.color.toHex()
+    val highlightColor = rarity
+        .color(MaterialTheme.colorScheme.onPrimary)
+        .toHex()
     val padding = 50
 
     val fillOverlay =
@@ -98,7 +104,7 @@ fun MapboxImage(
             ) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(24.dp),
-                    color = rarity.color,
+                    color = rarity.color(MaterialTheme.colorScheme.onPrimary),
                     strokeWidth = 2.dp,
                 )
             }
@@ -116,7 +122,7 @@ fun MapboxImage(
                         Icons.Rounded.Warning,
                         contentDescription = stringResource(Res.string.warning_card_icon_description),
                         modifier = Modifier.size(24.dp),
-                        tint = rarity.color,
+                        tint = rarity.color(MaterialTheme.colorScheme.onPrimary),
                     )
                     Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
                     Text(

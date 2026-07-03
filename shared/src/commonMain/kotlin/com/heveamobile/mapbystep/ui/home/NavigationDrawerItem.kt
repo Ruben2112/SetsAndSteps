@@ -47,7 +47,7 @@ fun NavigationDrawerItem(
         Spacer(modifier = Modifier.width(width = MaterialTheme.spacing.medium))
         Text(
             text = stringResource(route.routeName),
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurface),
         )
     }
 }

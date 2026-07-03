@@ -79,7 +79,9 @@ fun VisitedDestinationsOverlay(
 
     val highestRarityDestination = revealedDestinations.maxByOrNull { it.rarity }
     val highestRarityColor = if (highestRarityDestination?.isRevealed == true) {
-        highestRarityDestination.rarity.color.copy(alpha = 0.25F)
+        highestRarityDestination.rarity
+            .color(MaterialTheme.colorScheme.onPrimary)
+            .copy(alpha = 0.25F)
     } else {
         MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.75F)
     }

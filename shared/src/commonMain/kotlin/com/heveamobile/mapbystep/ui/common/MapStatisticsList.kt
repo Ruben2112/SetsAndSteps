@@ -79,7 +79,7 @@ fun MapStatisticsList(
                             end = if (showExpandIcon) MaterialTheme.spacing.large else 0.dp,
                         ),
                         key = rarity.name,
-                        keyStyle = MaterialTheme.typography.bodyMedium.copy(color = rarity.color),
+                        keyStyle = MaterialTheme.typography.bodyMedium.copy(color = rarity.color(MaterialTheme.colorScheme.onPrimary)),
                         value = if (showProgress) map.formatProgress(rarity) else map.destinations
                             .count { it.rarity == rarity }
                             .toString(),

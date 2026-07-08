@@ -136,7 +136,7 @@ fun ProfileContent(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(MaterialTheme.spacing.medium)
+            .padding(horizontal = MaterialTheme.spacing.medium)
             .background(MaterialTheme.colorScheme.surface),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
     ) {

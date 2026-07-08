@@ -29,6 +29,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -162,6 +164,7 @@ fun VisitedDestinationsOverlay(
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 FloatingActionButton(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
                     onClick = {
                         if (state.destinationShown != null) {
                             onAction(HomeAction.ToggleDestinationInfo(null))
@@ -174,7 +177,6 @@ fun VisitedDestinationsOverlay(
                         imageVector = Icons.Rounded.Close,
                         contentDescription = stringResource(Res.string.close_screen_button),
                         modifier = Modifier.size(MaterialTheme.spacing.large),
-                        tint = MaterialTheme.colorScheme.onSurface,
                     )
                 }
             }
@@ -198,8 +200,10 @@ fun VisitedDestinationsOverlay(
                 } else {
                     Res.string.overlay_skip_button
                 }
-                PrimaryButton(
-                    label = stringResource(buttonTextResId),
+                Button(
+                    colors = ButtonDefaults
+                        .buttonColors()
+                        .copy(containerColor = MaterialTheme.colorScheme.secondaryContainer),
                     onClick = {
                         if (!state.isRevealingAll) {
                             onAction(HomeAction.RevealAllDestinations)
@@ -207,7 +211,14 @@ fun VisitedDestinationsOverlay(
                             onAction(HomeAction.SkipRevealingAllDestinations)
                         }
                     },
-                )
+                ) {
+                    Text(
+                        text = stringResource(buttonTextResId),
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        ),
+                    )
+                }
             }
         }
     }

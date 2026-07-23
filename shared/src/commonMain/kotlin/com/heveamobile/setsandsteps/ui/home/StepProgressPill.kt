@@ -26,15 +26,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.heveamobile.setsandsteps.FormatMode
-import com.heveamobile.setsandsteps.formatAmount
-import com.heveamobile.setsandsteps.theme.spacing
+import com.heveamobile.setsandsteps.core.domain.FormatMode
+import com.heveamobile.setsandsteps.core.domain.formatAmount
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import setsandsteps.shared.generated.resources.Res
 import setsandsteps.shared.generated.resources.footsteps_icon_description
-import setsandsteps.shared.generated.resources.ic_footstep
-import setsandsteps.shared.generated.resources.ic_steps
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_footstep
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_steps
 
 @Composable
 fun StepProgressPill(
@@ -80,7 +81,7 @@ fun StepProgressPill(
                     Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
                     Icon(
                         modifier = Modifier.size(16.dp),
-                        painter = painterResource(Res.drawable.ic_steps),
+                        painter = painterResource(DesignSystemRes.drawable.ic_steps),
                         contentDescription = stringResource(Res.string.footsteps_icon_description),
                         tint = MaterialTheme.colorScheme.onSecondaryContainer,
                     )
@@ -125,7 +126,7 @@ private fun WalkingFootsteps() {
             if (normalisedProgress < 0.2f) normalisedProgress * 5F else (1F - normalisedProgress) * 1.2F
 
         Icon(
-            painter = painterResource(Res.drawable.ic_footstep),
+            painter = painterResource(DesignSystemRes.drawable.ic_footstep),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSecondaryContainer,
             modifier = Modifier

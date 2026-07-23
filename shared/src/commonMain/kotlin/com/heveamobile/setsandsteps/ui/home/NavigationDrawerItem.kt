@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.heveamobile.setsandsteps.theme.spacing
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import setsandsteps.shared.generated.resources.Res

@@ -41,27 +41,28 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.heveamobile.setsandsteps.FormatMode
+import com.heveamobile.setsandsteps.core.domain.FormatMode
 import com.heveamobile.setsandsteps.core.domain.model.Rarity
-import com.heveamobile.setsandsteps.formatAmount
-import com.heveamobile.setsandsteps.theme.color
-import com.heveamobile.setsandsteps.theme.spacing
-import com.heveamobile.setsandsteps.ui.common.Card
-import com.heveamobile.setsandsteps.ui.common.CardSetDropDownMenu
-import com.heveamobile.setsandsteps.ui.common.InfoCard
-import com.heveamobile.setsandsteps.ui.common.InputField
+import com.heveamobile.setsandsteps.core.domain.formatAmount
+import com.heveamobile.setsandsteps.core.designsystem.theme.color
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.designsystem.component.Card
+import com.heveamobile.setsandsteps.core.designsystem.component.CardSetDropDownMenu
+import com.heveamobile.setsandsteps.core.designsystem.component.InfoCard
+import com.heveamobile.setsandsteps.core.designsystem.component.InputField
 import com.heveamobile.setsandsteps.ui.common.LocalScaffoldPadding
-import com.heveamobile.setsandsteps.ui.common.PrimaryButton
-import com.heveamobile.setsandsteps.ui.common.SecondaryButton
-import com.heveamobile.setsandsteps.ui.common.SetStatisticsList
+import com.heveamobile.setsandsteps.core.designsystem.component.PrimaryButton
+import com.heveamobile.setsandsteps.core.designsystem.component.SecondaryButton
+import com.heveamobile.setsandsteps.core.designsystem.component.SetStatisticsList
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import setsandsteps.shared.generated.resources.Res
 import setsandsteps.shared.generated.resources.decrease_icon_description
-import setsandsteps.shared.generated.resources.ic_map_points
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_map_points
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.map_points_icon_description
 import setsandsteps.shared.generated.resources.increase_icon_description
-import setsandsteps.shared.generated.resources.map_points_icon_description
 import setsandsteps.shared.generated.resources.set_point_exchange_autofill
 import setsandsteps.shared.generated.resources.set_point_exchange_current_set_points
 import setsandsteps.shared.generated.resources.set_point_exchange_explanation
@@ -98,7 +99,7 @@ fun SetPointExchangeContent(
         Res.string.set_point_exchange_explanation,
         stringResource(Res.string.set_points_alternate_text),
     )
-    val inlineContentId = stringResource(Res.string.map_points_icon_description)
+    val inlineContentId = stringResource(DesignSystemRes.string.map_points_icon_description)
     val inlinedString = buildAnnotatedString {
         val splitExplanation =
             explanation.split(stringResource(Res.string.set_points_alternate_text))
@@ -121,8 +122,8 @@ fun SetPointExchangeContent(
             ) {
                 Icon(
                     modifier = Modifier.size(pointsIconSize),
-                    painter = painterResource(Res.drawable.ic_map_points),
-                    contentDescription = stringResource(Res.string.map_points_icon_description),
+                    painter = painterResource(DesignSystemRes.drawable.ic_map_points),
+                    contentDescription = stringResource(DesignSystemRes.string.map_points_icon_description),
                     tint = MaterialTheme.colorScheme.onSurface,
                 )
             },
@@ -171,8 +172,8 @@ fun SetPointExchangeContent(
                             Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraLarge))
                             Icon(
                                 modifier = Modifier.size(pointsIconSize),
-                                painter = painterResource(Res.drawable.ic_map_points),
-                                contentDescription = stringResource(Res.string.map_points_icon_description),
+                                painter = painterResource(DesignSystemRes.drawable.ic_map_points),
+                                contentDescription = stringResource(DesignSystemRes.string.map_points_icon_description),
                                 tint = MaterialTheme.colorScheme.onSurface,
                             )
                             Text(
@@ -218,8 +219,8 @@ fun SetPointExchangeContent(
                                 Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
                                 Icon(
                                     modifier = Modifier.size(pointsIconSize),
-                                    painter = painterResource(Res.drawable.ic_map_points),
-                                    contentDescription = stringResource(Res.string.map_points_icon_description),
+                                    painter = painterResource(DesignSystemRes.drawable.ic_map_points),
+                                    contentDescription = stringResource(DesignSystemRes.string.map_points_icon_description),
                                     tint = MaterialTheme.colorScheme.onSurface,
                                 )
                                 Text(
@@ -302,8 +303,8 @@ private fun CardStockRow(
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
         Icon(
             modifier = Modifier.size(mapPointsIconSize),
-            painter = painterResource(Res.drawable.ic_map_points),
-            contentDescription = stringResource(Res.string.map_points_icon_description),
+            painter = painterResource(DesignSystemRes.drawable.ic_map_points),
+            contentDescription = stringResource(DesignSystemRes.string.map_points_icon_description),
             tint = MaterialTheme.colorScheme.onSurface,
         )
         Text(

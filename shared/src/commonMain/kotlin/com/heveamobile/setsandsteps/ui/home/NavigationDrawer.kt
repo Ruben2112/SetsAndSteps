@@ -19,8 +19,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
-import com.heveamobile.setsandsteps.theme.spacing
-import com.heveamobile.setsandsteps.ui.common.StepsDivider
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.designsystem.component.StepsDivider
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import setsandsteps.shared.generated.resources.Res

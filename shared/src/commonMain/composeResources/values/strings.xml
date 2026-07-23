@@ -14,16 +14,7 @@
     <string name="permissions_not_granted_error">Missing required permissions</string>
 
     <!-- Content descriptions -->
-    <string name="error_card_icon_description">Error icon</string>
-    <string name="warning_card_icon_description">Warning icon</string>
-    <string name="steps_divider_icon_description">Footstep icon</string>
-    <string name="rarity_icon_description">Rarity %1$s icon</string>
     <string name="footsteps_icon_description">Footsteps icon</string>
-    <string name="expand_icon_description">Expand icon</string>
-    <string name="new_icon_description">New icon</string>
-    <string name="map_points_icon_description">Map points icon</string>
-    <string name="unrevealed_card_icon_description">Unrevealed card icon</string>
-    <string name="card_image_description">Image of card %1$s</string>
     <string name="decrease_icon_description">Decrease icon</string>
     <string name="increase_icon_description">Increase icon</string>
     <string name="overflow_icon_description">Show actions button</string>
@@ -111,17 +102,5 @@
     <string name="settings_import_successful">Import successful!</string>
     <string name="settings_import_failed">Import failed!</string>
 
-    <!-- SetStatisticsList -->
-    <string name="set_statistics_total_label">Cards:</string>
 
-    <!-- DetailsCard -->
-    <plurals name="details_card_times_found">
-        <item quantity="one">Time Found</item>
-        <item quantity="other">Times Found</item>
-    </plurals>
-
-    <!-- DestinationCard -->
-    <string name="card_new">New!</string>
-    <string name="unrevealed_card_title">???</string>
-    <string name="card_image_loading_failed">Failed to load card image</string>
 </resources>

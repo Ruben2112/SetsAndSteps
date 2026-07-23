@@ -13,10 +13,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.heveamobile.setsandsteps.navigation.Route
-import com.heveamobile.setsandsteps.theme.spacing
-import com.heveamobile.setsandsteps.ui.common.CardDetailsCard
-import com.heveamobile.setsandsteps.ui.common.CardSetDropDownMenu
-import com.heveamobile.setsandsteps.ui.common.DropDownMenu
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.designsystem.component.CardDetailsCard
+import com.heveamobile.setsandsteps.core.designsystem.component.CardSetDropDownMenu
+import com.heveamobile.setsandsteps.core.designsystem.component.DropDownMenu
 
 @Composable
 fun DestinationInfoScreen(

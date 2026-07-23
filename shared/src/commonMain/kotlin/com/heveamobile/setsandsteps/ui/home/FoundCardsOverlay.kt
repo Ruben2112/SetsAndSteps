@@ -50,22 +50,23 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
-import com.heveamobile.setsandsteps.FormatMode
+import com.heveamobile.setsandsteps.core.domain.FormatMode
 import com.heveamobile.setsandsteps.core.domain.model.Rarity
 import com.heveamobile.setsandsteps.core.domain.usecase.FoundCard
-import com.heveamobile.setsandsteps.formatAmount
-import com.heveamobile.setsandsteps.theme.color
-import com.heveamobile.setsandsteps.theme.spacing
-import com.heveamobile.setsandsteps.ui.common.Card
-import com.heveamobile.setsandsteps.ui.common.CardDetailsCard
-import com.heveamobile.setsandsteps.ui.common.CollectableCardLayout
-import com.heveamobile.setsandsteps.ui.common.PrimaryButton
+import com.heveamobile.setsandsteps.core.domain.formatAmount
+import com.heveamobile.setsandsteps.core.designsystem.theme.color
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.designsystem.component.Card
+import com.heveamobile.setsandsteps.core.designsystem.component.CardDetailsCard
+import com.heveamobile.setsandsteps.core.designsystem.component.CollectableCardLayout
+import com.heveamobile.setsandsteps.core.designsystem.component.PrimaryButton
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import setsandsteps.shared.generated.resources.Res
 import setsandsteps.shared.generated.resources.close_screen_button
-import setsandsteps.shared.generated.resources.ic_map_points
-import setsandsteps.shared.generated.resources.map_points_icon_description
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_map_points
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.map_points_icon_description
 import setsandsteps.shared.generated.resources.overlay_cards_found
 import setsandsteps.shared.generated.resources.overlay_new_cards
 import setsandsteps.shared.generated.resources.overlay_reveal_all_button
@@ -428,8 +429,8 @@ private fun GridLayout(
 
                             Icon(
                                 modifier = Modifier.size(mapPointsIconSize),
-                                painter = painterResource(Res.drawable.ic_map_points),
-                                contentDescription = stringResource(Res.string.map_points_icon_description),
+                                painter = painterResource(DesignSystemRes.drawable.ic_map_points),
+                                contentDescription = stringResource(DesignSystemRes.string.map_points_icon_description),
                                 tint = MaterialTheme.colorScheme.onSurface,
                             )
                             Text(

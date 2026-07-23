@@ -5,9 +5,9 @@ import androidx.compose.runtime.Composable
 import coil3.ImageLoader
 import coil3.compose.setSingletonImageLoaderFactory
 import coil3.svg.SvgDecoder
-import com.heveamobile.setsandsteps.theme.SetsAndStepsTheme
-import com.heveamobile.setsandsteps.theme.darkScheme
-import com.heveamobile.setsandsteps.theme.lightScheme
+import com.heveamobile.setsandsteps.core.designsystem.theme.SetsAndStepsTheme
+import com.heveamobile.setsandsteps.core.designsystem.theme.darkScheme
+import com.heveamobile.setsandsteps.core.designsystem.theme.lightScheme
 import com.heveamobile.setsandsteps.ui.home.HomeScreen
 
 @Composable

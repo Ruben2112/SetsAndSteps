@@ -1,0 +1,20 @@
+<resources>
+    <string name="error_card_icon_description">Error icon</string>
+    <string name="warning_card_icon_description">Warning icon</string>
+    <string name="steps_divider_icon_description">Footstep icon</string>
+    <string name="rarity_icon_description">Rarity %1$s icon</string>
+    <string name="expand_icon_description">Expand icon</string>
+    <string name="new_icon_description">New icon</string>
+    <string name="map_points_icon_description">Map points icon</string>
+    <string name="unrevealed_card_icon_description">Unrevealed card icon</string>
+    <string name="card_image_description">Image of card %1$s</string>
+    <string name="set_statistics_total_label">Cards:</string>
+    <string name="card_new">New!</string>
+    <string name="unrevealed_card_title">???</string>
+    <string name="card_image_loading_failed">Failed to load card image</string>
+
+    <plurals name="details_card_times_found">
+        <item quantity="one">Time Found</item>
+        <item quantity="other">Times Found</item>
+    </plurals>
+</resources>

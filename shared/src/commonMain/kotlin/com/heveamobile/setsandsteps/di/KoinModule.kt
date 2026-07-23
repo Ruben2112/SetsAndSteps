@@ -14,10 +14,10 @@ import com.heveamobile.setsandsteps.core.domain.usecase.SyncStepsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.UpdateUserRecordsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.UpsertInitialMapDataUseCase
 import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
+import com.heveamobile.setsandsteps.feature.profile.presentation.profilePresentationModule
 import com.heveamobile.setsandsteps.feature.settings.presentation.settingsPresentationModule
 import com.heveamobile.setsandsteps.navigation.DestinationInfo
 import com.heveamobile.setsandsteps.navigation.Destinations
-import com.heveamobile.setsandsteps.navigation.Profile
 import com.heveamobile.setsandsteps.navigation.Sets
 import com.heveamobile.setsandsteps.navigation.SetPointExchange
 import com.heveamobile.setsandsteps.ui.carddetails.CardDetailsViewModel
@@ -25,8 +25,6 @@ import com.heveamobile.setsandsteps.ui.carddetails.DestinationInfoScreen
 import com.heveamobile.setsandsteps.ui.cards.CardsViewModel
 import com.heveamobile.setsandsteps.ui.cards.DestinationsScreen
 import com.heveamobile.setsandsteps.ui.home.HomeViewModel
-import com.heveamobile.setsandsteps.ui.profile.ProfileScreen
-import com.heveamobile.setsandsteps.ui.profile.ProfileViewModel
 import com.heveamobile.setsandsteps.ui.setpointexchange.SetPointExchangeScreen
 import com.heveamobile.setsandsteps.ui.setpointexchange.SetPointExchangeViewModel
 import com.heveamobile.setsandsteps.ui.sets.SetsScreen
@@ -48,7 +46,6 @@ import org.koin.dsl.navigation3.navigation
 val navigationModule = module {
     singleOf(::NavigationHandler)
     singleOf(::FoundCardsHandler)
-    navigation<Profile> { ProfileScreen() }
     navigation<Sets> { SetsScreen() }
     navigation<Destinations> { DestinationsScreen() }
     navigation<DestinationInfo> { route ->
@@ -62,7 +59,6 @@ val navigationModule = module {
 
 val viewModelModule = module {
     viewModelOf(::HomeViewModel)
-    viewModelOf(::ProfileViewModel)
     viewModelOf(::SetsViewModel)
     viewModelOf(::CardsViewModel)
     viewModel { _ ->
@@ -97,6 +93,7 @@ fun getKoinModules() = listOf(
     useCaseModule,
     targetModule,
     settingsPresentationModule,
+    profilePresentationModule,
 )
 
 fun initializeKoin(

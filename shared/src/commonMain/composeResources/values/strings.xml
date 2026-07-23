@@ -32,20 +32,6 @@
     <string name="overlay_new_cards">New destinations:</string>
     <string name="overlay_set_points_gained">Set points gained:</string>
 
-    <!-- ProfileScreen -->
-    <string name="profile_loading_step_data">Loading step data...</string>
-    <string name="profile_error_health_connect_not_installed">Health Connect application not installed</string>
-    <string name="profile_health_permission_request_title">Missing permissions</string>
-    <string name="profile_health_permission_request_rationale">Access to your Health Connect data is required to access your step data. Please grant the required permissions in the system settings of the application.</string>
-    <string name="historic_step_data_title">Historic Step Data</string>
-    <string name="historic_step_data_total_steps">Total steps:</string>
-    <string name="historic_step_data_start_time">Start time:</string>
-    <string name="personal_records_title">Personal Records</string>
-    <string name="personal_records_subtitle">Current vs. Personal Best</string>
-    <string name="personal_current_vs_best_steps">%1$s / %2$s steps</string>
-    <string name="personal_records_twenty_four_hours">24 hours:</string>
-    <string name="personal_records_seven_days">Seven days:</string>
-    <string name="personal_records_thirty_days">Thirty days:</string>
 
     <!-- SetsScreen -->
     <string name="sets_level">Level %1$d</string>

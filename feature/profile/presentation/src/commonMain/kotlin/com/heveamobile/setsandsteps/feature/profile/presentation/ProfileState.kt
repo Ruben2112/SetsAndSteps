@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.profile
+package com.heveamobile.setsandsteps.feature.profile.presentation
 
 import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
 import kotlin.time.Clock

@@ -55,10 +55,10 @@ import com.heveamobile.setsandsteps.core.navigation.NavigationDrawer
 import com.heveamobile.setsandsteps.core.navigation.NavigationDrawerRoute
 import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
 import com.heveamobile.setsandsteps.core.navigation.Route
+import com.heveamobile.setsandsteps.feature.profile.presentation.ProfileRoute
 import com.heveamobile.setsandsteps.feature.settings.presentation.SettingsRoute
 import com.heveamobile.setsandsteps.navigation.DestinationInfo
 import com.heveamobile.setsandsteps.navigation.Destinations
-import com.heveamobile.setsandsteps.navigation.Profile
 import com.heveamobile.setsandsteps.navigation.SetPointExchange
 import com.heveamobile.setsandsteps.navigation.Sets
 import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
@@ -139,8 +139,8 @@ fun HomeContent(
             serializersModule = SerializersModule {
                 polymorphic(NavKey::class) {
                     subclass(
-                        Profile::class,
-                        Profile.serializer(),
+                        ProfileRoute::class,
+                        ProfileRoute.serializer(),
                     )
                     subclass(
                         Sets::class,
@@ -166,7 +166,7 @@ fun HomeContent(
             }
         },
         elements = arrayOf<NavKey>(
-            Profile,
+            ProfileRoute,
         ),
     )
 
@@ -206,7 +206,7 @@ fun HomeContent(
                     onDrawerItemClicked = { route ->
                         onAction(HomeAction.CloseNavigationDrawer)
                         val navKey = when (route) {
-                            NavigationDrawerRoute.Profile -> Profile
+                            NavigationDrawerRoute.Profile -> ProfileRoute
                             NavigationDrawerRoute.Sets -> Sets
                             NavigationDrawerRoute.Cards -> Destinations
                             NavigationDrawerRoute.CardDetails -> DestinationInfo(destinationId = null)
@@ -222,7 +222,7 @@ fun HomeContent(
                                 )
                                 .clear()
                         }
-                        if (backStack.lastOrNull() != navKey && (navKey != Profile || backStack.lastOrNull() != Profile)) {
+                        if (backStack.lastOrNull() != navKey && (navKey != ProfileRoute || backStack.lastOrNull() != ProfileRoute)) {
                             backStack.add(navKey)
                         }
                     },

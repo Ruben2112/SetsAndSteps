@@ -64,6 +64,7 @@ kotlin {
                 implementation(projects.core.presentation)
                 implementation(projects.core.navigation)
                 implementation(projects.feature.settings.presentation)
+                implementation(projects.feature.profile.presentation)
 
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)
@@ -89,9 +90,6 @@ kotlin {
                 implementation(libs.coil.compose)
                 implementation(libs.coil.network)
                 implementation(libs.coil.svg)
-
-                implementation(libs.vico.compose)
-                implementation(libs.vico.compose.m3)
 
                 implementation(libs.material.kolor)
             }

@@ -1,4 +1,4 @@
-﻿package com.heveamobile.setsandsteps.ui.profile
+﻿package com.heveamobile.setsandsteps.feature.profile.presentation
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
@@ -67,20 +67,20 @@ import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_continue
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.permissions_not_granted_error
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.profile_error_action_request_permissions
-import setsandsteps.shared.generated.resources.Res
-import setsandsteps.shared.generated.resources.historic_step_data_start_time
-import setsandsteps.shared.generated.resources.historic_step_data_title
-import setsandsteps.shared.generated.resources.historic_step_data_total_steps
-import setsandsteps.shared.generated.resources.personal_current_vs_best_steps
-import setsandsteps.shared.generated.resources.personal_records_seven_days
-import setsandsteps.shared.generated.resources.personal_records_subtitle
-import setsandsteps.shared.generated.resources.personal_records_thirty_days
-import setsandsteps.shared.generated.resources.personal_records_title
-import setsandsteps.shared.generated.resources.personal_records_twenty_four_hours
-import setsandsteps.shared.generated.resources.profile_error_health_connect_not_installed
-import setsandsteps.shared.generated.resources.profile_health_permission_request_rationale
-import setsandsteps.shared.generated.resources.profile_health_permission_request_title
-import setsandsteps.shared.generated.resources.profile_loading_step_data
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.Res
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.historic_step_data_start_time
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.historic_step_data_title
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.historic_step_data_total_steps
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.personal_current_vs_best_steps
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.personal_records_seven_days
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.personal_records_subtitle
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.personal_records_thirty_days
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.personal_records_title
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.personal_records_twenty_four_hours
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.profile_error_health_connect_not_installed
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.profile_health_permission_request_rationale
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.profile_health_permission_request_title
+import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.profile_loading_step_data
 import kotlin.time.Instant
 
 @Composable

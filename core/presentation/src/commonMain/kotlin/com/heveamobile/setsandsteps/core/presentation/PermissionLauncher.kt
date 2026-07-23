@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.common
+package com.heveamobile.setsandsteps.core.presentation
 
 import androidx.compose.runtime.Composable
 import com.heveamobile.setsandsteps.core.domain.manager.PermissionManager

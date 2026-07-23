@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.common
+package com.heveamobile.setsandsteps.core.presentation
 
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult

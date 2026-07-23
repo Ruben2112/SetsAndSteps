@@ -41,7 +41,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.heveamobile.setsandsteps.core.domain.FormatMode
-import com.heveamobile.setsandsteps.ui.common.rememberPermissionLauncher
+import com.heveamobile.setsandsteps.core.presentation.rememberPermissionLauncher
 import com.heveamobile.setsandsteps.core.domain.formatTime
 import com.heveamobile.setsandsteps.core.designsystem.theme.sliderColors
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing

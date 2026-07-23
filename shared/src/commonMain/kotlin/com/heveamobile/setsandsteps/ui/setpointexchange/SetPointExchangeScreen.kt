@@ -50,7 +50,7 @@ import com.heveamobile.setsandsteps.core.designsystem.component.Card
 import com.heveamobile.setsandsteps.core.designsystem.component.CardSetDropDownMenu
 import com.heveamobile.setsandsteps.core.designsystem.component.InfoCard
 import com.heveamobile.setsandsteps.core.designsystem.component.InputField
-import com.heveamobile.setsandsteps.ui.common.LocalScaffoldPadding
+import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
 import com.heveamobile.setsandsteps.core.designsystem.component.PrimaryButton
 import com.heveamobile.setsandsteps.core.designsystem.component.SecondaryButton
 import com.heveamobile.setsandsteps.core.designsystem.component.SetStatisticsList

@@ -52,7 +52,7 @@ import androidx.savedstate.serialization.SavedStateConfiguration
 import com.heveamobile.setsandsteps.core.domain.model.SortingOrder
 import com.heveamobile.setsandsteps.navigation.NavigationHandler
 import com.heveamobile.setsandsteps.navigation.Route
-import com.heveamobile.setsandsteps.ui.common.LocalScaffoldPadding
+import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import org.jetbrains.compose.resources.stringResource

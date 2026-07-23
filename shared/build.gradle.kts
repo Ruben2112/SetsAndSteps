@@ -61,6 +61,7 @@ kotlin {
                 implementation(projects.core.database)
                 implementation(projects.core.data)
                 implementation(projects.core.designSystem)
+                implementation(projects.core.presentation)
 
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)

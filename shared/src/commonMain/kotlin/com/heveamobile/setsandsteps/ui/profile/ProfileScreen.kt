@@ -31,7 +31,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.heveamobile.setsandsteps.core.domain.FormatMode
 import com.heveamobile.setsandsteps.core.domain.manager.PermissionType
-import com.heveamobile.setsandsteps.ui.common.rememberPermissionLauncher
+import com.heveamobile.setsandsteps.core.presentation.rememberPermissionLauncher
 import com.heveamobile.setsandsteps.core.domain.formatAmount
 import com.heveamobile.setsandsteps.core.domain.formatDate
 import com.heveamobile.setsandsteps.core.domain.formatDateTime

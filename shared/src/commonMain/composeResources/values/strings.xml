@@ -34,8 +34,6 @@
 
 
     <!-- CardsScreen -->
-    <string name="cards_total_visits">Total visits:</string>
-    <string name="cards_current_level">Current level:</string>
     <string name="cards_hide_undiscovered">Hide undiscovered</string>
     <string name="cards_sort_by_rarity">Sort by rarity</string>
     <string name="cards_sort_alphabetically">Sort alphabetically</string>

@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.cards
+package com.heveamobile.setsandsteps.feature.cards.presentation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,9 +25,9 @@ import com.heveamobile.setsandsteps.core.designsystem.component.KeyValueRow
 import com.heveamobile.setsandsteps.core.designsystem.component.SetStatisticsList
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
-import setsandsteps.shared.generated.resources.Res
-import setsandsteps.shared.generated.resources.cards_current_level
-import setsandsteps.shared.generated.resources.cards_total_visits
+import com.heveamobile.setsandsteps.feature.cards.presentation.generated.resources.Res
+import com.heveamobile.setsandsteps.feature.cards.presentation.generated.resources.cards_current_level
+import com.heveamobile.setsandsteps.feature.cards.presentation.generated.resources.cards_total_visits
 
 @Composable
 fun DestinationsScreen(

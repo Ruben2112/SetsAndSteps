@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cards_total_visits">Total visits:</string>
+    <string name="cards_current_level">Current level:</string>
+</resources>

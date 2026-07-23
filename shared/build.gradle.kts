@@ -66,6 +66,7 @@ kotlin {
                 implementation(projects.feature.settings.presentation)
                 implementation(projects.feature.profile.presentation)
                 implementation(projects.feature.sets.presentation)
+                implementation(projects.feature.cards.presentation)
 
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)

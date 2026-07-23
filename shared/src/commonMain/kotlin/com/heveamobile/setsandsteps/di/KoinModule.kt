@@ -14,29 +14,21 @@ import com.heveamobile.setsandsteps.core.domain.usecase.SyncStepsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.UpdateUserRecordsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.UpsertInitialMapDataUseCase
 import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
+import com.heveamobile.setsandsteps.feature.cards.presentation.cardsPresentationModule
 import com.heveamobile.setsandsteps.feature.profile.presentation.profilePresentationModule
 import com.heveamobile.setsandsteps.feature.settings.presentation.settingsPresentationModule
 import com.heveamobile.setsandsteps.feature.sets.presentation.setsPresentationModule
-import com.heveamobile.setsandsteps.navigation.DestinationInfo
-import com.heveamobile.setsandsteps.navigation.Destinations
 import com.heveamobile.setsandsteps.navigation.SetPointExchange
-import com.heveamobile.setsandsteps.ui.carddetails.CardDetailsViewModel
-import com.heveamobile.setsandsteps.ui.carddetails.DestinationInfoScreen
-import com.heveamobile.setsandsteps.ui.cards.CardsViewModel
-import com.heveamobile.setsandsteps.ui.cards.DestinationsScreen
 import com.heveamobile.setsandsteps.ui.home.HomeViewModel
 import com.heveamobile.setsandsteps.ui.setpointexchange.SetPointExchangeScreen
 import com.heveamobile.setsandsteps.ui.setpointexchange.SetPointExchangeViewModel
-import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.KoinApplication
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
-import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
-import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 import org.koin.dsl.navigation3.navigation
 
@@ -44,25 +36,11 @@ import org.koin.dsl.navigation3.navigation
 val navigationModule = module {
     singleOf(::NavigationHandler)
     singleOf(::FoundCardsHandler)
-    navigation<Destinations> { DestinationsScreen() }
-    navigation<DestinationInfo> { route ->
-        DestinationInfoScreen(
-            viewModel = koinViewModel { parametersOf(route) },
-            route = route,
-        )
-    }
     navigation<SetPointExchange> { SetPointExchangeScreen() }
 }
 
 val viewModelModule = module {
     viewModelOf(::HomeViewModel)
-    viewModelOf(::CardsViewModel)
-    viewModel { _ ->
-        CardDetailsViewModel(
-            collectableCardRepository = get(),
-            getSetsWithProgressUseCase = get(),
-        )
-    }
     viewModelOf(::SetPointExchangeViewModel)
 }
 
@@ -91,6 +69,7 @@ fun getKoinModules() = listOf(
     settingsPresentationModule,
     profilePresentationModule,
     setsPresentationModule,
+    cardsPresentationModule,
 )
 
 fun initializeKoin(

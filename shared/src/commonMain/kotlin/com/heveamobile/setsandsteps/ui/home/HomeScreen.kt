@@ -55,10 +55,10 @@ import com.heveamobile.setsandsteps.core.navigation.NavigationDrawer
 import com.heveamobile.setsandsteps.core.navigation.NavigationDrawerRoute
 import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
 import com.heveamobile.setsandsteps.core.navigation.Route
+import com.heveamobile.setsandsteps.feature.cards.presentation.DestinationInfo
+import com.heveamobile.setsandsteps.feature.cards.presentation.Destinations
 import com.heveamobile.setsandsteps.feature.profile.presentation.ProfileRoute
 import com.heveamobile.setsandsteps.feature.settings.presentation.SettingsRoute
-import com.heveamobile.setsandsteps.navigation.DestinationInfo
-import com.heveamobile.setsandsteps.navigation.Destinations
 import com.heveamobile.setsandsteps.navigation.SetPointExchange
 import com.heveamobile.setsandsteps.feature.sets.presentation.SetsRoute
 import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding

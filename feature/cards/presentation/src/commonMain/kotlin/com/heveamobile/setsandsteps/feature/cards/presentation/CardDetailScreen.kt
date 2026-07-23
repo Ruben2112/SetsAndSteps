@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.carddetails
+package com.heveamobile.setsandsteps.feature.cards.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,7 +12,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.heveamobile.setsandsteps.navigation.DestinationInfo
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.designsystem.component.CardDetailsCard
 import com.heveamobile.setsandsteps.core.designsystem.component.CardSetDropDownMenu
@@ -93,4 +92,3 @@ fun DestinationInfoContent(
         }
     }
 }
-

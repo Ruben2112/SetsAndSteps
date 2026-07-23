@@ -1,11 +1,10 @@
-package com.heveamobile.setsandsteps.ui.cards
+package com.heveamobile.setsandsteps.feature.cards.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
 import com.heveamobile.setsandsteps.core.domain.usecase.GetSetsWithProgressUseCase
 import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
-import com.heveamobile.setsandsteps.navigation.DestinationInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.IO

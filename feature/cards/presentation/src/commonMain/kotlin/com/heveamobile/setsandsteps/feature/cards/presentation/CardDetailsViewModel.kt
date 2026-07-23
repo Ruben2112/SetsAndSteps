@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.carddetails
+package com.heveamobile.setsandsteps.feature.cards.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

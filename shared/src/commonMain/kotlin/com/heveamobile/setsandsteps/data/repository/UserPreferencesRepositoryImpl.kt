@@ -6,8 +6,8 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.heveamobile.setsandsteps.domain.repository.UserPreferencesRepository
-import com.heveamobile.setsandsteps.ui.home.SortingOrder
+import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
+import com.heveamobile.setsandsteps.core.domain.model.SortingOrder
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.LocalTime

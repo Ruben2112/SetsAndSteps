@@ -6,12 +6,12 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import com.heveamobile.setsandsteps.data.source.local.AppDatabase
-import com.heveamobile.setsandsteps.data.source.local.DATABASE_FILE_NAME
+import com.heveamobile.setsandsteps.core.database.AppDatabase
+import com.heveamobile.setsandsteps.core.database.DATABASE_FILE_NAME
 import com.heveamobile.setsandsteps.di.PREFS_FILE_NAME
 import com.heveamobile.setsandsteps.di.getKoinModules
-import com.heveamobile.setsandsteps.domain.repository.FilePickerHandler
-import com.heveamobile.setsandsteps.domain.repository.FileRepository
+import com.heveamobile.setsandsteps.core.domain.repository.FilePickerHandler
+import com.heveamobile.setsandsteps.core.domain.repository.FileRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

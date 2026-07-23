@@ -51,8 +51,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import com.heveamobile.setsandsteps.FormatMode
-import com.heveamobile.setsandsteps.domain.model.Rarity
-import com.heveamobile.setsandsteps.domain.usecase.FoundCard
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
+import com.heveamobile.setsandsteps.core.domain.usecase.FoundCard
 import com.heveamobile.setsandsteps.formatAmount
 import com.heveamobile.setsandsteps.theme.color
 import com.heveamobile.setsandsteps.theme.spacing

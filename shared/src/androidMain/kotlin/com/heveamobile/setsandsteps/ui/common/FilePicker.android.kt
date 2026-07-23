@@ -5,7 +5,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.heveamobile.setsandsteps.data.source.android.AndroidFilePickerHandler
-import com.heveamobile.setsandsteps.domain.repository.FilePickerHandler
+import com.heveamobile.setsandsteps.core.domain.repository.FilePickerHandler
 
 @Composable
 actual fun FilePickerHandlerEffect(handler: FilePickerHandler) {

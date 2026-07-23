@@ -1,7 +1,7 @@
 package com.heveamobile.setsandsteps.data.mapper
 
-import com.heveamobile.setsandsteps.data.entity.UserWithStepDataEntity
-import com.heveamobile.setsandsteps.domain.model.User
+import com.heveamobile.setsandsteps.core.database.entity.UserWithStepDataEntity
+import com.heveamobile.setsandsteps.core.domain.model.User
 
 fun UserWithStepDataEntity.toDomain(): User {
     return User(

@@ -13,7 +13,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
-import com.heveamobile.setsandsteps.domain.model.Rarity
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
 
 // https://coolors.co/palette/f0ead2-dde5b6-adc178-a98467-6c584c
 private val VanillaCream = Color(color = 0xFFF0EAD2)

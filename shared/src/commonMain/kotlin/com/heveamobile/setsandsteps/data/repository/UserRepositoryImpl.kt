@@ -1,11 +1,11 @@
 package com.heveamobile.setsandsteps.data.repository
 
-import com.heveamobile.setsandsteps.data.dao.UserDao
-import com.heveamobile.setsandsteps.data.entity.UserEntity
+import com.heveamobile.setsandsteps.core.database.dao.UserDao
+import com.heveamobile.setsandsteps.core.database.entity.UserEntity
 import com.heveamobile.setsandsteps.data.mapper.toDomain
 import com.heveamobile.setsandsteps.data.mapper.toEntity
-import com.heveamobile.setsandsteps.domain.model.User
-import com.heveamobile.setsandsteps.domain.repository.UserRepository
+import com.heveamobile.setsandsteps.core.domain.model.User
+import com.heveamobile.setsandsteps.core.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlin.time.Clock

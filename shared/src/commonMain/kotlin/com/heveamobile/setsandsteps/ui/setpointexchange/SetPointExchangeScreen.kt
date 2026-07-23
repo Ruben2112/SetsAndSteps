@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.heveamobile.setsandsteps.FormatMode
-import com.heveamobile.setsandsteps.domain.model.Rarity
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
 import com.heveamobile.setsandsteps.formatAmount
 import com.heveamobile.setsandsteps.theme.color
 import com.heveamobile.setsandsteps.theme.spacing

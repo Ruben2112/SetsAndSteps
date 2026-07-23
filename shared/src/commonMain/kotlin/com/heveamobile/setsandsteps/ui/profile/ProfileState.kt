@@ -1,6 +1,6 @@
 package com.heveamobile.setsandsteps.ui.profile
 
-import com.heveamobile.setsandsteps.ui.common.PermissionStatus
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
 import kotlin.time.Clock
 import kotlin.time.Instant
 

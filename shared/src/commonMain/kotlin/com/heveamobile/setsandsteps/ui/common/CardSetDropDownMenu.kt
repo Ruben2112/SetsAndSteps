@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.heveamobile.setsandsteps.domain.model.CardSet
+import com.heveamobile.setsandsteps.core.domain.model.CardSet
 
 @Composable
 fun CardSetDropDownMenu(

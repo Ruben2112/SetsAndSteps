@@ -1,6 +1,6 @@
 package com.heveamobile.setsandsteps.ui.settings
 
-import com.heveamobile.setsandsteps.ui.common.PermissionStatus
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
 import kotlinx.datetime.LocalTime
 
 data class SettingsState(

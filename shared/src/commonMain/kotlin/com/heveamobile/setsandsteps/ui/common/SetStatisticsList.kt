@@ -19,8 +19,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.heveamobile.setsandsteps.domain.model.CardSet
-import com.heveamobile.setsandsteps.domain.model.Rarity
+import com.heveamobile.setsandsteps.core.domain.model.CardSet
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
 import com.heveamobile.setsandsteps.theme.color
 import com.heveamobile.setsandsteps.theme.spacing
 import org.jetbrains.compose.resources.stringResource
@@ -35,7 +35,8 @@ fun SetStatisticsList(
     isExpanded: Boolean = true,
     showExpandIcon: Boolean = true,
 ) {
-    val showProgress = set.userData != null
+    val userData = set.userData
+    val showProgress = userData != null
 
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -50,7 +51,7 @@ fun SetStatisticsList(
                 style = MaterialTheme.typography.bodyMedium,
             )
             Text(
-                text = if (showProgress) set.userData.formatProgress(null) else set.cards.size.toString(),
+                text = userData?.formatProgress(null) ?: set.cards.size.toString(),
                 style = MaterialTheme.typography.bodyMedium,
             )
             if (showExpandIcon) {
@@ -81,7 +82,7 @@ fun SetStatisticsList(
                         ),
                         key = rarity.name,
                         keyStyle = MaterialTheme.typography.bodyMedium.copy(color = rarity.color(MaterialTheme.colorScheme.onPrimary)),
-                        value = if (showProgress) set.userData.formatProgress(rarity) else set.cards
+                        value = userData?.formatProgress(rarity) ?: set.cards
                             .count { it.rarity == rarity }
                             .toString(),
                     )

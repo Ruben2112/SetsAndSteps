@@ -2,8 +2,8 @@ package com.heveamobile.setsandsteps.ui.sets
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.heveamobile.setsandsteps.domain.usecase.GetSetsWithProgressUseCase
-import com.heveamobile.setsandsteps.domain.usecase.GetUserUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.GetSetsWithProgressUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.GetUserUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow

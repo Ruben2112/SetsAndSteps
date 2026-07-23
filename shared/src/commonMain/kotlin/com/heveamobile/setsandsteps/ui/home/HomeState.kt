@@ -1,7 +1,8 @@
 package com.heveamobile.setsandsteps.ui.home
 
-import com.heveamobile.setsandsteps.domain.model.CollectableCard
-import com.heveamobile.setsandsteps.domain.usecase.FoundCard
+import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
+import com.heveamobile.setsandsteps.core.domain.model.SortingOrder
+import com.heveamobile.setsandsteps.core.domain.usecase.FoundCard
 
 data class HomeState(
     val isLoadingSteps: Boolean = false,
@@ -23,12 +24,6 @@ data class FoundCardsState(
     val mapPointsGained: Int = 0,
     val showResultSummary: Boolean = false,
 )
-
-enum class SortingOrder {
-    Rarity,
-    Alphabetical,
-    VisitCount,
-}
 
 data class SharedCardsState(
     val showDropdownMenu: Boolean = false,

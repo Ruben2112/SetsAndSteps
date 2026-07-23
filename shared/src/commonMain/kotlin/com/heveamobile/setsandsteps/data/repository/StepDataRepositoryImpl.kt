@@ -1,10 +1,10 @@
 package com.heveamobile.setsandsteps.data.repository
 
-import com.heveamobile.setsandsteps.data.dao.StepDataDao
+import com.heveamobile.setsandsteps.core.database.dao.StepDataDao
 import com.heveamobile.setsandsteps.data.mapper.toEntity
-import com.heveamobile.setsandsteps.data.source.remote.HealthDataSource
-import com.heveamobile.setsandsteps.domain.model.StepData
-import com.heveamobile.setsandsteps.domain.repository.StepDataRepository
+import com.heveamobile.setsandsteps.core.domain.source.HealthDataSource
+import com.heveamobile.setsandsteps.core.domain.model.StepData
+import com.heveamobile.setsandsteps.core.domain.repository.StepDataRepository
 import kotlin.time.Instant
 
 class StepDataRepositoryImpl(

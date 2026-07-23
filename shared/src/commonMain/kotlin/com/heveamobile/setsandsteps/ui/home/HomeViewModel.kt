@@ -2,16 +2,16 @@ package com.heveamobile.setsandsteps.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.heveamobile.setsandsteps.domain.manager.PermissionManager
-import com.heveamobile.setsandsteps.domain.manager.PermissionType
-import com.heveamobile.setsandsteps.domain.repository.UserPreferencesRepository
-import com.heveamobile.setsandsteps.domain.usecase.FoundCardsHandler
-import com.heveamobile.setsandsteps.domain.usecase.GetSetsWithProgressUseCase
-import com.heveamobile.setsandsteps.domain.usecase.GetUserUseCase
-import com.heveamobile.setsandsteps.domain.usecase.SpendStepsUseCase
-import com.heveamobile.setsandsteps.domain.usecase.SyncStepsUseCase
-import com.heveamobile.setsandsteps.domain.usecase.UpsertInitialMapDataUseCase
-import com.heveamobile.setsandsteps.ui.common.PermissionStatus
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionManager
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionType
+import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
+import com.heveamobile.setsandsteps.core.domain.usecase.FoundCardsHandler
+import com.heveamobile.setsandsteps.core.domain.usecase.GetSetsWithProgressUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.GetUserUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.SpendStepsUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.SyncStepsUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.UpsertInitialMapDataUseCase
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.IO

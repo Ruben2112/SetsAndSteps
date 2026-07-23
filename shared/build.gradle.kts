@@ -7,8 +7,6 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
     alias(libs.plugins.serialization)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.androidx.room)
 }
 
 kotlin {
@@ -23,7 +21,7 @@ kotlin {
     }
 
     android {
-        namespace = "com.gumamobile.setsandsteps.shared"
+        namespace = "com.heveamobile.setsandsteps.shared"
         compileSdk = libs.versions.android.compileSdk
             .get()
             .toInt()
@@ -48,10 +46,19 @@ kotlin {
                 implementation(libs.compose.uiToolingPreview)
                 implementation(libs.mapbox.maps)
                 implementation(libs.mapbox.maps.compose)
+                implementation(libs.ktor.client.okhttp)
+            }
+        }
+        iosMain {
+            dependencies {
+                implementation(libs.ktor.client.darwin)
             }
         }
         commonMain {
             dependencies {
+                implementation(projects.core.domain)
+                implementation(projects.core.database)
+
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)
                 implementation(libs.compose.material3)
@@ -74,9 +81,6 @@ kotlin {
                 implementation(libs.jetbrains.material.icons)
 
                 implementation(libs.androidx.health.connect)
-
-                implementation(libs.androidx.room.runtime)
-                implementation(libs.androidx.sqlite.bundled)
 
                 implementation(libs.androidx.datastore)
                 implementation(libs.androidx.datastore.preferences)
@@ -106,21 +110,4 @@ kotlin {
 
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
-
-    add(
-        "kspAndroid",
-        libs.androidx.room.compiler,
-    )
-    add(
-        "kspIosArm64",
-        libs.androidx.room.compiler,
-    )
-    add(
-        "kspIosSimulatorArm64",
-        libs.androidx.room.compiler,
-    )
-}
-
-room {
-    schemaDirectory("$projectDir/schemas")
 }

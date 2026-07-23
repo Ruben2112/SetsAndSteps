@@ -1,6 +1,6 @@
 package com.heveamobile.setsandsteps.ui.sets
 
-import com.heveamobile.setsandsteps.domain.model.CardSet
+import com.heveamobile.setsandsteps.core.domain.model.CardSet
 
 data class SetsState(
     val sets: List<CardSet> = emptyList(),

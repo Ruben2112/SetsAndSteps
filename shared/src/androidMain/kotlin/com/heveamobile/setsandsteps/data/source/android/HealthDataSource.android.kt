@@ -5,8 +5,8 @@ import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
-import com.heveamobile.setsandsteps.data.source.remote.HealthDataSource
-import com.heveamobile.setsandsteps.domain.model.StepData
+import com.heveamobile.setsandsteps.core.domain.source.HealthDataSource
+import com.heveamobile.setsandsteps.core.domain.model.StepData
 import kotlin.time.Instant
 import kotlin.time.toJavaInstant
 import kotlin.time.toKotlinInstant

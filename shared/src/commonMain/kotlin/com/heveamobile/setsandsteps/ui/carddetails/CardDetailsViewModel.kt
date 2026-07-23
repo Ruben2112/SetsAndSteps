@@ -2,10 +2,10 @@ package com.heveamobile.setsandsteps.ui.carddetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.heveamobile.setsandsteps.domain.model.CardSet
-import com.heveamobile.setsandsteps.domain.model.CollectableCard
-import com.heveamobile.setsandsteps.domain.repository.CollectableCardRepository
-import com.heveamobile.setsandsteps.domain.usecase.GetSetsWithProgressUseCase
+import com.heveamobile.setsandsteps.core.domain.model.CardSet
+import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
+import com.heveamobile.setsandsteps.core.domain.repository.CollectableCardRepository
+import com.heveamobile.setsandsteps.core.domain.usecase.GetSetsWithProgressUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow

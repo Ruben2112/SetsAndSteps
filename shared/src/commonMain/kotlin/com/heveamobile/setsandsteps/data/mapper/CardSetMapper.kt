@@ -1,12 +1,12 @@
 package com.heveamobile.setsandsteps.data.mapper
 
-import com.heveamobile.setsandsteps.data.entity.CardSetEntity
-import com.heveamobile.setsandsteps.data.entity.CardSetUserDataEntity
-import com.heveamobile.setsandsteps.data.entity.CardSetWithUserData
-import com.heveamobile.setsandsteps.domain.model.CardSet
-import com.heveamobile.setsandsteps.domain.model.CardSetUserData
-import com.heveamobile.setsandsteps.domain.model.CollectableCard
-import com.heveamobile.setsandsteps.domain.model.Rarity
+import com.heveamobile.setsandsteps.core.database.entity.CardSetEntity
+import com.heveamobile.setsandsteps.core.database.entity.CardSetUserDataEntity
+import com.heveamobile.setsandsteps.core.database.entity.CardSetWithUserData
+import com.heveamobile.setsandsteps.core.domain.model.CardSet
+import com.heveamobile.setsandsteps.core.domain.model.CardSetUserData
+import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
 
 fun CardSetEntity.toDomain(): CardSet {
     return CardSet(

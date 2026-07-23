@@ -1,7 +1,7 @@
 package com.heveamobile.setsandsteps.data.source.android
 
 import android.net.Uri
-import com.heveamobile.setsandsteps.domain.repository.FilePickerHandler
+import com.heveamobile.setsandsteps.core.domain.repository.FilePickerHandler
 import kotlinx.coroutines.CompletableDeferred
 
 class AndroidFilePickerHandler : FilePickerHandler {

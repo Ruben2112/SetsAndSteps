@@ -1,14 +1,14 @@
 package com.heveamobile.setsandsteps.data.repository
 
-import com.heveamobile.setsandsteps.data.dao.CollectableCardDao
-import com.heveamobile.setsandsteps.data.dao.CollectableCardUserDataDao
-import com.heveamobile.setsandsteps.data.entity.CollectableCardEntity
-import com.heveamobile.setsandsteps.data.entity.CollectableCardUserDataEntity
+import com.heveamobile.setsandsteps.core.database.dao.CollectableCardDao
+import com.heveamobile.setsandsteps.core.database.dao.CollectableCardUserDataDao
+import com.heveamobile.setsandsteps.core.database.entity.CollectableCardEntity
+import com.heveamobile.setsandsteps.core.database.entity.CollectableCardUserDataEntity
 import com.heveamobile.setsandsteps.data.mapper.toDomain
 import com.heveamobile.setsandsteps.data.mapper.toEntity
 import com.heveamobile.setsandsteps.data.mapper.toUserDataEntity
-import com.heveamobile.setsandsteps.domain.model.CollectableCard
-import com.heveamobile.setsandsteps.domain.repository.CollectableCardRepository
+import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
+import com.heveamobile.setsandsteps.core.domain.repository.CollectableCardRepository
 
 class CollectableCardRepositoryImpl(
     private val collectableCardDao: CollectableCardDao,

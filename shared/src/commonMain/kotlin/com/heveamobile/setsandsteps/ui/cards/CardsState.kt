@@ -1,7 +1,7 @@
 package com.heveamobile.setsandsteps.ui.cards
 
-import com.heveamobile.setsandsteps.domain.model.CardSet
-import com.heveamobile.setsandsteps.domain.model.CollectableCard
+import com.heveamobile.setsandsteps.core.domain.model.CardSet
+import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
 
 data class CardsState(
     val sets: List<CardSet> = emptyList(),

@@ -2,13 +2,13 @@ package com.heveamobile.setsandsteps.ui.setpointexchange
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.heveamobile.setsandsteps.domain.model.CardSet
-import com.heveamobile.setsandsteps.domain.model.Rarity
-import com.heveamobile.setsandsteps.domain.usecase.FoundCardsHandler
-import com.heveamobile.setsandsteps.domain.usecase.GetCountOfCardsInExchangeStockUseCase
-import com.heveamobile.setsandsteps.domain.usecase.GetSetsWithProgressUseCase
-import com.heveamobile.setsandsteps.domain.usecase.GetUserUseCase
-import com.heveamobile.setsandsteps.domain.usecase.PurchaseCardsFromExchangeUseCase
+import com.heveamobile.setsandsteps.core.domain.model.CardSet
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
+import com.heveamobile.setsandsteps.core.domain.usecase.FoundCardsHandler
+import com.heveamobile.setsandsteps.core.domain.usecase.GetCountOfCardsInExchangeStockUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.GetSetsWithProgressUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.GetUserUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.PurchaseCardsFromExchangeUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,7 +41,7 @@ class SetPointExchangeViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             getMapsWithProgressUseCase().collect { sets ->
                 val selectedSet = sets.first()
-                if (selectedSet.userData == null) return@collect
+                val selectedSetUserData = selectedSet.userData ?: return@collect
 
                 _state.update { state ->
                     state.copy(
@@ -49,7 +49,7 @@ class SetPointExchangeViewModel(
                         selectedSet = selectedSet,
                         amountInStock = Rarity.entries.associateWith {
                             getCountOfCardsInExchangeStock(
-                                selectedSet.userData,
+                                selectedSetUserData,
                                 it,
                             )
                         },
@@ -93,9 +93,9 @@ class SetPointExchangeViewModel(
             is SetPointExchangeAction.Purchase -> {
                 val currentState = _state.value
                 val set = currentState.selectedSet
+                val setUserData = set?.userData ?: return
 
-                if (set?.userData == null) return
-                if (currentState.totalCost == 0 || set.userData.currentSetPoints < currentState.totalCost) return
+                if (currentState.totalCost == 0 || setUserData.currentSetPoints < currentState.totalCost) return
 
                 viewModelScope.launch(Dispatchers.IO) {
                     _state.value.selectedSet?.let { set ->

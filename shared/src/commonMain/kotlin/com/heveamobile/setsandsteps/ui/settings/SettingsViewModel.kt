@@ -2,13 +2,13 @@ package com.heveamobile.setsandsteps.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.heveamobile.setsandsteps.domain.manager.DailyReminderManager
-import com.heveamobile.setsandsteps.domain.manager.PermissionManager
-import com.heveamobile.setsandsteps.domain.manager.PermissionType
-import com.heveamobile.setsandsteps.domain.repository.FilePickerHandler
-import com.heveamobile.setsandsteps.domain.repository.UserPreferencesRepository
-import com.heveamobile.setsandsteps.domain.usecase.ExportDatabaseUseCase
-import com.heveamobile.setsandsteps.domain.usecase.ImportDatabaseUseCase
+import com.heveamobile.setsandsteps.core.domain.manager.DailyReminderManager
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionManager
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionType
+import com.heveamobile.setsandsteps.core.domain.repository.FilePickerHandler
+import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
+import com.heveamobile.setsandsteps.core.domain.usecase.ExportDatabaseUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.ImportDatabaseUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.channels.Channel

@@ -5,7 +5,7 @@ import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
-import com.heveamobile.setsandsteps.domain.manager.DailyReminderManager
+import com.heveamobile.setsandsteps.core.domain.manager.DailyReminderManager
 import com.heveamobile.setsandsteps.platform.receivers.BootReceiver
 import com.heveamobile.setsandsteps.platform.receivers.DailyReminderReceiver
 import kotlinx.datetime.DateTimeUnit

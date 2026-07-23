@@ -1,8 +1,8 @@
 package com.heveamobile.setsandsteps.ui.setpointexchange
 
-import com.heveamobile.setsandsteps.domain.model.CardSet
-import com.heveamobile.setsandsteps.domain.model.Rarity
-import com.heveamobile.setsandsteps.domain.model.User
+import com.heveamobile.setsandsteps.core.domain.model.CardSet
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
+import com.heveamobile.setsandsteps.core.domain.model.User
 
 data class SetPointExchangeState(
     val sets: List<CardSet> = emptyList(),

@@ -9,7 +9,7 @@ import android.content.Intent
 import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.gumamobile.setsandsteps.shared.R
+import com.heveamobile.setsandsteps.shared.R
 import com.heveamobile.setsandsteps.platform.manager.AndroidDailyReminderManager.Companion.DAILY_REMINDER_NOTIFICATION_REQUEST_CODE
 import com.heveamobile.setsandsteps.platform.manager.NotificationManager
 

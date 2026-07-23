@@ -2,8 +2,8 @@ package com.heveamobile.setsandsteps.ui.cards
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.heveamobile.setsandsteps.domain.repository.UserPreferencesRepository
-import com.heveamobile.setsandsteps.domain.usecase.GetSetsWithProgressUseCase
+import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
+import com.heveamobile.setsandsteps.core.domain.usecase.GetSetsWithProgressUseCase
 import com.heveamobile.setsandsteps.navigation.NavigationHandler
 import com.heveamobile.setsandsteps.navigation.Route
 import kotlinx.coroutines.Dispatchers

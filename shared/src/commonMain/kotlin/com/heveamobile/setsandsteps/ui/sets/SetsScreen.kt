@@ -49,7 +49,7 @@ private fun SetsContent(
     ) {
         if (state.sets.isNotEmpty()) {
             state.sets.forEach { map ->
-                if (map.userData == null) return
+                val mapUserData = map.userData ?: return
 
                 Card(
                     modifier = Modifier
@@ -62,7 +62,7 @@ private fun SetsContent(
                     title = map.name,
                     subtitle = stringResource(
                         Res.string.sets_level,
-                        map.userData.currentLevel,
+                        mapUserData.currentLevel,
                     ),
                 ) {
                     Column(
@@ -74,7 +74,7 @@ private fun SetsContent(
                             modifier = Modifier.padding(end = MaterialTheme.spacing.large),
                             key = stringResource(Res.string.sets_steps_per_finding),
                             value = formatAmount(
-                                map.userData.calculatedDistance,
+                                mapUserData.calculatedDistance,
                                 FormatMode.Long,
                             ),
                         )

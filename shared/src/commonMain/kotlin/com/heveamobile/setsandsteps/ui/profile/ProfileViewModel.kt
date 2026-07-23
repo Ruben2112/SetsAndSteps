@@ -2,13 +2,13 @@ package com.heveamobile.setsandsteps.ui.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.heveamobile.setsandsteps.domain.manager.PermissionManager
-import com.heveamobile.setsandsteps.domain.manager.PermissionType
-import com.heveamobile.setsandsteps.domain.repository.UserPreferencesRepository
-import com.heveamobile.setsandsteps.domain.usecase.GetDailyStepsChartDataUseCase
-import com.heveamobile.setsandsteps.domain.usecase.GetUserUseCase
-import com.heveamobile.setsandsteps.domain.usecase.SyncStepsUseCase
-import com.heveamobile.setsandsteps.ui.common.PermissionStatus
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionManager
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionType
+import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
+import com.heveamobile.setsandsteps.core.domain.usecase.GetDailyStepsChartDataUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.GetUserUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.SyncStepsUseCase
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

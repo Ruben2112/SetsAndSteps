@@ -1,14 +1,14 @@
 package com.heveamobile.setsandsteps.data.repository
 
-import com.heveamobile.setsandsteps.data.dao.CardSetDao
-import com.heveamobile.setsandsteps.data.dao.CardSetUserDataDao
-import com.heveamobile.setsandsteps.data.dao.CollectableCardDao
-import com.heveamobile.setsandsteps.data.entity.CardSetUserDataEntity
+import com.heveamobile.setsandsteps.core.database.dao.CardSetDao
+import com.heveamobile.setsandsteps.core.database.dao.CardSetUserDataDao
+import com.heveamobile.setsandsteps.core.database.dao.CollectableCardDao
+import com.heveamobile.setsandsteps.core.database.entity.CardSetUserDataEntity
 import com.heveamobile.setsandsteps.data.mapper.toDomain
 import com.heveamobile.setsandsteps.data.mapper.toEntity
 import com.heveamobile.setsandsteps.data.mapper.toUserDataEntity
-import com.heveamobile.setsandsteps.domain.model.CardSet
-import com.heveamobile.setsandsteps.domain.repository.CardSetRepository
+import com.heveamobile.setsandsteps.core.domain.model.CardSet
+import com.heveamobile.setsandsteps.core.domain.repository.CardSetRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest

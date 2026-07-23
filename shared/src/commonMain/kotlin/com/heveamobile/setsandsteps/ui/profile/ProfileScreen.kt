@@ -30,8 +30,8 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.heveamobile.setsandsteps.FormatMode
-import com.heveamobile.setsandsteps.domain.manager.PermissionType
-import com.heveamobile.setsandsteps.domain.manager.rememberPermissionLauncher
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionType
+import com.heveamobile.setsandsteps.ui.common.rememberPermissionLauncher
 import com.heveamobile.setsandsteps.formatAmount
 import com.heveamobile.setsandsteps.formatDate
 import com.heveamobile.setsandsteps.formatDateTime
@@ -40,7 +40,7 @@ import com.heveamobile.setsandsteps.ui.common.AlertDialog
 import com.heveamobile.setsandsteps.ui.common.Card
 import com.heveamobile.setsandsteps.ui.common.ErrorCard
 import com.heveamobile.setsandsteps.ui.common.KeyValueRow
-import com.heveamobile.setsandsteps.ui.common.PermissionStatus
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
 import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.compose.cartesian.Scroll
 import com.patrykandpatrick.vico.compose.cartesian.axis.HorizontalAxis

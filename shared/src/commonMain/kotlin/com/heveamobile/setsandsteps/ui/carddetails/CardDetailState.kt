@@ -1,7 +1,7 @@
 package com.heveamobile.setsandsteps.ui.carddetails
 
-import com.heveamobile.setsandsteps.domain.model.CardSet
-import com.heveamobile.setsandsteps.domain.model.CollectableCard
+import com.heveamobile.setsandsteps.core.domain.model.CardSet
+import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
 
 data class CardDetailsState(
     val isLoading: Boolean = false,

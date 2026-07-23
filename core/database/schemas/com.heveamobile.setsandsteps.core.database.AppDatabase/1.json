@@ -1,0 +1,428 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "5ed2b47e4169a6a85ecbf73b5e3c3427",
+    "entities": [
+      {
+        "tableName": "StepDataEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userId` INTEGER NOT NULL, `startTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL, `count` INTEGER NOT NULL, PRIMARY KEY(`startTime`))",
+        "fields": [
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "startTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endTime",
+            "columnName": "endTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "count",
+            "columnName": "count",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "startTime"
+          ]
+        }
+      },
+      {
+        "tableName": "UserEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `startTime` INTEGER NOT NULL, `lastSyncTime` INTEGER, `availableSteps` INTEGER NOT NULL, `totalSteps` INTEGER NOT NULL, `previousTwentyFourHours` INTEGER NOT NULL, `twentyFourHourRecord` INTEGER NOT NULL, `previousSevenDays` INTEGER NOT NULL, `sevenDayRecord` INTEGER NOT NULL, `previousThirtyDays` INTEGER NOT NULL, `thirtyDayRecord` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "startTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastSyncTime",
+            "columnName": "lastSyncTime",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "availableSteps",
+            "columnName": "availableSteps",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalSteps",
+            "columnName": "totalSteps",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "previousTwentyFourHours",
+            "columnName": "previousTwentyFourHours",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "twentyFourHourRecord",
+            "columnName": "twentyFourHourRecord",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "previousSevenDays",
+            "columnName": "previousSevenDays",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sevenDayRecord",
+            "columnName": "sevenDayRecord",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "previousThirtyDays",
+            "columnName": "previousThirtyDays",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thirtyDayRecord",
+            "columnName": "thirtyDayRecord",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "CardSetEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `version` INTEGER NOT NULL, `baseDistance` INTEGER NOT NULL, `commonValue` INTEGER NOT NULL, `uncommonValue` INTEGER NOT NULL, `rareValue` INTEGER NOT NULL, `epicValue` INTEGER NOT NULL, `legendaryValue` INTEGER NOT NULL, `backsideImageUrl` TEXT, `propertyName1` TEXT, `propertyName2` TEXT, `propertyName3` TEXT, `propertyName4` TEXT, `propertyName5` TEXT, `propertyName6` TEXT, `propertyName7` TEXT, `propertyName8` TEXT, `propertyName9` TEXT, `propertyName10` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "version",
+            "columnName": "version",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "baseDistance",
+            "columnName": "baseDistance",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "commonValue",
+            "columnName": "commonValue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uncommonValue",
+            "columnName": "uncommonValue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rareValue",
+            "columnName": "rareValue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "epicValue",
+            "columnName": "epicValue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "legendaryValue",
+            "columnName": "legendaryValue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "backsideImageUrl",
+            "columnName": "backsideImageUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyName1",
+            "columnName": "propertyName1",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyName2",
+            "columnName": "propertyName2",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyName3",
+            "columnName": "propertyName3",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyName4",
+            "columnName": "propertyName4",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyName5",
+            "columnName": "propertyName5",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyName6",
+            "columnName": "propertyName6",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyName7",
+            "columnName": "propertyName7",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyName8",
+            "columnName": "propertyName8",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyName9",
+            "columnName": "propertyName9",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyName10",
+            "columnName": "propertyName10",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "CardSetUserDataEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `isOwned` INTEGER NOT NULL, `currentLevel` INTEGER NOT NULL, `currentSetPoints` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isActive",
+            "columnName": "isActive",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isOwned",
+            "columnName": "isOwned",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "currentLevel",
+            "columnName": "currentLevel",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "currentSetPoints",
+            "columnName": "currentSetPoints",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "CollectableCardEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `cardSetId` TEXT NOT NULL, `name` TEXT NOT NULL, `rarity` INTEGER NOT NULL, `imageUrl` TEXT, `bbox` TEXT, `propertyValue1` TEXT, `propertyValue2` TEXT, `propertyValue3` TEXT, `propertyValue4` TEXT, `propertyValue5` TEXT, `propertyValue6` TEXT, `propertyValue7` TEXT, `propertyValue8` TEXT, `propertyValue9` TEXT, `propertyValue10` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`cardSetId`) REFERENCES `CardSetEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cardSetId",
+            "columnName": "cardSetId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rarity",
+            "columnName": "rarity",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "imageUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "bbox",
+            "columnName": "bbox",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyValue1",
+            "columnName": "propertyValue1",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyValue2",
+            "columnName": "propertyValue2",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyValue3",
+            "columnName": "propertyValue3",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyValue4",
+            "columnName": "propertyValue4",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyValue5",
+            "columnName": "propertyValue5",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyValue6",
+            "columnName": "propertyValue6",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyValue7",
+            "columnName": "propertyValue7",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyValue8",
+            "columnName": "propertyValue8",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyValue9",
+            "columnName": "propertyValue9",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyValue10",
+            "columnName": "propertyValue10",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "CardSetEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "cardSetId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "CollectableCardUserDataEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `isDiscovered` INTEGER NOT NULL, `findCount` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isDiscovered",
+            "columnName": "isDiscovered",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "findCount",
+            "columnName": "findCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5ed2b47e4169a6a85ecbf73b5e3c3427')"
+    ]
+  }
+}

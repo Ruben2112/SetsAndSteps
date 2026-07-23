@@ -41,7 +41,7 @@ import coil3.compose.SubcomposeAsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.heveamobile.setsandsteps.FormatMode
-import com.heveamobile.setsandsteps.domain.model.CollectableCard
+import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
 import com.heveamobile.setsandsteps.formatAmount
 import com.heveamobile.setsandsteps.theme.color
 import com.heveamobile.setsandsteps.theme.spacing
@@ -316,7 +316,7 @@ private fun CardBack(
     raritySpoiler: Boolean = false,
     card: CollectableCard,
 ) {
-    if (card.userData == null) return
+    val userData = card.userData ?: return
 
     Column(
         modifier = modifier
@@ -330,7 +330,7 @@ private fun CardBack(
                 color = MaterialTheme.colorScheme.outline,
                 shape = if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium,
             )
-            .background(if (card.userData.findCount > 0) MaterialTheme.colorScheme.surfaceContainer else MaterialTheme.colorScheme.primaryContainer),
+            .background(if (userData.findCount > 0) MaterialTheme.colorScheme.surfaceContainer else MaterialTheme.colorScheme.primaryContainer),
     ) {
         Box(
             modifier = Modifier

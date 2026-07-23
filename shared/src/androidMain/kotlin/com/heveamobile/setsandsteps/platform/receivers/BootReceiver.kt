@@ -3,8 +3,8 @@ package com.heveamobile.setsandsteps.platform.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.heveamobile.setsandsteps.domain.manager.DailyReminderManager
-import com.heveamobile.setsandsteps.domain.repository.UserPreferencesRepository
+import com.heveamobile.setsandsteps.core.domain.manager.DailyReminderManager
+import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

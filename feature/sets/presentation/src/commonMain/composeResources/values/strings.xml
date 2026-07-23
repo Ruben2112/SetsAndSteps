@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sets_level">Level %1$d</string>
+    <string name="sets_steps_per_finding">Steps per finding:</string>
+</resources>

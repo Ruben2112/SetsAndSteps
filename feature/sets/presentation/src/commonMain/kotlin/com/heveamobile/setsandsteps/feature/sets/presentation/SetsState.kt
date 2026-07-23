@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.sets
+package com.heveamobile.setsandsteps.feature.sets.presentation
 
 import com.heveamobile.setsandsteps.core.domain.model.CardSet
 

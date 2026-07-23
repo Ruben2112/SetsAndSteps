@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.sets
+package com.heveamobile.setsandsteps.feature.sets.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

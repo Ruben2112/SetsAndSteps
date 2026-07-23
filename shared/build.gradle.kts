@@ -65,6 +65,7 @@ kotlin {
                 implementation(projects.core.navigation)
                 implementation(projects.feature.settings.presentation)
                 implementation(projects.feature.profile.presentation)
+                implementation(projects.feature.sets.presentation)
 
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)

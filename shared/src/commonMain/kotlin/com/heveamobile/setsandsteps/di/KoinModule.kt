@@ -16,9 +16,9 @@ import com.heveamobile.setsandsteps.core.domain.usecase.UpsertInitialMapDataUseC
 import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
 import com.heveamobile.setsandsteps.feature.profile.presentation.profilePresentationModule
 import com.heveamobile.setsandsteps.feature.settings.presentation.settingsPresentationModule
+import com.heveamobile.setsandsteps.feature.sets.presentation.setsPresentationModule
 import com.heveamobile.setsandsteps.navigation.DestinationInfo
 import com.heveamobile.setsandsteps.navigation.Destinations
-import com.heveamobile.setsandsteps.navigation.Sets
 import com.heveamobile.setsandsteps.navigation.SetPointExchange
 import com.heveamobile.setsandsteps.ui.carddetails.CardDetailsViewModel
 import com.heveamobile.setsandsteps.ui.carddetails.DestinationInfoScreen
@@ -27,8 +27,6 @@ import com.heveamobile.setsandsteps.ui.cards.DestinationsScreen
 import com.heveamobile.setsandsteps.ui.home.HomeViewModel
 import com.heveamobile.setsandsteps.ui.setpointexchange.SetPointExchangeScreen
 import com.heveamobile.setsandsteps.ui.setpointexchange.SetPointExchangeViewModel
-import com.heveamobile.setsandsteps.ui.sets.SetsScreen
-import com.heveamobile.setsandsteps.ui.sets.SetsViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.KoinApplication
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -46,7 +44,6 @@ import org.koin.dsl.navigation3.navigation
 val navigationModule = module {
     singleOf(::NavigationHandler)
     singleOf(::FoundCardsHandler)
-    navigation<Sets> { SetsScreen() }
     navigation<Destinations> { DestinationsScreen() }
     navigation<DestinationInfo> { route ->
         DestinationInfoScreen(
@@ -59,7 +56,6 @@ val navigationModule = module {
 
 val viewModelModule = module {
     viewModelOf(::HomeViewModel)
-    viewModelOf(::SetsViewModel)
     viewModelOf(::CardsViewModel)
     viewModel { _ ->
         CardDetailsViewModel(
@@ -94,6 +90,7 @@ fun getKoinModules() = listOf(
     targetModule,
     settingsPresentationModule,
     profilePresentationModule,
+    setsPresentationModule,
 )
 
 fun initializeKoin(

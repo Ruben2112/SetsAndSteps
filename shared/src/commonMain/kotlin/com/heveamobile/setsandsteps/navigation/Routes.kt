@@ -6,11 +6,6 @@ import com.heveamobile.setsandsteps.core.navigation.Route
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object Sets : Route, DrawerRoute {
-    override val navigationDrawerRoute = NavigationDrawerRoute.Sets
-}
-
-@Serializable
 data object Destinations : Route, DrawerRoute {
     override val navigationDrawerRoute = NavigationDrawerRoute.Cards
 }

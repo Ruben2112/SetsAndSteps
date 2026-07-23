@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.sets
+package com.heveamobile.setsandsteps.feature.sets.presentation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,9 +20,9 @@ import com.heveamobile.setsandsteps.core.designsystem.component.KeyValueRow
 import com.heveamobile.setsandsteps.core.designsystem.component.SetStatisticsList
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
-import setsandsteps.shared.generated.resources.Res
-import setsandsteps.shared.generated.resources.sets_level
-import setsandsteps.shared.generated.resources.sets_steps_per_finding
+import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.Res
+import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_level
+import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_steps_per_finding
 
 @Composable
 fun SetsScreen(modifier: Modifier = Modifier) {

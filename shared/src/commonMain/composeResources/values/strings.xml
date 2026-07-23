@@ -33,10 +33,6 @@
     <string name="overlay_set_points_gained">Set points gained:</string>
 
 
-    <!-- SetsScreen -->
-    <string name="sets_level">Level %1$d</string>
-    <string name="sets_steps_per_finding">Steps per finding:</string>
-
     <!-- CardsScreen -->
     <string name="cards_total_visits">Total visits:</string>
     <string name="cards_current_level">Current level:</string>

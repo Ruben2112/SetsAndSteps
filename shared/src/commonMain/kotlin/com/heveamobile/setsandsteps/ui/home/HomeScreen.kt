@@ -60,7 +60,7 @@ import com.heveamobile.setsandsteps.feature.settings.presentation.SettingsRoute
 import com.heveamobile.setsandsteps.navigation.DestinationInfo
 import com.heveamobile.setsandsteps.navigation.Destinations
 import com.heveamobile.setsandsteps.navigation.SetPointExchange
-import com.heveamobile.setsandsteps.navigation.Sets
+import com.heveamobile.setsandsteps.feature.sets.presentation.SetsRoute
 import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
 import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
 import kotlinx.serialization.modules.SerializersModule
@@ -143,8 +143,8 @@ fun HomeContent(
                         ProfileRoute.serializer(),
                     )
                     subclass(
-                        Sets::class,
-                        Sets.serializer(),
+                        SetsRoute::class,
+                        SetsRoute.serializer(),
                     )
                     subclass(
                         Destinations::class,
@@ -207,7 +207,7 @@ fun HomeContent(
                         onAction(HomeAction.CloseNavigationDrawer)
                         val navKey = when (route) {
                             NavigationDrawerRoute.Profile -> ProfileRoute
-                            NavigationDrawerRoute.Sets -> Sets
+                            NavigationDrawerRoute.Sets -> SetsRoute
                             NavigationDrawerRoute.Cards -> Destinations
                             NavigationDrawerRoute.CardDetails -> DestinationInfo(destinationId = null)
                             NavigationDrawerRoute.SetPointExchange -> SetPointExchange

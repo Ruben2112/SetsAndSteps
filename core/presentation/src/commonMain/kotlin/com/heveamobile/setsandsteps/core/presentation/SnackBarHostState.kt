@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.home
+package com.heveamobile.setsandsteps.core.presentation
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.staticCompositionLocalOf

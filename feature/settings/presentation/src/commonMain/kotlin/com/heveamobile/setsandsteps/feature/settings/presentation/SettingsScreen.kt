@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.settings
+﻿package com.heveamobile.setsandsteps.feature.settings.presentation
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
@@ -50,40 +50,41 @@ import com.heveamobile.setsandsteps.core.designsystem.theme.timePickerColors
 import com.heveamobile.setsandsteps.core.designsystem.component.AlertDialog
 import com.heveamobile.setsandsteps.core.designsystem.component.Card
 import com.heveamobile.setsandsteps.core.designsystem.component.ErrorCard
-import com.heveamobile.setsandsteps.ui.common.FilePickerHandlerEffect
+import com.heveamobile.setsandsteps.core.presentation.FilePickerHandlerEffect
 import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
 import com.heveamobile.setsandsteps.core.designsystem.component.PrimaryButton
 import com.heveamobile.setsandsteps.core.designsystem.component.SecondaryButton
-import com.heveamobile.setsandsteps.ui.home.LocalSnackbarHostState
+import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
-import setsandsteps.shared.generated.resources.Res
-import setsandsteps.shared.generated.resources.label_cancel
-import setsandsteps.shared.generated.resources.label_continue
-import setsandsteps.shared.generated.resources.label_save
-import setsandsteps.shared.generated.resources.permissions_not_granted_error
-import setsandsteps.shared.generated.resources.profile_error_action_request_permissions
-import setsandsteps.shared.generated.resources.settings_daily_reminder_change_time
-import setsandsteps.shared.generated.resources.settings_daily_reminder_enable_daily_reminder
-import setsandsteps.shared.generated.resources.settings_daily_reminder_explanation
-import setsandsteps.shared.generated.resources.settings_daily_reminder_reminder_time
-import setsandsteps.shared.generated.resources.settings_distance_multiplier
-import setsandsteps.shared.generated.resources.settings_distance_multiplier_explanation
-import setsandsteps.shared.generated.resources.settings_error_notifications_not_granted
-import setsandsteps.shared.generated.resources.settings_export
-import setsandsteps.shared.generated.resources.settings_export_failed
-import setsandsteps.shared.generated.resources.settings_export_import_explanation
-import setsandsteps.shared.generated.resources.settings_export_successful
-import setsandsteps.shared.generated.resources.settings_import
-import setsandsteps.shared.generated.resources.settings_import_confirmation_dialog_body
-import setsandsteps.shared.generated.resources.settings_import_failed
-import setsandsteps.shared.generated.resources.settings_import_successful
-import setsandsteps.shared.generated.resources.settings_notification_permission_request_rationale
-import setsandsteps.shared.generated.resources.settings_notification_permission_request_title
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_cancel
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_continue
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_save
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.permissions_not_granted_error
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.profile_error_action_request_permissions
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.Res
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_daily_reminder_change_time
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_daily_reminder_enable_daily_reminder
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_daily_reminder_explanation
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_daily_reminder_reminder_time
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_distance_multiplier
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_distance_multiplier_explanation
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_error_notifications_not_granted
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_export
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_export_failed
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_export_import_explanation
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_export_successful
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_import
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_import_confirmation_dialog_body
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_import_failed
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_import_successful
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_notification_permission_request_rationale
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_notification_permission_request_title
 
 @Composable
 fun SettingsScreen(modifier: Modifier = Modifier) {
@@ -295,12 +296,12 @@ private fun ReminderCard(
                         ErrorCard(
                             errorMessage = stringResource(
                                 if (status == PermissionStatus.RationaleRequired) {
-                                    Res.string.permissions_not_granted_error
+                                    DesignSystemRes.string.permissions_not_granted_error
                                 } else {
                                     Res.string.settings_error_notifications_not_granted
                                 },
                             ),
-                            actionLabel = stringResource(Res.string.profile_error_action_request_permissions),
+                            actionLabel = stringResource(DesignSystemRes.string.profile_error_action_request_permissions),
                             onAction = onPermissionRequest,
                         )
                     }
@@ -329,7 +330,7 @@ fun TimePickerDialog(
         containerColor = MaterialTheme.colorScheme.surface,
         onDismissRequest = { onAction(SettingsAction.ToggleTimePickerAlertDialog) },
         confirmButton = {
-            PrimaryButton(label = stringResource(Res.string.label_save)) {
+            PrimaryButton(label = stringResource(DesignSystemRes.string.label_save)) {
                 onAction(
                     SettingsAction.UpdateReminderTime(
                         LocalTime(
@@ -342,7 +343,7 @@ fun TimePickerDialog(
             }
         },
         dismissButton = {
-            SecondaryButton(label = stringResource(Res.string.label_cancel)) {
+            SecondaryButton(label = stringResource(DesignSystemRes.string.label_cancel)) {
                 onAction(SettingsAction.ToggleTimePickerAlertDialog)
             }
         },
@@ -481,7 +482,7 @@ private fun ImportConfirmationDialog(onAction: (SettingsAction) -> Unit) {
             onAction(SettingsAction.ConfirmImport)
         },
         isPrimaryActionDestructive = true,
-        secondaryActionLabel = stringResource(Res.string.label_cancel),
+        secondaryActionLabel = stringResource(DesignSystemRes.string.label_cancel),
         secondaryAction = {
             onAction(SettingsAction.CancelImport)
         },
@@ -496,11 +497,11 @@ private fun NotificationSettingsDialog(onAction: (SettingsAction) -> Unit) {
     AlertDialog(
         title = stringResource(Res.string.settings_notification_permission_request_title),
         body = stringResource(Res.string.settings_notification_permission_request_rationale),
-        primaryActionLabel = stringResource(Res.string.label_continue),
+        primaryActionLabel = stringResource(DesignSystemRes.string.label_continue),
         primaryAction = {
             onAction(SettingsAction.OpenAppSettings)
         },
-        secondaryActionLabel = stringResource(Res.string.label_cancel),
+        secondaryActionLabel = stringResource(DesignSystemRes.string.label_cancel),
         secondaryAction = {
             onAction(SettingsAction.DismissNotificationSettingsDialog)
         },

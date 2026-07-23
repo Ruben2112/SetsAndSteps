@@ -12,7 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.heveamobile.setsandsteps.navigation.Route
+import com.heveamobile.setsandsteps.navigation.DestinationInfo
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.designsystem.component.CardDetailsCard
 import com.heveamobile.setsandsteps.core.designsystem.component.CardSetDropDownMenu
@@ -22,7 +22,7 @@ import com.heveamobile.setsandsteps.core.designsystem.component.DropDownMenu
 fun DestinationInfoScreen(
     modifier: Modifier = Modifier,
     viewModel: CardDetailsViewModel,
-    route: Route.DestinationInfo,
+    route: DestinationInfo,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 

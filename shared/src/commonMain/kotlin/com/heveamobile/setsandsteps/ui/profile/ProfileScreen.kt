@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.profile
+﻿package com.heveamobile.setsandsteps.ui.profile
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
@@ -62,20 +62,21 @@ import com.patrykandpatrick.vico.compose.common.component.rememberLineComponent
 import com.patrykandpatrick.vico.compose.common.component.rememberTextComponent
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_cancel
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_continue
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.permissions_not_granted_error
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.profile_error_action_request_permissions
 import setsandsteps.shared.generated.resources.Res
 import setsandsteps.shared.generated.resources.historic_step_data_start_time
 import setsandsteps.shared.generated.resources.historic_step_data_title
 import setsandsteps.shared.generated.resources.historic_step_data_total_steps
-import setsandsteps.shared.generated.resources.label_cancel
-import setsandsteps.shared.generated.resources.label_continue
-import setsandsteps.shared.generated.resources.permissions_not_granted_error
 import setsandsteps.shared.generated.resources.personal_current_vs_best_steps
 import setsandsteps.shared.generated.resources.personal_records_seven_days
 import setsandsteps.shared.generated.resources.personal_records_subtitle
 import setsandsteps.shared.generated.resources.personal_records_thirty_days
 import setsandsteps.shared.generated.resources.personal_records_title
 import setsandsteps.shared.generated.resources.personal_records_twenty_four_hours
-import setsandsteps.shared.generated.resources.profile_error_action_request_permissions
 import setsandsteps.shared.generated.resources.profile_error_health_connect_not_installed
 import setsandsteps.shared.generated.resources.profile_health_permission_request_rationale
 import setsandsteps.shared.generated.resources.profile_health_permission_request_title
@@ -167,8 +168,8 @@ fun ProfileContent(
                 PermissionStatus.Granted -> {}
                 PermissionStatus.NotGranted, PermissionStatus.RationaleRequired -> Column(modifier = Modifier.fillMaxWidth()) {
                     ErrorCard(
-                        errorMessage = stringResource(Res.string.permissions_not_granted_error),
-                        actionLabel = stringResource(Res.string.profile_error_action_request_permissions),
+                        errorMessage = stringResource(DesignSystemRes.string.permissions_not_granted_error),
+                        actionLabel = stringResource(DesignSystemRes.string.profile_error_action_request_permissions),
                         onAction = onPermissionRequest,
                     )
                 }
@@ -188,11 +189,11 @@ private fun HealthSettingsDialog(onAction: (ProfileAction) -> Unit) {
     AlertDialog(
         title = stringResource(Res.string.profile_health_permission_request_title),
         body = stringResource(Res.string.profile_health_permission_request_rationale),
-        primaryActionLabel = stringResource(Res.string.label_continue),
+        primaryActionLabel = stringResource(DesignSystemRes.string.label_continue),
         primaryAction = {
             onAction(ProfileAction.OpenAppSettings)
         },
-        secondaryActionLabel = stringResource(Res.string.label_cancel),
+        secondaryActionLabel = stringResource(DesignSystemRes.string.label_cancel),
         secondaryAction = {
             onAction(ProfileAction.DismissHealthSettingsDialog)
         },

@@ -13,8 +13,13 @@ import com.heveamobile.setsandsteps.core.domain.usecase.SpendStepsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.SyncStepsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.UpdateUserRecordsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.UpsertInitialMapDataUseCase
-import com.heveamobile.setsandsteps.navigation.NavigationHandler
-import com.heveamobile.setsandsteps.navigation.Route
+import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
+import com.heveamobile.setsandsteps.feature.settings.presentation.settingsPresentationModule
+import com.heveamobile.setsandsteps.navigation.DestinationInfo
+import com.heveamobile.setsandsteps.navigation.Destinations
+import com.heveamobile.setsandsteps.navigation.Profile
+import com.heveamobile.setsandsteps.navigation.Sets
+import com.heveamobile.setsandsteps.navigation.SetPointExchange
 import com.heveamobile.setsandsteps.ui.carddetails.CardDetailsViewModel
 import com.heveamobile.setsandsteps.ui.carddetails.DestinationInfoScreen
 import com.heveamobile.setsandsteps.ui.cards.CardsViewModel
@@ -26,8 +31,6 @@ import com.heveamobile.setsandsteps.ui.setpointexchange.SetPointExchangeScreen
 import com.heveamobile.setsandsteps.ui.setpointexchange.SetPointExchangeViewModel
 import com.heveamobile.setsandsteps.ui.sets.SetsScreen
 import com.heveamobile.setsandsteps.ui.sets.SetsViewModel
-import com.heveamobile.setsandsteps.ui.settings.SettingsScreen
-import com.heveamobile.setsandsteps.ui.settings.SettingsViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.KoinApplication
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -45,17 +48,16 @@ import org.koin.dsl.navigation3.navigation
 val navigationModule = module {
     singleOf(::NavigationHandler)
     singleOf(::FoundCardsHandler)
-    navigation<Route.Profile> { ProfileScreen() }
-    navigation<Route.Sets> { SetsScreen() }
-    navigation<Route.Destinations> { DestinationsScreen() }
-    navigation<Route.DestinationInfo> { route ->
+    navigation<Profile> { ProfileScreen() }
+    navigation<Sets> { SetsScreen() }
+    navigation<Destinations> { DestinationsScreen() }
+    navigation<DestinationInfo> { route ->
         DestinationInfoScreen(
             viewModel = koinViewModel { parametersOf(route) },
             route = route,
         )
     }
-    navigation<Route.SetPointExchange> { SetPointExchangeScreen() }
-    navigation<Route.Settings> { SettingsScreen() }
+    navigation<SetPointExchange> { SetPointExchangeScreen() }
 }
 
 val viewModelModule = module {
@@ -70,7 +72,6 @@ val viewModelModule = module {
         )
     }
     viewModelOf(::SetPointExchangeViewModel)
-    viewModelOf(::SettingsViewModel)
 }
 
 val useCaseModule = module {
@@ -95,6 +96,7 @@ fun getKoinModules() = listOf(
     viewModelModule,
     useCaseModule,
     targetModule,
+    settingsPresentationModule,
 )
 
 fun initializeKoin(

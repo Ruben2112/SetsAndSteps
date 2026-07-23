@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.home
+package com.heveamobile.setsandsteps.core.navigation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,13 +19,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
-import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.designsystem.component.StepsDivider
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.navigation.generated.resources.Res
+import com.heveamobile.setsandsteps.core.navigation.generated.resources.logo_description
+import com.heveamobile.setsandsteps.core.navigation.generated.resources.logo_svg
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import setsandsteps.shared.generated.resources.Res
-import setsandsteps.shared.generated.resources.logo_description
-import setsandsteps.shared.generated.resources.logo_svg
 
 @Composable
 fun NavigationDrawer(

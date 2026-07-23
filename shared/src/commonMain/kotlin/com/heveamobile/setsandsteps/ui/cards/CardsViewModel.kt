@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
 import com.heveamobile.setsandsteps.core.domain.usecase.GetSetsWithProgressUseCase
-import com.heveamobile.setsandsteps.navigation.NavigationHandler
-import com.heveamobile.setsandsteps.navigation.Route
+import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
+import com.heveamobile.setsandsteps.navigation.DestinationInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.IO
@@ -72,7 +72,7 @@ class CardsViewModel(
             }
 
             is CardsAction.OpenCardDetails -> {
-                navigationHandler.navigateTo(Route.DestinationInfo(action.cardId))
+                navigationHandler.navigateTo(DestinationInfo(action.cardId))
             }
         }
     }

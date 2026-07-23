@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.home
+package com.heveamobile.setsandsteps.core.navigation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -13,10 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.navigation.generated.resources.Res
+import com.heveamobile.setsandsteps.core.navigation.generated.resources.route_icon_description
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import setsandsteps.shared.generated.resources.Res
-import setsandsteps.shared.generated.resources.route_icon_description
 
 @Composable
 fun NavigationDrawerItem(

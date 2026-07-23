@@ -50,9 +50,19 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import com.heveamobile.setsandsteps.core.domain.model.SortingOrder
-import com.heveamobile.setsandsteps.navigation.NavigationHandler
-import com.heveamobile.setsandsteps.navigation.Route
+import com.heveamobile.setsandsteps.core.navigation.DrawerRoute
+import com.heveamobile.setsandsteps.core.navigation.NavigationDrawer
+import com.heveamobile.setsandsteps.core.navigation.NavigationDrawerRoute
+import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
+import com.heveamobile.setsandsteps.core.navigation.Route
+import com.heveamobile.setsandsteps.feature.settings.presentation.SettingsRoute
+import com.heveamobile.setsandsteps.navigation.DestinationInfo
+import com.heveamobile.setsandsteps.navigation.Destinations
+import com.heveamobile.setsandsteps.navigation.Profile
+import com.heveamobile.setsandsteps.navigation.SetPointExchange
+import com.heveamobile.setsandsteps.navigation.Sets
 import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
+import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import org.jetbrains.compose.resources.stringResource
@@ -129,40 +139,40 @@ fun HomeContent(
             serializersModule = SerializersModule {
                 polymorphic(NavKey::class) {
                     subclass(
-                        Route.Profile::class,
-                        Route.Profile.serializer(),
+                        Profile::class,
+                        Profile.serializer(),
                     )
                     subclass(
-                        Route.Sets::class,
-                        Route.Sets.serializer(),
+                        Sets::class,
+                        Sets.serializer(),
                     )
                     subclass(
-                        Route.Destinations::class,
-                        Route.Destinations.serializer(),
+                        Destinations::class,
+                        Destinations.serializer(),
                     )
                     subclass(
-                        Route.DestinationInfo::class,
-                        Route.DestinationInfo.serializer(),
+                        DestinationInfo::class,
+                        DestinationInfo.serializer(),
                     )
                     subclass(
-                        Route.SetPointExchange::class,
-                        Route.SetPointExchange.serializer(),
+                        SetPointExchange::class,
+                        SetPointExchange.serializer(),
                     )
                     subclass(
-                        Route.Settings::class,
-                        Route.Settings.serializer(),
+                        SettingsRoute::class,
+                        SettingsRoute.serializer(),
                     )
                 }
             }
         },
         elements = arrayOf<NavKey>(
-            Route.Profile,
+            Profile,
         ),
     )
 
     LaunchedEffect(Unit) {
         navigationHandler.navigationEvents.collect { route ->
-            if (backStack.size > 1 && !(backStack.last() is Route.Destinations && route is Route.DestinationInfo)) {
+            if (backStack.size > 1 && !(backStack.last() is Destinations && route is DestinationInfo)) {
                 // Unless we are performing nested navigation, clear backstack until only first
                 // screen (Profile) remains
                 backStack
@@ -196,12 +206,12 @@ fun HomeContent(
                     onDrawerItemClicked = { route ->
                         onAction(HomeAction.CloseNavigationDrawer)
                         val navKey = when (route) {
-                            NavigationDrawerRoute.Profile -> Route.Profile
-                            NavigationDrawerRoute.Sets -> Route.Sets
-                            NavigationDrawerRoute.Cards -> Route.Destinations
-                            NavigationDrawerRoute.CardDetails -> Route.DestinationInfo(destinationId = null)
-                            NavigationDrawerRoute.SetPointExchange -> Route.SetPointExchange
-                            NavigationDrawerRoute.Settings -> Route.Settings
+                            NavigationDrawerRoute.Profile -> Profile
+                            NavigationDrawerRoute.Sets -> Sets
+                            NavigationDrawerRoute.Cards -> Destinations
+                            NavigationDrawerRoute.CardDetails -> DestinationInfo(destinationId = null)
+                            NavigationDrawerRoute.SetPointExchange -> SetPointExchange
+                            NavigationDrawerRoute.Settings -> SettingsRoute
                         }
                         if (backStack.lastOrNull() != navKey) {
                             // Clear backstack until only first screen (Profile) remains
@@ -212,7 +222,7 @@ fun HomeContent(
                                 )
                                 .clear()
                         }
-                        if (backStack.lastOrNull() != navKey && (navKey != Route.Profile || backStack.lastOrNull() != Route.Profile)) {
+                        if (backStack.lastOrNull() != navKey && (navKey != Profile || backStack.lastOrNull() != Profile)) {
                             backStack.add(navKey)
                         }
                     },
@@ -242,7 +252,7 @@ fun HomeContent(
                         title = {
                             Text(
                                 text = stringResource(
-                                    (backStack.last() as Route).toNavigationDrawerRoute().routeName,
+                                    (backStack.last() as DrawerRoute).navigationDrawerRoute.routeName,
                                 ),
                                 style = MaterialTheme.typography.titleLarge,
                             )
@@ -269,7 +279,7 @@ fun HomeContent(
                                 },
                             )
                             val currentBackStackEntry = backStack.lastOrNull()
-                            if (currentBackStackEntry is Route.Destinations) {
+                            if (currentBackStackEntry is Destinations) {
                                 IconButton(onClick = { onAction(HomeAction.ToggleDropdownMenu) }) {
                                     Icon(
                                         Icons.Default.MoreVert,

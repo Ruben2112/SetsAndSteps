@@ -1,6 +1,5 @@
 package com.heveamobile.setsandsteps.core.data.source.android
 
-import android.net.Uri
 import com.heveamobile.setsandsteps.core.domain.repository.FilePickerHandler
 import kotlinx.coroutines.CompletableDeferred
 
@@ -25,7 +24,7 @@ class AndroidFilePickerHandler : FilePickerHandler {
         return deferred.await()
     }
 
-    fun setListeners(
+    override fun setListeners(
         onExport: (String) -> Unit,
         onImport: () -> Unit,
     ) {
@@ -33,15 +32,15 @@ class AndroidFilePickerHandler : FilePickerHandler {
         onImportRequested = onImport
     }
 
-    fun onResult(
-        uri: Uri?,
+    override fun onResult(
+        uri: String?,
         isExport: Boolean,
     ) {
         if (isExport) {
-            exportDeferred?.complete(uri?.toString())
+            exportDeferred?.complete(uri)
             exportDeferred = null
         } else {
-            importDeferred?.complete(uri?.toString())
+            importDeferred?.complete(uri)
             importDeferred = null
         }
     }

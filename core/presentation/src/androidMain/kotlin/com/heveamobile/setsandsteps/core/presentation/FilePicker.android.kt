@@ -1,21 +1,18 @@
-package com.heveamobile.setsandsteps.ui.common
+package com.heveamobile.setsandsteps.core.presentation
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import com.heveamobile.setsandsteps.core.data.source.android.AndroidFilePickerHandler
 import com.heveamobile.setsandsteps.core.domain.repository.FilePickerHandler
 
 @Composable
 actual fun FilePickerHandlerEffect(handler: FilePickerHandler) {
-    val androidHandler = handler as AndroidFilePickerHandler
-
     val exportLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument("application/octet-stream"),
     ) { uri ->
-        androidHandler.onResult(
-            uri,
+        handler.onResult(
+            uri?.toString(),
             isExport = true,
         )
     }
@@ -23,14 +20,14 @@ actual fun FilePickerHandlerEffect(handler: FilePickerHandler) {
     val importLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument(),
     ) { uri ->
-        androidHandler.onResult(
-            uri,
+        handler.onResult(
+            uri?.toString(),
             isExport = false,
         )
     }
 
-    LaunchedEffect(androidHandler) {
-        androidHandler.setListeners(
+    LaunchedEffect(handler) {
+        handler.setListeners(
             onExport = { fileName ->
                 exportLauncher.launch(fileName)
             },

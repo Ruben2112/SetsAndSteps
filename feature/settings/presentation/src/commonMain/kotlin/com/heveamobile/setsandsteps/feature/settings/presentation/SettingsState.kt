@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.settings
+package com.heveamobile.setsandsteps.feature.settings.presentation
 
 import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
 import kotlinx.datetime.LocalTime

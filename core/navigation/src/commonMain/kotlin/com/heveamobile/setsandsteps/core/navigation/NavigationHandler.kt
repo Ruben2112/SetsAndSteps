@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.navigation
+package com.heveamobile.setsandsteps.core.navigation
 
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

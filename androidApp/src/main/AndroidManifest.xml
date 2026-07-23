@@ -38,7 +38,7 @@
         </activity>
 
         <receiver
-            android:name=".platform.receivers.BootReceiver"
+            android:name="com.heveamobile.setsandsteps.core.data.receivers.BootReceiver"
             android:enabled="false"
             android:exported="true">
             <intent-filter>
@@ -46,7 +46,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.heveamobile.setsandsteps.platform.receivers.DailyReminderReceiver"
+            android:name="com.heveamobile.setsandsteps.core.data.receivers.DailyReminderReceiver"
             android:exported="false" />
     </application>
 

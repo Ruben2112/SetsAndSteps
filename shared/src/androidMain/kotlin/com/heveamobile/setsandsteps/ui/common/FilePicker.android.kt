@@ -4,7 +4,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import com.heveamobile.setsandsteps.data.source.android.AndroidFilePickerHandler
+import com.heveamobile.setsandsteps.core.data.source.android.AndroidFilePickerHandler
 import com.heveamobile.setsandsteps.core.domain.repository.FilePickerHandler
 
 @Composable

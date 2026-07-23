@@ -47,6 +47,7 @@ kotlin {
                 implementation(libs.mapbox.maps)
                 implementation(libs.mapbox.maps.compose)
                 implementation(libs.ktor.client.okhttp)
+                implementation(libs.androidx.health.connect)
             }
         }
         iosMain {
@@ -58,6 +59,7 @@ kotlin {
             dependencies {
                 implementation(projects.core.domain)
                 implementation(projects.core.database)
+                implementation(projects.core.data)
 
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)
@@ -79,11 +81,6 @@ kotlin {
                 implementation(libs.jetbrains.lifecycle.viewmodel.nav3)
                 implementation(libs.jetbrains.lifecycle.viewmodel)
                 implementation(libs.jetbrains.material.icons)
-
-                implementation(libs.androidx.health.connect)
-
-                implementation(libs.androidx.datastore)
-                implementation(libs.androidx.datastore.preferences)
 
                 implementation(libs.coil.compose)
                 implementation(libs.coil.network)

@@ -1,15 +1,5 @@
 package com.heveamobile.setsandsteps.di
 
-import com.heveamobile.setsandsteps.data.repository.CardSetRepositoryImpl
-import com.heveamobile.setsandsteps.data.repository.CollectableCardRepositoryImpl
-import com.heveamobile.setsandsteps.data.repository.StepDataRepositoryImpl
-import com.heveamobile.setsandsteps.data.repository.UserPreferencesRepositoryImpl
-import com.heveamobile.setsandsteps.data.repository.UserRepositoryImpl
-import com.heveamobile.setsandsteps.core.domain.repository.CardSetRepository
-import com.heveamobile.setsandsteps.core.domain.repository.CollectableCardRepository
-import com.heveamobile.setsandsteps.core.domain.repository.StepDataRepository
-import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
-import com.heveamobile.setsandsteps.core.domain.repository.UserRepository
 import com.heveamobile.setsandsteps.core.domain.usecase.ExportDatabaseUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.FindCardsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.FoundCardsHandler
@@ -43,7 +33,6 @@ import org.koin.core.KoinApplication
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
-import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
@@ -99,21 +88,12 @@ val useCaseModule = module {
     factoryOf(::ImportDatabaseUseCase)
 }
 
-val repositoryModule = module {
-    singleOf(::StepDataRepositoryImpl) { bind<StepDataRepository>() }
-    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
-    singleOf(::CardSetRepositoryImpl) { bind<CardSetRepository>() }
-    singleOf(::CollectableCardRepositoryImpl) { bind<CollectableCardRepository>() }
-    singleOf(::UserPreferencesRepositoryImpl) { bind<UserPreferencesRepository>() }
-}
-
 expect val targetModule: Module
 
 fun getKoinModules() = listOf(
     navigationModule,
     viewModelModule,
     useCaseModule,
-    repositoryModule,
     targetModule,
 )
 

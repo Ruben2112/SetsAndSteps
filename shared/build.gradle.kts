@@ -23,7 +23,7 @@ kotlin {
     }
 
     android {
-        namespace = "com.gumamobile.mapbystep.shared"
+        namespace = "com.gumamobile.setsandsteps.shared"
         compileSdk = libs.versions.android.compileSdk
             .get()
             .toInt()

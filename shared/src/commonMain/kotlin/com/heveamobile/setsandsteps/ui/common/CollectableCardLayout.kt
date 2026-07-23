@@ -1,0 +1,370 @@
+package com.heveamobile.setsandsteps.ui.common
+
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.rounded.Warning
+import androidx.compose.material3.Badge
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import coil3.SingletonImageLoader
+import coil3.compose.LocalPlatformContext
+import coil3.compose.SubcomposeAsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
+import com.heveamobile.setsandsteps.FormatMode
+import com.heveamobile.setsandsteps.domain.model.CollectableCard
+import com.heveamobile.setsandsteps.formatAmount
+import com.heveamobile.setsandsteps.theme.color
+import com.heveamobile.setsandsteps.theme.spacing
+import org.jetbrains.compose.resources.InternalResourceApi
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
+import setsandsteps.shared.generated.resources.Res
+import setsandsteps.shared.generated.resources.card_image_description
+import setsandsteps.shared.generated.resources.card_image_loading_failed
+import setsandsteps.shared.generated.resources.card_new
+import setsandsteps.shared.generated.resources.ic_map_points
+import setsandsteps.shared.generated.resources.ic_question_mark
+import setsandsteps.shared.generated.resources.map_points_icon_description
+import setsandsteps.shared.generated.resources.new_icon_description
+import setsandsteps.shared.generated.resources.unrevealed_card_icon_description
+import setsandsteps.shared.generated.resources.unrevealed_card_title
+import setsandsteps.shared.generated.resources.warning_card_icon_description
+
+
+@Composable
+fun CollectableCardLayout(
+    modifier: Modifier = Modifier,
+    card: CollectableCard,
+    isRevealed: Boolean,
+    isNew: Boolean = false,
+    raritySpoiler: Boolean = false,
+    onClick: (() -> Unit)? = null,
+    isLarge: Boolean = false,
+    mapPointsGained: Int = 0,
+) {
+    val rotation = animateFloatAsState(
+        targetValue = if (isRevealed) 0F else 180F,
+        animationSpec = tween(
+            durationMillis = 300,
+            easing = FastOutSlowInEasing,
+        ),
+    )
+    Box(
+        modifier = modifier
+            .graphicsLayer {
+                rotationY = rotation.value
+                cameraDistance = 16F * density
+            }
+            .clip(if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium)
+            .clickable {
+                onClick?.invoke()
+            },
+    ) {
+        Box(
+            modifier = Modifier.graphicsLayer {
+                alpha = if (rotation.value <= 90F) 1f else 0f
+            },
+        ) {
+            CardFront(
+                isLarge = isLarge,
+                isNew = isNew,
+                mapPointsGained = mapPointsGained,
+                card = card,
+            )
+        }
+        Box(
+            modifier = Modifier.graphicsLayer {
+                rotationY = 180F
+                alpha = if (rotation.value > 90F) 1f else 0f
+            },
+        ) {
+            CardBack(
+                isLarge = isLarge,
+                raritySpoiler = raritySpoiler,
+                card = card,
+            )
+        }
+    }
+}
+
+@OptIn(InternalResourceApi::class)
+@Composable
+private fun CardFront(
+    modifier: Modifier = Modifier,
+    isLarge: Boolean,
+    isNew: Boolean = false,
+    mapPointsGained: Int,
+    card: CollectableCard,
+) {
+    val userData = card.userData
+    if (userData == null || !userData.isDiscovered) return
+
+    Box(
+        modifier = modifier.aspectRatio(
+            5F / 7F,
+            matchHeightConstraintsFirst = true,
+        ),
+    ) {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .clip(if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium)
+                .border(
+                    width = if (isLarge) 4.dp else 1.dp,
+                    color = MaterialTheme.colorScheme.outline,
+                    shape = if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium,
+                )
+                .background(
+                    if (userData.findCount > 0) MaterialTheme.colorScheme.surfaceContainer
+                    else MaterialTheme.colorScheme.primaryContainer,
+                ),
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1F),
+            ) {
+                BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+                    val context = LocalPlatformContext.current
+                    val imageUrl = card.imageUrl
+                    val imageRequest = ImageRequest
+                        .Builder(context)
+                        .data(imageUrl)
+                        .crossfade(true)
+                        .build()
+
+                    LaunchedEffect(imageUrl) {
+//                        Preload the image so the user is less likely to see the loading state
+                        SingletonImageLoader
+                            .get(context)
+                            .enqueue(imageRequest)
+                    }
+
+                    SubcomposeAsyncImage(
+                        modifier = modifier,
+                        model = imageRequest,
+                        loading = {
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(24.dp),
+                                    color = card.rarity.color(MaterialTheme.colorScheme.onPrimary),
+                                    strokeWidth = 2.dp,
+                                )
+                            }
+                        },
+                        error = {
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                ) {
+                                    Icon(
+                                        Icons.Rounded.Warning,
+                                        contentDescription = stringResource(Res.string.warning_card_icon_description),
+                                        modifier = Modifier.size(24.dp),
+                                        tint = card.rarity.color(MaterialTheme.colorScheme.onPrimary),
+                                    )
+                                    Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
+                                    Text(
+                                        stringResource(Res.string.card_image_loading_failed),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
+                            }
+                        },
+                        contentScale = ContentScale.Crop,
+                        contentDescription = stringResource(
+                            Res.string.card_image_description,
+                            card.name,
+                        ),
+                    )
+                }
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(if (isLarge) 4.dp else 1.dp)
+                    .background(MaterialTheme.colorScheme.outline),
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        horizontal = if (isLarge) MaterialTheme.spacing.large else MaterialTheme.spacing.small,
+                        vertical = MaterialTheme.spacing.small,
+                    ),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = card.name,
+                    textAlign = TextAlign.Center,
+                    style = if (isLarge) MaterialTheme.typography.bodyLarge.copy(card.rarity.color(MaterialTheme.colorScheme.onPrimary)) else MaterialTheme.typography.bodySmall.copy(card.rarity.color(MaterialTheme.colorScheme.onPrimary)),
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+        }
+        if (isNew) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        if (isLarge) MaterialTheme.spacing.medium else MaterialTheme.spacing.small,
+                    ),
+                contentAlignment = Alignment.TopEnd,
+            ) {
+                Badge(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh) {
+                    if (isLarge) {
+                        Text(
+                            modifier = Modifier.padding(
+                                horizontal = MaterialTheme.spacing.medium,
+                                vertical = MaterialTheme.spacing.small,
+                            ),
+                            text = if (isLarge) {
+                                stringResource(Res.string.card_new)
+                            } else "",
+                            style = MaterialTheme.typography.bodySmall,
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.Star,
+                            modifier = Modifier.size(8.dp),
+                            contentDescription = stringResource(Res.string.new_icon_description),
+                            tint = MaterialTheme.colorScheme.onSecondary,
+                        )
+                    }
+                }
+            }
+        }
+        if (isLarge && mapPointsGained > 0) {
+            Box(
+                modifier = Modifier
+                    .aspectRatio(1F)
+                    .padding(
+                        if (isLarge) MaterialTheme.spacing.medium else MaterialTheme.spacing.small,
+                    ),
+                contentAlignment = Alignment.BottomEnd,
+            ) {
+                Badge(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh) {
+                    Row(
+                        modifier = Modifier.padding(
+                            horizontal = MaterialTheme.spacing.medium,
+                            vertical = MaterialTheme.spacing.small,
+                        ),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(
+                            painter = painterResource(resource = Res.drawable.ic_map_points),
+                            modifier = Modifier.size(20.dp),
+                            contentDescription = stringResource(Res.string.map_points_icon_description),
+                            tint = MaterialTheme.colorScheme.onSurface,
+                        )
+                        Text(
+                            text = formatAmount(
+                                mapPointsGained,
+                                formatMode = FormatMode.Long,
+                            ),
+                            style = MaterialTheme.typography.bodySmall,
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun CardBack(
+    modifier: Modifier = Modifier,
+    isLarge: Boolean,
+    raritySpoiler: Boolean = false,
+    card: CollectableCard,
+) {
+    if (card.userData == null) return
+
+    Column(
+        modifier = modifier
+            .aspectRatio(
+                5F / 7F,
+                matchHeightConstraintsFirst = true,
+            )
+            .clip(if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium)
+            .border(
+                width = if (isLarge) 4.dp else 1.dp,
+                color = MaterialTheme.colorScheme.outline,
+                shape = if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium,
+            )
+            .background(if (card.userData.findCount > 0) MaterialTheme.colorScheme.surfaceContainer else MaterialTheme.colorScheme.primaryContainer),
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1F),
+        ) {
+            Icon(
+                modifier = Modifier.fillMaxSize(),
+                painter = painterResource(resource = Res.drawable.ic_question_mark),
+                contentDescription = stringResource(Res.string.unrevealed_card_icon_description),
+                tint = if (raritySpoiler) card.rarity.color(MaterialTheme.colorScheme.onPrimary)
+                else MaterialTheme.colorScheme.onSurface,
+            )
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(if (isLarge) 4.dp else 1.dp)
+                .background(MaterialTheme.colorScheme.outline),
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    horizontal = if (isLarge) MaterialTheme.spacing.large else MaterialTheme.spacing.small,
+                    vertical = MaterialTheme.spacing.small,
+                ),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = stringResource(Res.string.unrevealed_card_title),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurface),
+            )
+        }
+    }
+}

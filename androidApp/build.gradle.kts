@@ -21,13 +21,13 @@ dependencies {
 }
 
 android {
-    namespace = "com.heveamobile.mapbystep"
+    namespace = "com.heveamobile.setsandsteps"
     compileSdk = libs.versions.android.compileSdk
         .get()
         .toInt()
 
     defaultConfig {
-        applicationId = "com.heveamobile.mapbystep"
+        applicationId = "com.heveamobile.setsandsteps"
         minSdk = libs.versions.android.minSdk
             .get()
             .toInt()

@@ -1,4 +1,4 @@
-rootProject.name = "MapByStep"
+rootProject.name = "SetsAndSteps"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

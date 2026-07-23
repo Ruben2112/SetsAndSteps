@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="daily_reminder_notification_title">Map By Step</string>
-    <string name="daily_reminder_notification_description">Check out the destinations you visited today!</string>
+    <string name="daily_reminder_notification_title">Sets &amp; Steps</string>
+    <string name="daily_reminder_notification_description">Check out the cards you found today!</string>
 </resources>

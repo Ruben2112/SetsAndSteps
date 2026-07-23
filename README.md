@@ -2,9 +2,9 @@
 
 ## Explanation
 
-Map By Step is a gamified geography learning app in which you make progress by walking in real life.
+Sets&Steps is a card collection game in which you make progress by walking in real life.
 Go for a walk, enjoy nature, and explore the world. When you are finished with your walk, open the
-app and find out which destinations you have visited virtually.
+app and find out which cards you have found virtually.
 
 ### How to Play
 
@@ -13,31 +13,30 @@ grant these permissions on the Profile screen. After doing so, all steps registe
 platforms from that point on are automatically synced to the game when opening it. You can find
 statistics of your step data on the same Profile screen.
 
-### Maps and Destinations
+### Sets and Cards
 
-Currently, only one map is available to progress in, which is Countries of the World. Every
-destination you visit is an independent country on Earth. Trivia facts such as capitals and
-population are provided for each destination, and the destination is displayed on an interactive
-map.
+Currently, only one set is available to progress in, which is The United Nations. Every
+card you find is a country that is a member of the UN. Trivia facts such as capitals and
+population are provided for each card, including an interactive map.
 
-Destinations have different rarity tiers, based on the population. For Countries of the World, these
-are the numbers:
+Cards have different rarity tiers. For The United Nations, these
+are based on the population:
 
-| Rarity    | Population Range         | Odds of Visiting |
-|-----------|--------------------------|------------------|
-| Common    | Less than 5,000,000      | 81.1%            |
-| Uncommon  | 5,000,000 - 24,999,999   | 15%              |
-| Rare      | 25,000,000 - 74,999,999  | 3%               |
-| Epic      | 75,000,000 - 249,999,999 | 0.65%            |
-| Legendary | 250,000,000 or more      | 0.25%            |
+| Rarity    | Population Range         | Odds of Finding |
+|-----------|--------------------------|-----------------|
+| Common    | Less than 5,000,000      | 81.1%           |
+| Uncommon  | 5,000,000 - 24,999,999   | 15%             |
+| Rare      | 25,000,000 - 74,999,999  | 3%              |
+| Epic      | 75,000,000 - 249,999,999 | 0.65%           |
+| Legendary | 250,000,000 or more      | 0.25%           |
 
 ### Directions
 
-If you are struggling to reach destinations of higher tiers, you can spend Map Points to get
-directions to an undiscovered destination of a specific rarity. Map Points are earned by visiting
-destinations you already discovered before.
+If you are struggling to find cards of higher tiers, you can spend Set Points to get
+directions to a new card of a specific rarity. Set Points are earned by finding
+cards you already discovered before.
 
-| Rarity    | Map Points Awarded | Direction Price |
+| Rarity    | Set Points Awarded | Direction Price |
 |-----------|--------------------|-----------------|
 | Common    | 5                  | 50              |
 | Uncommon  | 20                 | 200             |
@@ -47,8 +46,8 @@ destinations you already discovered before.
 
 ### Leveling up
 
-Once you have visited all destinations of a map, you will level up. Leveling up increases the amount
-of steps that are required to visit a destination for that map by 10% of the base distance per
+Once you have found all cards of a set, you will level up. Leveling up increases the amount
+of steps that are required to find a card for that set by 10% of the base distance per
 level compared to the distance of the previous level. For example:
 
 | Level | Distance            | Difference            |
@@ -60,16 +59,16 @@ level compared to the distance of the previous level. For example:
 | 5     | 1,000               | +200 (4x 10% of base) |
 | ...   | ...                 | ...                   |
 
-Your Map Points will be reset and all destinations will be reset to undiscovered. After leveling up
-the first time, you will still be able to check out all the destinations' information of a map, even
+Your Set Points will be reset and all cards will be reset to undiscovered. After leveling up
+the first time, you will still be able to check out all the card information of a set, even
 if you have not discovered them yet for the new level.
 
 ### Settings
 
 #### Distance Multiplier
 
-If you want to be able to complete a map quicker or slower, you can change the distance multiplier.
-This changes how many steps are required to visit a destination. Feel free to set this to whatever
+If you want to be able to complete a set quicker or slower, you can change the distance multiplier.
+This changes how many steps are required to visit a card. Feel free to set this to whatever
 suits your lifestyle and your body's ability best.
 
 #### Export/Import data
@@ -97,14 +96,15 @@ AI generated code has been thoroughly reviewed by me before manually implementin
 - Dependency Injection: [Koin](https://insert-koin.io/)
 - Database: [Room](https://developer.android.com/kotlin/multiplatform/room)
 - Image loading: [Coil](https://github.com/coil-kt/coil)
-- Map (interactive and static image): [MapBox](https://www.mapbox.com/)
+- Map (interactive and static image): [MapBox](https://www.setbox.com/)
 - Charts: [Vico](https://github.com/patrykandpatrick/vico)
 - UI design (by
   me): [Figma](https://www.figma.com/design/xKbS1UpJltSdgTHozo4Vj3/MBS?m=auto&t=XchPLaMGu1iF9dlY-1)
+- AI assisted coding: [Claude](https://claude.ai/)
 
 ### Data Sources
 
-- Countries of the World metadata: [REST Countries API](https://restcountries.com/)
+- The United Nations metadata: [REST Countries API](https://restcountries.com/)
 
 ### Compose Multiplatform
 
@@ -149,13 +149,12 @@ in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and r
 Learn more
 about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
 
-## Roadmap
+## Roadset
 
 Because this is in the end just a passion project, it can take some time to get to these. Items are
 not in any particular order.
 
-- More maps
-- Optional daily reminder notification
+- More sets
 - Database migrations
 - Visual improvements (especially for leveling up)
 - Unit tests

@@ -30,19 +30,18 @@ are based on the population:
 | Epic      | 75,000,000 - 249,999,999 | 0.65%           |
 | Legendary | 250,000,000 or more      | 0.25%           |
 
-### Directions
+### Set Point Exchange
 
-If you are struggling to find cards of higher tiers, you can spend Set Points to get
-directions to a new card of a specific rarity. Set Points are earned by finding
-cards you already discovered before.
+If you are struggling to find cards of higher tiers, you can spend Set Points to get a new card of a
+specific rarity. Set Points are earned by finding cards you already discovered before.
 
-| Rarity    | Set Points Awarded | Direction Price |
-|-----------|--------------------|-----------------|
-| Common    | 5                  | 50              |
-| Uncommon  | 20                 | 200             |
-| Rare      | 50                 | 500             |
-| Epic      | 100                | 1,000           |
-| Legendary | 250                | 2,500           |
+| Rarity    | Set Points Awarded | Exchange Price |
+|-----------|--------------------|----------------|
+| Common    | 5                  | 50             |
+| Uncommon  | 20                 | 200            |
+| Rare      | 50                 | 500            |
+| Epic      | 100                | 1,000          |
+| Legendary | 250                | 2,500          |
 
 ### Leveling up
 

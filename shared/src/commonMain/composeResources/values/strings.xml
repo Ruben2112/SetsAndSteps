@@ -12,22 +12,14 @@
     <string name="footsteps_icon_description">Footsteps icon</string>
     <string name="overflow_icon_description">Show actions button</string>
     <string name="checkmark_icon_description">Checkmark icon</string>
-    <string name="close_screen_button">Close screen button</string>
     <string name="navigation_drawer_icon_description">Navigation drawer icon</string>
     <string name="previous_icon_description">Previous card button</string>
     <string name="next_icon_description">Next card button</string>
 
     <!-- HomeScreen -->
     <string name="navigation_route_set_progress">Set Progress</string>
-    <string name="overlay_reveal_all_button">Reveal all</string>
-    <string name="overlay_reveal_button">Reveal</string>
-    <string name="overlay_skip_button">Skip</string>
     <string name="overlay_show_info_button">Show info</string>
     <string name="overlay_tap_to_reveal_button">Tap card to reveal</string>
-    <string name="overlay_title">During your travels, you found...</string>
-    <string name="overlay_cards_found">Cards found:</string>
-    <string name="overlay_new_cards">New destinations:</string>
-    <string name="overlay_set_points_gained">Set points gained:</string>
 
 
     <!-- CardsScreen -->

@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.home
+package com.heveamobile.setsandsteps.core.foundcards
 
 import androidx.compose.animation.Animatable
 import androidx.compose.animation.AnimatedContent
@@ -50,36 +50,36 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
-import com.heveamobile.setsandsteps.core.domain.FormatMode
-import com.heveamobile.setsandsteps.core.domain.model.Rarity
-import com.heveamobile.setsandsteps.core.domain.usecase.FoundCard
-import com.heveamobile.setsandsteps.core.domain.formatAmount
-import com.heveamobile.setsandsteps.core.designsystem.theme.color
-import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.designsystem.component.Card
 import com.heveamobile.setsandsteps.core.designsystem.component.CardDetailsCard
 import com.heveamobile.setsandsteps.core.designsystem.component.CollectableCardLayout
 import com.heveamobile.setsandsteps.core.designsystem.component.PrimaryButton
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
-import setsandsteps.shared.generated.resources.Res
-import setsandsteps.shared.generated.resources.close_screen_button
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_map_points
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.map_points_icon_description
-import setsandsteps.shared.generated.resources.overlay_cards_found
-import setsandsteps.shared.generated.resources.overlay_new_cards
-import setsandsteps.shared.generated.resources.overlay_reveal_all_button
-import setsandsteps.shared.generated.resources.overlay_reveal_button
-import setsandsteps.shared.generated.resources.overlay_set_points_gained
-import setsandsteps.shared.generated.resources.overlay_skip_button
-import setsandsteps.shared.generated.resources.overlay_title
+import com.heveamobile.setsandsteps.core.designsystem.theme.color
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.domain.FormatMode
+import com.heveamobile.setsandsteps.core.domain.formatAmount
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
+import com.heveamobile.setsandsteps.core.domain.usecase.FoundCard
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.Res
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.close_screen_button
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_cards_found
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_new_cards
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_reveal_all_button
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_reveal_button
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_set_points_gained
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_skip_button
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_title
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
 
 @Composable
 fun FoundCardsOverlay(
     modifier: Modifier = Modifier,
     state: FoundCardsState,
-    onAction: (HomeAction) -> Unit,
+    onAction: (FoundCardsAction) -> Unit,
 ) {
     val foundCards = state.foundCards
     val revealedCards = state.foundCards.filter { it.isRevealed }
@@ -181,9 +181,9 @@ fun FoundCardsOverlay(
                     containerColor = MaterialTheme.colorScheme.secondaryContainer,
                     onClick = {
                         if (state.cardShown != null) {
-                            onAction(HomeAction.ToggleCardInfo(null))
+                            onAction(FoundCardsAction.ToggleCardInfo(null))
                         } else {
-                            onAction(HomeAction.CloseFoundCards)
+                            onAction(FoundCardsAction.CloseFoundCards)
                         }
                     },
                 ) {
@@ -220,9 +220,9 @@ fun FoundCardsOverlay(
                         .copy(containerColor = MaterialTheme.colorScheme.secondaryContainer),
                     onClick = {
                         if (!state.isRevealingAll) {
-                            onAction(HomeAction.RevealAllCards)
+                            onAction(FoundCardsAction.RevealAllCards)
                         } else {
-                            onAction(HomeAction.SkipRevealingAllCards)
+                            onAction(FoundCardsAction.SkipRevealingAllCards)
                         }
                     },
                 ) {
@@ -242,7 +242,7 @@ fun FoundCardsOverlay(
 private fun GridLayout(
     state: FoundCardsState,
     foundCards: List<FoundCard>,
-    onAction: (HomeAction) -> Unit,
+    onAction: (FoundCardsAction) -> Unit,
     showResultSummary: Boolean,
     mapPointsGained: Int,
     screenHeight: Int,
@@ -255,7 +255,7 @@ private fun GridLayout(
     val mediumSpacingPx = with(density) { MaterialTheme.spacing.medium.toPx() }
     val largeSpacingPx = with(density) { MaterialTheme.spacing.large.toPx() }
 
-    // Auto scroll logic for revealing all destinations
+    // Auto scroll logic for revealing all cards
     var wasSummaryShown by remember { mutableStateOf(state.showResultSummary) }
     LaunchedEffect(
         foundCards.filter { it.isRevealed },
@@ -353,10 +353,10 @@ private fun GridLayout(
                 mapPointsGained = card.setPointsGained,
                 onClick = {
                     if (card.isRevealed) {
-                        onAction(HomeAction.ToggleCardInfo(card.card))
+                        onAction(FoundCardsAction.ToggleCardInfo(card.card))
 
                     } else {
-                        onAction(HomeAction.RevealCard(card.card))
+                        onAction(FoundCardsAction.RevealCard(card.card))
                     }
                 },
             )

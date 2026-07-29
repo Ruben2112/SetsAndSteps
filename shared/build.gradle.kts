@@ -63,6 +63,7 @@ kotlin {
                 implementation(projects.core.designSystem)
                 implementation(projects.core.presentation)
                 implementation(projects.core.navigation)
+                implementation(projects.core.foundcards)
                 implementation(projects.feature.settings.presentation)
                 implementation(projects.feature.profile.presentation)
                 implementation(projects.feature.sets.presentation)

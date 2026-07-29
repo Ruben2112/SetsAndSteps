@@ -13,13 +13,14 @@ import com.heveamobile.setsandsteps.core.domain.usecase.SpendStepsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.SyncStepsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.UpdateUserRecordsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.UpsertInitialMapDataUseCase
+import com.heveamobile.setsandsteps.core.foundcards.foundCardsModule
 import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
 import com.heveamobile.setsandsteps.feature.cards.presentation.cardsPresentationModule
 import com.heveamobile.setsandsteps.feature.profile.presentation.profilePresentationModule
-import com.heveamobile.setsandsteps.feature.settings.presentation.settingsPresentationModule
-import com.heveamobile.setsandsteps.feature.sets.presentation.setsPresentationModule
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.setPointExchangePresentationModule
-import com.heveamobile.setsandsteps.ui.home.HomeViewModel
+import com.heveamobile.setsandsteps.feature.sets.presentation.setsPresentationModule
+import com.heveamobile.setsandsteps.feature.settings.presentation.settingsPresentationModule
+import com.heveamobile.setsandsteps.shell.HomeViewModel
 import org.koin.core.KoinApplication
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.core.context.startKoin
@@ -61,6 +62,7 @@ fun getKoinModules() = listOf(
     viewModelModule,
     useCaseModule,
     targetModule,
+    foundCardsModule,
     settingsPresentationModule,
     profilePresentationModule,
     setsPresentationModule,

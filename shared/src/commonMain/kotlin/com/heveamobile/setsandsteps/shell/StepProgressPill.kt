@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.home
+package com.heveamobile.setsandsteps.shell
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.LinearEasing
@@ -26,16 +26,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_footstep
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_steps
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.domain.FormatMode
 import com.heveamobile.setsandsteps.core.domain.formatAmount
-import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import setsandsteps.shared.generated.resources.Res
 import setsandsteps.shared.generated.resources.footsteps_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_footstep
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_steps
 
 @Composable
 fun StepProgressPill(

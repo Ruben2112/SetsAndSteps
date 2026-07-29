@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="close_screen_button">Close screen button</string>
+    <string name="overlay_reveal_all_button">Reveal all</string>
+    <string name="overlay_reveal_button">Reveal</string>
+    <string name="overlay_skip_button">Skip</string>
+    <string name="overlay_title">During your travels, you found...</string>
+    <string name="overlay_cards_found">Cards found:</string>
+    <string name="overlay_new_cards">New destinations:</string>
+    <string name="overlay_set_points_gained">Set points gained:</string>
+</resources>

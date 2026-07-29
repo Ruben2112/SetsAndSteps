@@ -1,6 +1,5 @@
-package com.heveamobile.setsandsteps.ui.home
+package com.heveamobile.setsandsteps.shell
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -32,7 +31,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
@@ -50,19 +51,19 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import com.heveamobile.setsandsteps.core.domain.model.SortingOrder
+import com.heveamobile.setsandsteps.core.foundcards.FoundCardsHost
 import com.heveamobile.setsandsteps.core.navigation.DrawerRoute
 import com.heveamobile.setsandsteps.core.navigation.NavigationDrawer
 import com.heveamobile.setsandsteps.core.navigation.NavigationDrawerRoute
 import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
-import com.heveamobile.setsandsteps.core.navigation.Route
+import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
+import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
 import com.heveamobile.setsandsteps.feature.cards.presentation.DestinationInfo
 import com.heveamobile.setsandsteps.feature.cards.presentation.Destinations
 import com.heveamobile.setsandsteps.feature.profile.presentation.ProfileRoute
-import com.heveamobile.setsandsteps.feature.settings.presentation.SettingsRoute
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.SetPointExchangeRoute
 import com.heveamobile.setsandsteps.feature.sets.presentation.SetsRoute
-import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
-import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
+import com.heveamobile.setsandsteps.feature.settings.presentation.SettingsRoute
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import org.jetbrains.compose.resources.stringResource
@@ -105,6 +106,7 @@ fun HomeContent(
 ) {
 
     val snackbarHostState = remember { SnackbarHostState() }
+    var foundCardsVisible by remember { mutableStateOf(false) }
 
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val observer = remember {
@@ -191,7 +193,7 @@ fun HomeContent(
         ModalNavigationDrawer(
             modifier = Modifier
                 .blur(
-                    if (state.foundCardsState.foundCards.isEmpty()) 0.dp else 8.dp,
+                    if (foundCardsVisible) 8.dp else 0.dp,
                 )
                 .pointerInput(Unit) {
                     detectTapGestures(
@@ -407,14 +409,7 @@ fun HomeContent(
         }
     }
 
-    AnimatedVisibility(
-        visible = state.foundCardsState.foundCards.isNotEmpty(),
-        enter = fadeIn(tween(300)),
-        exit = fadeOut(tween(300)),
-    ) {
-        FoundCardsOverlay(
-            state = state.foundCardsState,
-            onAction = onAction,
-        )
-    }
+    FoundCardsHost(
+        onVisibilityChanged = { foundCardsVisible = it },
+    )
 }

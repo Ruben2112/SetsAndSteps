@@ -14,6 +14,7 @@ kotlin {
                 implementation(projects.core.presentation)
                 implementation(projects.core.designSystem)
                 implementation(projects.core.navigation)
+                implementation(projects.core.foundcards)
 
                 implementation(libs.findLibrary("jetbrains-material-icons").get())
             }

@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.feature.setpointexchange.presentation
+﻿package com.heveamobile.setsandsteps.feature.setpointexchange.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,27 +41,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.heveamobile.setsandsteps.core.domain.FormatMode
-import com.heveamobile.setsandsteps.core.domain.model.Rarity
-import com.heveamobile.setsandsteps.core.domain.formatAmount
-import com.heveamobile.setsandsteps.core.designsystem.theme.color
-import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.designsystem.component.Card
 import com.heveamobile.setsandsteps.core.designsystem.component.CardSetDropDownMenu
 import com.heveamobile.setsandsteps.core.designsystem.component.InfoCard
 import com.heveamobile.setsandsteps.core.designsystem.component.InputField
-import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
 import com.heveamobile.setsandsteps.core.designsystem.component.PrimaryButton
 import com.heveamobile.setsandsteps.core.designsystem.component.SecondaryButton
 import com.heveamobile.setsandsteps.core.designsystem.component.SetStatisticsList
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
-import org.koin.compose.viewmodel.koinViewModel
-import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.Res
-import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.decrease_icon_description
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_map_points
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.map_points_icon_description
+import com.heveamobile.setsandsteps.core.designsystem.theme.color
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.domain.FormatMode
+import com.heveamobile.setsandsteps.core.domain.formatAmount
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
+import com.heveamobile.setsandsteps.core.foundcards.FoundCardsHost
+import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.Res
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.decrease_icon_description
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.increase_icon_description
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_autofill
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_current_set_points
@@ -72,6 +69,10 @@ import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.genera
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_sold_out
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_total_cost
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_points_alternate_text
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
 
 @Composable
 fun SetPointExchangeScreen(modifier: Modifier = Modifier) {
@@ -130,93 +131,47 @@ fun SetPointExchangeContent(
         ),
     )
 
-    LazyColumn(
-        modifier = modifier
-            .fillMaxWidth()
-            .consumeWindowInsets(LocalScaffoldPadding.current)
-            .imePadding(),
-        contentPadding = PaddingValues(MaterialTheme.spacing.medium),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-    ) {
-        item {
-            InfoCard(
-                modifier = Modifier.fillMaxWidth(),
-                annotatedText = inlinedString,
-                inlineContent = inlineContent,
-            )
-        }
-        if (state.sets.size > 1) {
+    Box(modifier = modifier) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .consumeWindowInsets(LocalScaffoldPadding.current)
+                .imePadding(),
+            contentPadding = PaddingValues(MaterialTheme.spacing.medium),
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        ) {
             item {
-                CardSetDropDownMenu(
-                    sets = state.sets,
-                    selectedSet = state.selectedSet
-                        ?: state.sets.first(),
-                    onItemSelected = { set -> onAction(SetPointExchangeAction.SelectSet(set)) },
+                InfoCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    annotatedText = inlinedString,
+                    inlineContent = inlineContent,
                 )
             }
-        }
-        if (state.selectedSet != null) {
-            item {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    bottomContent = {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            Text(
-                                modifier = Modifier.weight(1F),
-                                text = stringResource(Res.string.set_point_exchange_current_set_points),
-                                style = MaterialTheme.typography.bodyMedium,
-                            )
-                            Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraLarge))
-                            Icon(
-                                modifier = Modifier.size(pointsIconSize),
-                                painter = painterResource(DesignSystemRes.drawable.ic_map_points),
-                                contentDescription = stringResource(DesignSystemRes.string.map_points_icon_description),
-                                tint = MaterialTheme.colorScheme.onSurface,
-                            )
-                            Text(
-                                text = formatAmount(
-                                    state.selectedSet.userData?.currentSetPoints
-                                        ?: 0,
-                                    formatMode = FormatMode.Long,
-                                ),
-                                style = MaterialTheme.typography.bodyMedium,
-                            )
-                        }
-                    },
-                ) {
-                    SetStatisticsList(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        set = state.selectedSet,
-                        showExpandIcon = false,
+            if (state.sets.size > 1) {
+                item {
+                    CardSetDropDownMenu(
+                        sets = state.sets,
+                        selectedSet = state.selectedSet
+                            ?: state.sets.first(),
+                        onItemSelected = { set -> onAction(SetPointExchangeAction.SelectSet(set)) },
                     )
                 }
             }
-        }
-        if (state.selectedSet != null) {
-            item {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    title = stringResource(Res.string.set_point_exchange_shop),
-                    bottomContent = {
-                        Column(modifier = Modifier.fillMaxWidth()) {
+            if (state.selectedSet != null) {
+                item {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        bottomContent = {
                             Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(
-                                        vertical = MaterialTheme.spacing.extraSmall,
-                                    ),
+                                modifier = Modifier.fillMaxWidth(),
                                 verticalAlignment = Alignment.CenterVertically,
                             ) {
                                 Text(
                                     modifier = Modifier.weight(1F),
-                                    text = stringResource(Res.string.set_point_exchange_total_cost),
+                                    text = stringResource(Res.string.set_point_exchange_current_set_points),
                                     style = MaterialTheme.typography.bodyMedium,
                                 )
-                                Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
+                                Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraLarge))
                                 Icon(
                                     modifier = Modifier.size(pointsIconSize),
                                     painter = painterResource(DesignSystemRes.drawable.ic_map_points),
@@ -225,58 +180,108 @@ fun SetPointExchangeContent(
                                 )
                                 Text(
                                     text = formatAmount(
-                                        state.totalCost,
+                                        state.selectedSet.userData?.currentSetPoints
+                                            ?: 0,
                                         formatMode = FormatMode.Long,
                                     ),
                                     style = MaterialTheme.typography.bodyMedium,
                                 )
                             }
-                            Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
-                            FlowRow(
-                                modifier = Modifier.fillMaxWidth(),
-                                itemVerticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.End,
-                            ) {
-                                SecondaryButton(
-                                    label = stringResource(Res.string.set_point_exchange_autofill),
-                                    onClick = { onAction(SetPointExchangeAction.AutofillCart) },
-                                )
-                                Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
-                                SecondaryButton(
-                                    label = stringResource(Res.string.set_point_exchange_reset),
-                                    onClick = { onAction(SetPointExchangeAction.ResetCart) },
-                                )
-                                Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
-                                PrimaryButton(
-                                    label = stringResource(Res.string.set_point_exchange_purchase),
-                                    onClick = { onAction(SetPointExchangeAction.Purchase) },
-                                )
-                            }
-                        }
-                    },
-                ) {
-                    Rarity.entries.forEach { rarity ->
-                        val cost = state.selectedSet.storePrice(rarity)
-                        val amountInCart = state.cart[rarity]
-                            ?: 0
-                        val amountInStock = state.amountInStock[rarity]
-                            ?: 0
-                        CardStockRow(
-                            rarity = rarity,
-                            cost = cost,
-                            amountInCart = amountInCart,
-                            amountInStock = amountInStock,
-                            mapPointsIconSize = pointsIconSize,
-                            onAction = onAction,
+                        },
+                    ) {
+                        SetStatisticsList(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            set = state.selectedSet,
+                            showExpandIcon = false,
                         )
                     }
-
                 }
             }
+            if (state.selectedSet != null) {
+                item {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        title = stringResource(Res.string.set_point_exchange_shop),
+                        bottomContent = {
+                            Column(modifier = Modifier.fillMaxWidth()) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(
+                                            vertical = MaterialTheme.spacing.extraSmall,
+                                        ),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    Text(
+                                        modifier = Modifier.weight(1F),
+                                        text = stringResource(Res.string.set_point_exchange_total_cost),
+                                        style = MaterialTheme.typography.bodyMedium,
+                                    )
+                                    Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
+                                    Icon(
+                                        modifier = Modifier.size(pointsIconSize),
+                                        painter = painterResource(DesignSystemRes.drawable.ic_map_points),
+                                        contentDescription = stringResource(DesignSystemRes.string.map_points_icon_description),
+                                        tint = MaterialTheme.colorScheme.onSurface,
+                                    )
+                                    Text(
+                                        text = formatAmount(
+                                            state.totalCost,
+                                            formatMode = FormatMode.Long,
+                                        ),
+                                        style = MaterialTheme.typography.bodyMedium,
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
+                                FlowRow(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    itemVerticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.End,
+                                ) {
+                                    SecondaryButton(
+                                        label = stringResource(Res.string.set_point_exchange_autofill),
+                                        onClick = { onAction(SetPointExchangeAction.AutofillCart) },
+                                    )
+                                    Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
+                                    SecondaryButton(
+                                        label = stringResource(Res.string.set_point_exchange_reset),
+                                        onClick = { onAction(SetPointExchangeAction.ResetCart) },
+                                    )
+                                    Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
+                                    PrimaryButton(
+                                        label = stringResource(Res.string.set_point_exchange_purchase),
+                                        onClick = { onAction(SetPointExchangeAction.Purchase) },
+                                    )
+                                }
+                            }
+                        },
+                    ) {
+                        Rarity.entries.forEach { rarity ->
+                            val cost = state.selectedSet.storePrice(rarity)
+                            val amountInCart = state.cart[rarity]
+                                ?: 0
+                            val amountInStock = state.amountInStock[rarity]
+                                ?: 0
+                            CardStockRow(
+                                rarity = rarity,
+                                cost = cost,
+                                amountInCart = amountInCart,
+                                amountInStock = amountInStock,
+                                mapPointsIconSize = pointsIconSize,
+                                onAction = onAction,
+                            )
+                        }
+
+                    }
+                }
+            }
+            item {
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+            }
         }
-        item {
-            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-        }
+
+        FoundCardsHost()
     }
 }
 

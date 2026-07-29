@@ -82,12 +82,21 @@ different device as well.
 
 The app follows Clean Architecture and uses an MVI state management approach.
 
+The codebase is split into a feature-first, multi-module structure. Each feature (e.g. cards,
+sets, settings, profile, set point exchange) lives in its own `feature/<name>` module, depending
+only on the `core` modules it needs. Shared building blocks live under `core`, split by concern:
+`domain`, `database`, `data`, `design-system`, `presentation`, `navigation`, and `foundcards`. The
+`shared` module is the umbrella Compose Multiplatform module that wires all `core` and `feature`
+modules together and holds the platform-specific glue code. Modules are configured consistently
+through Gradle convention plugins defined in `build-logic`.
+
 ### Use of AI
 
 This project was mainly created as a way for me to learn about KMP, and I firmly believe writing
-code yourself is the best way to learn. That is why no AI agent was used during the development of
-this project. AI assistants were only used for brainstorming, reviewing, and code suggestions. All
-AI generated code has been thoroughly reviewed by me before manually implementing it myself.
+code yourself is the best way to learn. That is why AI agent was used only for a limited amount
+during the development of this project. AI assistants were mainly used for brainstorming, reviewing,
+and code suggestions. All AI generated code has been thoroughly reviewed by me manually before
+implementation.
 
 ### Tools & Libraries
 
@@ -98,9 +107,10 @@ AI generated code has been thoroughly reviewed by me before manually implementin
 - Image loading: [Coil](https://github.com/coil-kt/coil)
 - Map (interactive and static image): [MapBox](https://www.setbox.com/)
 - Charts: [Vico](https://github.com/patrykandpatrick/vico)
-- UI design (by
-  me): [Figma](https://www.figma.com/design/xKbS1UpJltSdgTHozo4Vj3/MBS?m=auto&t=XchPLaMGu1iF9dlY-1)
-- AI assisted coding: [Claude](https://claude.ai/)
+- UI design (by me) (outdated
+  design): [Figma](https://www.figma.com/design/xKbS1UpJltSdgTHozo4Vj3/MBS?m=auto&t=XchPLaMGu1iF9dlY-1)
+- AI: [Claude](https://claude.ai/) & Android Studio's
+  integrated [Gemini agent](https://developer.android.com/gemini-in-android)
 
 ### Data Sources
 
@@ -111,15 +121,10 @@ AI generated code has been thoroughly reviewed by me before manually implementin
 This is a Compose Multiplatform project. While both Android and iOS are targeted, iOS is currently
 not implemented and only targeted for future implementation.
 
-* [/shared](./shared/src) is for code that will be shared across your Compose Multiplatform
-  applications.
-  It contains several subfolders:
-    - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-    - Other folders are for Kotlin code that will be compiled for only the platform indicated in the
-      folder name.
-      For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-      the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
 * [/androidApp](./androidApp/src) contains the Android application entry point.
+* [/shared](./shared/src) is the umbrella Compose Multiplatform module. It wires together the
+  `core` and `feature` modules (see [Architecture](#architecture)) and contains the
+  platform-specific glue code, split into `androidMain`, `iosMain`, and `commonMain` source sets.
 * [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose
   Multiplatform, you need this entry point for your iOS app. This is also where you should add
   SwiftUI code for your project.
@@ -149,7 +154,7 @@ in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and r
 Learn more
 about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
 
-## Roadset
+## Roadmap
 
 Because this is in the end just a passion project, it can take some time to get to these. Items are
 not in any particular order.

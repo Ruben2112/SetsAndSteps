@@ -6,6 +6,6 @@
     <string name="overlay_skip_button">Skip</string>
     <string name="overlay_title">During your travels, you found...</string>
     <string name="overlay_cards_found">Cards found:</string>
-    <string name="overlay_new_cards">New destinations:</string>
+    <string name="overlay_new_cards">New cards:</string>
     <string name="overlay_set_points_gained">Set points gained:</string>
 </resources>

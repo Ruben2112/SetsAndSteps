@@ -22,9 +22,6 @@ class GetCountOfCardsInExchangeStockUseCase {
             Rarity.Epic -> cardSet.epicCardsFound
             Rarity.Legendary -> cardSet.legendaryCardsFound
         }
-
-        // total = amount of destinations in map
-        // visited = amount of destinations that were already visited
         return (total - found).coerceAtLeast(0)
     }
 }

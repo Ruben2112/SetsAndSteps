@@ -19,7 +19,7 @@ data object Cards : Route, DrawerRoute {
 
 @Serializable
 data class CardDetails(
-    val destinationId: String?,
+    val cardId: String?,
 ) : Route, DrawerRoute {
     override val navigationDrawerRoute = NavigationDrawerRoute.CardDetails
 }
@@ -33,9 +33,9 @@ val cardsPresentationModule = module {
             getSetsWithProgressUseCase = get(),
         )
     }
-    navigation<Cards> { DestinationsScreen() }
+    navigation<Cards> { CardsScreen() }
     navigation<CardDetails> { route ->
-        DestinationInfoScreen(
+        CardDetailsScreen(
             viewModel = koinViewModel { parametersOf(route) },
             route = route,
         )

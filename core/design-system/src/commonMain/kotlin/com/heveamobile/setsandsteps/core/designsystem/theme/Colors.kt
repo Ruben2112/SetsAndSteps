@@ -216,33 +216,8 @@ fun sliderColors(): SliderColors {
         .colors()
         .copy(
             activeTrackColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            inactiveTrackColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            inactiveTrackColor = MaterialTheme.colorScheme.surfaceContainerHighest,
             activeTickColor = Color.Transparent,
             inactiveTickColor = Color.Transparent,
         )
-}
-
-fun Color.toHex(): String {
-    val r = (red * 255)
-        .toInt()
-        .toString(16)
-        .padStart(
-            2,
-            '0',
-        )
-    val g = (green * 255)
-        .toInt()
-        .toString(16)
-        .padStart(
-            2,
-            '0',
-        )
-    val b = (blue * 255)
-        .toInt()
-        .toString(16)
-        .padStart(
-            2,
-            '0',
-        )
-    return "#$r$g$b".uppercase()
 }

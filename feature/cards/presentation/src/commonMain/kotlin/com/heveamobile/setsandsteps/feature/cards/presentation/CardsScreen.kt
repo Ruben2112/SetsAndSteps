@@ -17,26 +17,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.designsystem.component.Card
 import com.heveamobile.setsandsteps.core.designsystem.component.CardSetDropDownMenu
 import com.heveamobile.setsandsteps.core.designsystem.component.CollectableCardLayout
 import com.heveamobile.setsandsteps.core.designsystem.component.KeyValueRow
 import com.heveamobile.setsandsteps.core.designsystem.component.SetStatisticsList
-import org.jetbrains.compose.resources.stringResource
-import org.koin.compose.viewmodel.koinViewModel
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.feature.cards.presentation.generated.resources.Res
 import com.heveamobile.setsandsteps.feature.cards.presentation.generated.resources.cards_current_level
 import com.heveamobile.setsandsteps.feature.cards.presentation.generated.resources.cards_total_visits
+import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun DestinationsScreen(
+fun CardsScreen(
     modifier: Modifier = Modifier,
 ) {
     val viewModel = koinViewModel<CardsViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    DestinationsContent(
+    CardsContent(
         modifier = modifier,
         state = state,
         onAction = viewModel::onAction,
@@ -44,7 +44,7 @@ fun DestinationsScreen(
 }
 
 @Composable
-private fun DestinationsContent(
+private fun CardsContent(
     modifier: Modifier = Modifier,
     state: CardsState,
     onAction: (CardsAction) -> Unit,

@@ -211,7 +211,7 @@ fun HomeContent(
                             NavigationDrawerRoute.Statistics -> StatisticsRoute
                             NavigationDrawerRoute.Sets -> SetsRoute
                             NavigationDrawerRoute.Cards -> Cards
-                            NavigationDrawerRoute.CardDetails -> CardDetails(destinationId = null)
+                            NavigationDrawerRoute.CardDetails -> CardDetails(cardId = null)
                             NavigationDrawerRoute.SetPointExchange -> SetPointExchangeRoute
                             NavigationDrawerRoute.Settings -> SettingsRoute
                         }

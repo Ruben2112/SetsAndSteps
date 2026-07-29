@@ -18,18 +18,18 @@ import com.heveamobile.setsandsteps.core.designsystem.component.DropDownMenu
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 
 @Composable
-fun DestinationInfoScreen(
+fun CardDetailsScreen(
     modifier: Modifier = Modifier,
     viewModel: CardDetailsViewModel,
     route: CardDetails,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    LaunchedEffect(route.destinationId) {
-        viewModel.loadCardDetails(route.destinationId)
+    LaunchedEffect(route.cardId) {
+        viewModel.loadCardDetails(route.cardId)
     }
 
-    DestinationInfoContent(
+    CardDetailsContent(
         modifier = modifier,
         state = state,
         onAction = viewModel::onAction,
@@ -37,7 +37,7 @@ fun DestinationInfoScreen(
 }
 
 @Composable
-fun DestinationInfoContent(
+fun CardDetailsContent(
     modifier: Modifier = Modifier,
     state: CardDetailsState,
     onAction: (CardDetailsAction) -> Unit,
@@ -68,13 +68,13 @@ fun DestinationInfoContent(
                     selectedItem = state.selectedCard
                         ?: state.selectedSet?.cards?.first()
                         ?: state.sets.first().cards.first(),
-                    onItemSelected = { destination ->
-                        onAction(CardDetailsAction.SelectCard(destination))
+                    onItemSelected = { card ->
+                        onAction(CardDetailsAction.SelectCard(card))
                     },
-                ) { destination ->
+                ) { card ->
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = destination.name,
+                        text = card.name,
                         style = MaterialTheme.typography.bodyMedium.copy(MaterialTheme.colorScheme.onPrimaryContainer),
                     )
                 }

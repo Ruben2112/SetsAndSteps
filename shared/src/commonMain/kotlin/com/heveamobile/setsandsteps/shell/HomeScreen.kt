@@ -58,12 +58,12 @@ import com.heveamobile.setsandsteps.core.navigation.NavigationDrawerRoute
 import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
 import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
 import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
-import com.heveamobile.setsandsteps.feature.cards.presentation.DestinationInfo
-import com.heveamobile.setsandsteps.feature.cards.presentation.Destinations
-import com.heveamobile.setsandsteps.feature.profile.presentation.ProfileRoute
+import com.heveamobile.setsandsteps.feature.cards.presentation.CardDetails
+import com.heveamobile.setsandsteps.feature.cards.presentation.Cards
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.SetPointExchangeRoute
 import com.heveamobile.setsandsteps.feature.sets.presentation.SetsRoute
 import com.heveamobile.setsandsteps.feature.settings.presentation.SettingsRoute
+import com.heveamobile.setsandsteps.feature.statistics.presentation.StatisticsRoute
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import org.jetbrains.compose.resources.stringResource
@@ -141,24 +141,24 @@ fun HomeContent(
             serializersModule = SerializersModule {
                 polymorphic(NavKey::class) {
                     subclass(
-                        ProfileRoute::class,
-                        ProfileRoute.serializer(),
-                    )
-                    subclass(
                         SetsRoute::class,
                         SetsRoute.serializer(),
                     )
                     subclass(
-                        Destinations::class,
-                        Destinations.serializer(),
+                        Cards::class,
+                        Cards.serializer(),
                     )
                     subclass(
-                        DestinationInfo::class,
-                        DestinationInfo.serializer(),
+                        CardDetails::class,
+                        CardDetails.serializer(),
                     )
                     subclass(
                         SetPointExchangeRoute::class,
                         SetPointExchangeRoute.serializer(),
+                    )
+                    subclass(
+                        StatisticsRoute::class,
+                        StatisticsRoute.serializer(),
                     )
                     subclass(
                         SettingsRoute::class,
@@ -168,15 +168,15 @@ fun HomeContent(
             }
         },
         elements = arrayOf<NavKey>(
-            ProfileRoute,
+            SetsRoute,
         ),
     )
 
     LaunchedEffect(Unit) {
         navigationHandler.navigationEvents.collect { route ->
-            if (backStack.size > 1 && !(backStack.last() is Destinations && route is DestinationInfo)) {
+            if (backStack.size > 1 && !(backStack.last() is Cards && route is CardDetails)) {
                 // Unless we are performing nested navigation, clear backstack until only first
-                // screen (Profile) remains
+                // screen (Statistics) remains
                 backStack
                     .subList(
                         1,
@@ -208,15 +208,15 @@ fun HomeContent(
                     onDrawerItemClicked = { route ->
                         onAction(HomeAction.CloseNavigationDrawer)
                         val navKey = when (route) {
-                            NavigationDrawerRoute.Profile -> ProfileRoute
+                            NavigationDrawerRoute.Statistics -> StatisticsRoute
                             NavigationDrawerRoute.Sets -> SetsRoute
-                            NavigationDrawerRoute.Cards -> Destinations
-                            NavigationDrawerRoute.CardDetails -> DestinationInfo(destinationId = null)
+                            NavigationDrawerRoute.Cards -> Cards
+                            NavigationDrawerRoute.CardDetails -> CardDetails(destinationId = null)
                             NavigationDrawerRoute.SetPointExchange -> SetPointExchangeRoute
                             NavigationDrawerRoute.Settings -> SettingsRoute
                         }
                         if (backStack.lastOrNull() != navKey) {
-                            // Clear backstack until only first screen (Profile) remains
+                            // Clear backstack until only first screen (Statistics) remains
                             backStack
                                 .subList(
                                     1,
@@ -224,7 +224,7 @@ fun HomeContent(
                                 )
                                 .clear()
                         }
-                        if (backStack.lastOrNull() != navKey && (navKey != ProfileRoute || backStack.lastOrNull() != ProfileRoute)) {
+                        if (backStack.lastOrNull() != navKey && (navKey != StatisticsRoute || backStack.lastOrNull() != StatisticsRoute)) {
                             backStack.add(navKey)
                         }
                     },
@@ -281,7 +281,7 @@ fun HomeContent(
                                 },
                             )
                             val currentBackStackEntry = backStack.lastOrNull()
-                            if (currentBackStackEntry is Destinations) {
+                            if (currentBackStackEntry is Cards) {
                                 IconButton(onClick = { onAction(HomeAction.ToggleDropdownMenu) }) {
                                     Icon(
                                         Icons.Default.MoreVert,

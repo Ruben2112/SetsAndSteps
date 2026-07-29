@@ -9,9 +9,9 @@ app and find out which cards you have found virtually.
 ### How to Play
 
 The app requires permission to read from Android Health Connect or Apple Health and will ask you to
-grant these permissions on the Profile screen. After doing so, all steps registered to those
+grant these permissions on the Statistics screen. After doing so, all steps registered to those
 platforms from that point on are automatically synced to the game when opening it. You can find
-statistics of your step data on the same Profile screen.
+statistics of your step data on the same Statistics screen.
 
 ### Sets and Cards
 
@@ -82,7 +82,7 @@ different device as well.
 The app follows Clean Architecture and uses an MVI state management approach.
 
 The codebase is split into a feature-first, multi-module structure. Each feature (e.g. cards,
-sets, settings, profile, set point exchange) lives in its own `feature/<name>` module, depending
+sets, settings, statistics, set point exchange) lives in its own `feature/<name>` module, depending
 only on the `core` modules it needs. Shared building blocks live under `core`, split by concern:
 `domain`, `database`, `data`, `design-system`, `presentation`, `navigation`, and `foundcards`. The
 `shared` module is the umbrella Compose Multiplatform module that wires all `core` and `feature`

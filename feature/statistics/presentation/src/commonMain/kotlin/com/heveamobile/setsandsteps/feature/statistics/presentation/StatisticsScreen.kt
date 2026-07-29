@@ -1,4 +1,4 @@
-﻿package com.heveamobile.setsandsteps.feature.profile.presentation
+﻿package com.heveamobile.setsandsteps.feature.statistics.presentation
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
@@ -29,18 +29,36 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.heveamobile.setsandsteps.core.domain.FormatMode
-import com.heveamobile.setsandsteps.core.domain.manager.PermissionType
-import com.heveamobile.setsandsteps.core.presentation.rememberPermissionLauncher
-import com.heveamobile.setsandsteps.core.domain.formatAmount
-import com.heveamobile.setsandsteps.core.domain.formatDate
-import com.heveamobile.setsandsteps.core.domain.formatDateTime
-import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.designsystem.component.AlertDialog
 import com.heveamobile.setsandsteps.core.designsystem.component.Card
 import com.heveamobile.setsandsteps.core.designsystem.component.ErrorCard
 import com.heveamobile.setsandsteps.core.designsystem.component.KeyValueRow
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.error_action_request_permissions
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_cancel
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_continue
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.permissions_not_granted_error
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.domain.FormatMode
+import com.heveamobile.setsandsteps.core.domain.formatAmount
+import com.heveamobile.setsandsteps.core.domain.formatDate
+import com.heveamobile.setsandsteps.core.domain.formatDateTime
 import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionType
+import com.heveamobile.setsandsteps.core.presentation.rememberPermissionLauncher
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.Res
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.historic_step_data_start_time
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.historic_step_data_title
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.historic_step_data_total_steps
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.personal_current_vs_best_steps
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.personal_records_seven_days
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.personal_records_subtitle
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.personal_records_thirty_days
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.personal_records_title
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.personal_records_twenty_four_hours
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.statistics_error_health_connect_not_installed
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.statistics_health_permission_request_rationale
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.statistics_health_permission_request_title
+import com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources.statistics_loading_step_data
 import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.compose.cartesian.Scroll
 import com.patrykandpatrick.vico.compose.cartesian.axis.HorizontalAxis
@@ -62,39 +80,21 @@ import com.patrykandpatrick.vico.compose.common.component.rememberLineComponent
 import com.patrykandpatrick.vico.compose.common.component.rememberTextComponent
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_cancel
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_continue
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.permissions_not_granted_error
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.profile_error_action_request_permissions
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.Res
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.historic_step_data_start_time
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.historic_step_data_title
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.historic_step_data_total_steps
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.personal_current_vs_best_steps
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.personal_records_seven_days
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.personal_records_subtitle
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.personal_records_thirty_days
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.personal_records_title
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.personal_records_twenty_four_hours
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.profile_error_health_connect_not_installed
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.profile_health_permission_request_rationale
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.profile_health_permission_request_title
-import com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources.profile_loading_step_data
 import kotlin.time.Instant
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
 
 @Composable
-fun ProfileScreen(
+fun StatisticsScreen(
     modifier: Modifier = Modifier,
 ) {
-    val viewModel = koinViewModel<ProfileViewModel>()
+    val viewModel = koinViewModel<StatisticsViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     val lifecycleOwner = LocalLifecycleOwner.current
     LaunchedEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
-                viewModel.onAction(ProfileAction.UpdatePermissionState)
+                viewModel.onAction(StatisticsAction.UpdatePermissionState)
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -104,18 +104,18 @@ fun ProfileScreen(
         manager = viewModel.permissionManager,
         type = PermissionType.Health,
         onResult = { _ ->
-            viewModel.onAction(ProfileAction.UpdatePermissionState)
-            viewModel.onAction(ProfileAction.UpdateHasRequestedHealthPermission(true))
+            viewModel.onAction(StatisticsAction.UpdatePermissionState)
+            viewModel.onAction(StatisticsAction.UpdateHasRequestedHealthPermission(true))
         },
     )
 
-    ProfileContent(
+    StatisticsContent(
         modifier = modifier,
         state = state,
         onAction = viewModel::onAction,
         onPermissionRequest = {
             if (state.healthPermissionState == PermissionStatus.NotGranted && state.hasRequestedHealthPermission) {
-                viewModel.onAction(ProfileAction.ShowHealthSettingsDialog)
+                viewModel.onAction(StatisticsAction.ShowHealthSettingsDialog)
             } else {
                 launcher()
             }
@@ -124,10 +124,10 @@ fun ProfileScreen(
 }
 
 @Composable
-fun ProfileContent(
+fun StatisticsContent(
     modifier: Modifier = Modifier,
-    state: ProfileState,
-    onAction: (ProfileAction) -> Unit,
+    state: StatisticsState,
+    onAction: (StatisticsAction) -> Unit,
     onPermissionRequest: () -> Unit,
 ) {
     AnimatedVisibility(visible = state.showHealthSettingsDialog) {
@@ -155,7 +155,7 @@ fun ProfileContent(
                         )
                         Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
                         Text(
-                            text = stringResource(Res.string.profile_loading_step_data),
+                            text = stringResource(Res.string.statistics_loading_step_data),
                             style = MaterialTheme.typography.bodyMedium,
                         )
                     }
@@ -169,13 +169,13 @@ fun ProfileContent(
                 PermissionStatus.NotGranted, PermissionStatus.RationaleRequired -> Column(modifier = Modifier.fillMaxWidth()) {
                     ErrorCard(
                         errorMessage = stringResource(DesignSystemRes.string.permissions_not_granted_error),
-                        actionLabel = stringResource(DesignSystemRes.string.profile_error_action_request_permissions),
+                        actionLabel = stringResource(DesignSystemRes.string.error_action_request_permissions),
                         onAction = onPermissionRequest,
                     )
                 }
 
                 PermissionStatus.NotInstalled -> Column(modifier = Modifier.fillMaxWidth()) {
-                    ErrorCard(errorMessage = stringResource(Res.string.profile_error_health_connect_not_installed))
+                    ErrorCard(errorMessage = stringResource(Res.string.statistics_error_health_connect_not_installed))
                 }
             }
         }
@@ -185,26 +185,26 @@ fun ProfileContent(
 }
 
 @Composable
-private fun HealthSettingsDialog(onAction: (ProfileAction) -> Unit) {
+private fun HealthSettingsDialog(onAction: (StatisticsAction) -> Unit) {
     AlertDialog(
-        title = stringResource(Res.string.profile_health_permission_request_title),
-        body = stringResource(Res.string.profile_health_permission_request_rationale),
+        title = stringResource(Res.string.statistics_health_permission_request_title),
+        body = stringResource(Res.string.statistics_health_permission_request_rationale),
         primaryActionLabel = stringResource(DesignSystemRes.string.label_continue),
         primaryAction = {
-            onAction(ProfileAction.OpenAppSettings)
+            onAction(StatisticsAction.OpenAppSettings)
         },
         secondaryActionLabel = stringResource(DesignSystemRes.string.label_cancel),
         secondaryAction = {
-            onAction(ProfileAction.DismissHealthSettingsDialog)
+            onAction(StatisticsAction.DismissHealthSettingsDialog)
         },
         onDismissRequest = {
-            onAction(ProfileAction.DismissHealthSettingsDialog)
+            onAction(StatisticsAction.DismissHealthSettingsDialog)
         },
     )
 }
 
 @Composable
-private fun HistoricDataCard(state: ProfileState) {
+private fun HistoricDataCard(state: StatisticsState) {
     Card(
         title = stringResource(Res.string.historic_step_data_title),
     ) {
@@ -333,7 +333,7 @@ private fun DailyStepsChart(dailyStepData: Map<Instant, Long>) {
 }
 
 @Composable
-private fun PersonalRecordsDataCard(state: ProfileState) {
+private fun PersonalRecordsDataCard(state: StatisticsState) {
     Card(
         title = stringResource(Res.string.personal_records_title),
         subtitle = stringResource(Res.string.personal_records_subtitle),

@@ -3,7 +3,7 @@
     <string name="label_continue">Continue</string>
     <string name="label_save">Save</string>
     <string name="permissions_not_granted_error">Missing required permissions</string>
-    <string name="profile_error_action_request_permissions">Grant permissions</string>
+    <string name="error_action_request_permissions">Grant permissions</string>
     <string name="error_card_icon_description">Error icon</string>
     <string name="warning_card_icon_description">Warning icon</string>
     <string name="steps_divider_icon_description">Footstep icon</string>

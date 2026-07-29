@@ -40,33 +40,26 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.heveamobile.setsandsteps.core.domain.FormatMode
-import com.heveamobile.setsandsteps.core.presentation.rememberPermissionLauncher
-import com.heveamobile.setsandsteps.core.domain.formatTime
-import com.heveamobile.setsandsteps.core.designsystem.theme.sliderColors
-import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
-import com.heveamobile.setsandsteps.core.designsystem.theme.switchColors
-import com.heveamobile.setsandsteps.core.designsystem.theme.timePickerColors
 import com.heveamobile.setsandsteps.core.designsystem.component.AlertDialog
 import com.heveamobile.setsandsteps.core.designsystem.component.Card
 import com.heveamobile.setsandsteps.core.designsystem.component.ErrorCard
-import com.heveamobile.setsandsteps.core.presentation.FilePickerHandlerEffect
-import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
 import com.heveamobile.setsandsteps.core.designsystem.component.PrimaryButton
 import com.heveamobile.setsandsteps.core.designsystem.component.SecondaryButton
-import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.datetime.LocalTime
-import org.jetbrains.compose.resources.getString
-import org.jetbrains.compose.resources.stringResource
-import org.koin.compose.viewmodel.koinViewModel
-import org.koin.core.annotation.KoinExperimentalAPI
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.error_action_request_permissions
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_cancel
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_continue
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_save
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.permissions_not_granted_error
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.profile_error_action_request_permissions
+import com.heveamobile.setsandsteps.core.designsystem.theme.sliderColors
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.designsystem.theme.switchColors
+import com.heveamobile.setsandsteps.core.designsystem.theme.timePickerColors
+import com.heveamobile.setsandsteps.core.domain.FormatMode
+import com.heveamobile.setsandsteps.core.domain.formatTime
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
+import com.heveamobile.setsandsteps.core.presentation.FilePickerHandlerEffect
+import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
+import com.heveamobile.setsandsteps.core.presentation.rememberPermissionLauncher
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.Res
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_daily_reminder_change_time
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_daily_reminder_enable_daily_reminder
@@ -85,6 +78,13 @@ import com.heveamobile.setsandsteps.feature.settings.presentation.generated.reso
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_import_successful
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_notification_permission_request_rationale
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_notification_permission_request_title
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.datetime.LocalTime
+import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.annotation.KoinExperimentalAPI
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
 
 @Composable
 fun SettingsScreen(modifier: Modifier = Modifier) {
@@ -301,7 +301,7 @@ private fun ReminderCard(
                                     Res.string.settings_error_notifications_not_granted
                                 },
                             ),
-                            actionLabel = stringResource(DesignSystemRes.string.profile_error_action_request_permissions),
+                            actionLabel = stringResource(DesignSystemRes.string.error_action_request_permissions),
                             onAction = onPermissionRequest,
                         )
                     }

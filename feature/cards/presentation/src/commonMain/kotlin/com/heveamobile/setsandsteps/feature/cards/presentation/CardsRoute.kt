@@ -13,12 +13,12 @@ import org.koin.dsl.module
 import org.koin.dsl.navigation3.navigation
 
 @Serializable
-data object Destinations : Route, DrawerRoute {
+data object Cards : Route, DrawerRoute {
     override val navigationDrawerRoute = NavigationDrawerRoute.Cards
 }
 
 @Serializable
-data class DestinationInfo(
+data class CardDetails(
     val destinationId: String?,
 ) : Route, DrawerRoute {
     override val navigationDrawerRoute = NavigationDrawerRoute.CardDetails
@@ -33,8 +33,8 @@ val cardsPresentationModule = module {
             getSetsWithProgressUseCase = get(),
         )
     }
-    navigation<Destinations> { DestinationsScreen() }
-    navigation<DestinationInfo> { route ->
+    navigation<Cards> { DestinationsScreen() }
+    navigation<CardDetails> { route ->
         DestinationInfoScreen(
             viewModel = koinViewModel { parametersOf(route) },
             route = route,

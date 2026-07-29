@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.navigation.generated.resources.Res
 import com.heveamobile.setsandsteps.core.navigation.generated.resources.route_icon_description
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -37,7 +36,7 @@ fun NavigationDrawerItem(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            painter = painterResource(route.icon),
+            imageVector = route.icon,
             contentDescription = stringResource(
                 Res.string.route_icon_description,
                 stringResource(route.routeName),

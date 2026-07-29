@@ -4,7 +4,7 @@ plugins {
 
 kotlin {
     android {
-        namespace = "com.heveamobile.setsandsteps.feature.profile.presentation"
+        namespace = "com.heveamobile.setsandsteps.feature.statistics.presentation"
     }
 
     sourceSets {
@@ -25,5 +25,6 @@ kotlin {
 }
 
 compose.resources {
-    packageOfResClass = "com.heveamobile.setsandsteps.feature.profile.presentation.generated.resources"
+    packageOfResClass =
+        "com.heveamobile.setsandsteps.feature.statistics.presentation.generated.resources"
 }

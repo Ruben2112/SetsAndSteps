@@ -71,7 +71,7 @@ class CardsViewModel(
             }
 
             is CardsAction.OpenCardDetails -> {
-                navigationHandler.navigateTo(DestinationInfo(action.cardId))
+                navigationHandler.navigateTo(CardDetails(action.cardId))
             }
         }
     }

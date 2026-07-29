@@ -2,7 +2,7 @@
     <string name="route_icon_description">%1$s screen icon</string>
     <string name="logo_description">Sets &amp; Steps logo</string>
 
-    <string name="navigation_route_profile">Profile</string>
+    <string name="navigation_route_statistics">Statistics</string>
     <string name="navigation_route_sets">Sets</string>
     <string name="navigation_route_set_point_exchange">Set Point Exchange</string>
     <string name="navigation_route_cards">Cards</string>

@@ -65,7 +65,7 @@ kotlin {
                 implementation(projects.core.navigation)
                 implementation(projects.core.foundcards)
                 implementation(projects.feature.settings.presentation)
-                implementation(projects.feature.profile.presentation)
+                implementation(projects.feature.statistics.presentation)
                 implementation(projects.feature.sets.presentation)
                 implementation(projects.feature.cards.presentation)
                 implementation(projects.feature.setpointexchange.presentation)

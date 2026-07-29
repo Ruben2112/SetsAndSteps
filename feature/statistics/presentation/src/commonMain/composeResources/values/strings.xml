@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="profile_loading_step_data">Loading step data...</string>
-    <string name="profile_error_health_connect_not_installed">Health Connect application not installed</string>
-    <string name="profile_health_permission_request_title">Missing permissions</string>
-    <string name="profile_health_permission_request_rationale">Access to your Health Connect data is required to access your step data. Please grant the required permissions in the system settings of the application.</string>
+    <string name="statistics_loading_step_data">Loading step data...</string>
+    <string name="statistics_error_health_connect_not_installed">Health Connect application not installed</string>
+    <string name="statistics_health_permission_request_title">Missing permissions</string>
+    <string name="statistics_health_permission_request_rationale">Access to your Health Connect data is required to access your step data. Please grant the required permissions in the system settings of the application.</string>
     <string name="historic_step_data_title">Historic Step Data</string>
     <string name="historic_step_data_total_steps">Total steps:</string>
     <string name="historic_step_data_start_time">Start time:</string>

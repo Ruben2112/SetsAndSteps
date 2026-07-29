@@ -16,10 +16,10 @@ import com.heveamobile.setsandsteps.core.domain.usecase.UpsertInitialMapDataUseC
 import com.heveamobile.setsandsteps.core.foundcards.foundCardsModule
 import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
 import com.heveamobile.setsandsteps.feature.cards.presentation.cardsPresentationModule
-import com.heveamobile.setsandsteps.feature.profile.presentation.profilePresentationModule
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.setPointExchangePresentationModule
 import com.heveamobile.setsandsteps.feature.sets.presentation.setsPresentationModule
 import com.heveamobile.setsandsteps.feature.settings.presentation.settingsPresentationModule
+import com.heveamobile.setsandsteps.feature.statistics.presentation.statisticsPresentationModule
 import com.heveamobile.setsandsteps.shell.HomeViewModel
 import org.koin.core.KoinApplication
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -64,7 +64,7 @@ fun getKoinModules() = listOf(
     targetModule,
     foundCardsModule,
     settingsPresentationModule,
-    profilePresentationModule,
+    statisticsPresentationModule,
     setsPresentationModule,
     cardsPresentationModule,
     setPointExchangePresentationModule,

@@ -1,10 +1,10 @@
-package com.heveamobile.setsandsteps.feature.profile.presentation
+package com.heveamobile.setsandsteps.feature.statistics.presentation
 
 import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
 import kotlin.time.Clock
 import kotlin.time.Instant
 
-data class ProfileState(
+data class StatisticsState(
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
 
@@ -23,10 +23,10 @@ data class ProfileState(
     val showHealthSettingsDialog: Boolean = false,
 )
 
-sealed interface ProfileAction {
-    data object UpdatePermissionState : ProfileAction
-    data class UpdateHasRequestedHealthPermission(val hasRequested: Boolean) : ProfileAction
-    data object ShowHealthSettingsDialog : ProfileAction
-    data object DismissHealthSettingsDialog : ProfileAction
-    data object OpenAppSettings : ProfileAction
+sealed interface StatisticsAction {
+    data object UpdatePermissionState : StatisticsAction
+    data class UpdateHasRequestedHealthPermission(val hasRequested: Boolean) : StatisticsAction
+    data object ShowHealthSettingsDialog : StatisticsAction
+    data object DismissHealthSettingsDialog : StatisticsAction
+    data object OpenAppSettings : StatisticsAction
 }

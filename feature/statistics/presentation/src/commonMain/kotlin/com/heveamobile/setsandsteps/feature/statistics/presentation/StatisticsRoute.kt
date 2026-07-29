@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.feature.profile.presentation
+package com.heveamobile.setsandsteps.feature.statistics.presentation
 
 import com.heveamobile.setsandsteps.core.navigation.DrawerRoute
 import com.heveamobile.setsandsteps.core.navigation.NavigationDrawerRoute
@@ -10,12 +10,12 @@ import org.koin.dsl.module
 import org.koin.dsl.navigation3.navigation
 
 @Serializable
-data object ProfileRoute : Route, DrawerRoute {
-    override val navigationDrawerRoute = NavigationDrawerRoute.Profile
+data object StatisticsRoute : Route, DrawerRoute {
+    override val navigationDrawerRoute = NavigationDrawerRoute.Statistics
 }
 
 @OptIn(KoinExperimentalAPI::class)
-val profilePresentationModule = module {
-    viewModelOf(::ProfileViewModel)
-    navigation<ProfileRoute> { ProfileScreen() }
+val statisticsPresentationModule = module {
+    viewModelOf(::StatisticsViewModel)
+    navigation<StatisticsRoute> { StatisticsScreen() }
 }

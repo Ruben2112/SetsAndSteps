@@ -1,14 +1,14 @@
-package com.heveamobile.setsandsteps.feature.profile.presentation
+package com.heveamobile.setsandsteps.feature.statistics.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.heveamobile.setsandsteps.core.domain.manager.PermissionManager
+import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
 import com.heveamobile.setsandsteps.core.domain.manager.PermissionType
 import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
 import com.heveamobile.setsandsteps.core.domain.usecase.GetDailyStepsChartDataUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.GetUserUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.SyncStepsUseCase
-import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,15 +18,15 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.time.Clock
 
-class ProfileViewModel(
+class StatisticsViewModel(
     private val userPreferencesRepository: UserPreferencesRepository,
     val permissionManager: PermissionManager,
     private val syncStepsUseCase: SyncStepsUseCase,
     private val getUserUseCase: GetUserUseCase,
     private val getDailyStepsChartDataUseCase: GetDailyStepsChartDataUseCase,
 ) : ViewModel() {
-    private val _state = MutableStateFlow(ProfileState())
-    val state: StateFlow<ProfileState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(StatisticsState())
+    val state: StateFlow<StatisticsState> = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -66,9 +66,9 @@ class ProfileViewModel(
         }
     }
 
-    fun onAction(action: ProfileAction) {
+    fun onAction(action: StatisticsAction) {
         when (action) {
-            ProfileAction.UpdatePermissionState -> {
+            StatisticsAction.UpdatePermissionState -> {
                 viewModelScope.launch {
                     val permissionState =
                         permissionManager.checkPermissionStatus(PermissionType.Health)
@@ -81,21 +81,21 @@ class ProfileViewModel(
                 }
             }
 
-            is ProfileAction.UpdateHasRequestedHealthPermission -> {
+            is StatisticsAction.UpdateHasRequestedHealthPermission -> {
                 viewModelScope.launch {
                     userPreferencesRepository.updateHasRequestedHealthPermission(action.hasRequested)
                 }
             }
 
-            ProfileAction.ShowHealthSettingsDialog -> {
+            StatisticsAction.ShowHealthSettingsDialog -> {
                 _state.update { it.copy(showHealthSettingsDialog = true) }
             }
 
-            ProfileAction.DismissHealthSettingsDialog -> {
+            StatisticsAction.DismissHealthSettingsDialog -> {
                 _state.update { it.copy(showHealthSettingsDialog = false) }
             }
 
-            ProfileAction.OpenAppSettings -> {
+            StatisticsAction.OpenAppSettings -> {
                 permissionManager.openAppSettings()
                 _state.update { it.copy(showHealthSettingsDialog = false) }
             }

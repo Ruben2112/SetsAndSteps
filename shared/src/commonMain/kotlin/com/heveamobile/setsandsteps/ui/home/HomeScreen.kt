@@ -59,7 +59,7 @@ import com.heveamobile.setsandsteps.feature.cards.presentation.DestinationInfo
 import com.heveamobile.setsandsteps.feature.cards.presentation.Destinations
 import com.heveamobile.setsandsteps.feature.profile.presentation.ProfileRoute
 import com.heveamobile.setsandsteps.feature.settings.presentation.SettingsRoute
-import com.heveamobile.setsandsteps.navigation.SetPointExchange
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.SetPointExchangeRoute
 import com.heveamobile.setsandsteps.feature.sets.presentation.SetsRoute
 import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
 import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
@@ -155,8 +155,8 @@ fun HomeContent(
                         DestinationInfo.serializer(),
                     )
                     subclass(
-                        SetPointExchange::class,
-                        SetPointExchange.serializer(),
+                        SetPointExchangeRoute::class,
+                        SetPointExchangeRoute.serializer(),
                     )
                     subclass(
                         SettingsRoute::class,
@@ -210,7 +210,7 @@ fun HomeContent(
                             NavigationDrawerRoute.Sets -> SetsRoute
                             NavigationDrawerRoute.Cards -> Destinations
                             NavigationDrawerRoute.CardDetails -> DestinationInfo(destinationId = null)
-                            NavigationDrawerRoute.SetPointExchange -> SetPointExchange
+                            NavigationDrawerRoute.SetPointExchange -> SetPointExchangeRoute
                             NavigationDrawerRoute.Settings -> SettingsRoute
                         }
                         if (backStack.lastOrNull() != navKey) {

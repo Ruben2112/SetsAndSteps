@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.setpointexchange
+package com.heveamobile.setsandsteps.feature.setpointexchange.presentation
 
 import com.heveamobile.setsandsteps.core.domain.model.CardSet
 import com.heveamobile.setsandsteps.core.domain.model.Rarity

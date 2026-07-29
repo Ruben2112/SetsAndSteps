@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="set_points_alternate_text">[M]</string>
+    <string name="decrease_icon_description">Decrease icon</string>
+    <string name="increase_icon_description">Increase icon</string>
+    <string name="set_point_exchange_explanation">Spend %1$s Set Points to instantly get a card of a specific rarity.</string>
+    <string name="set_point_exchange_current_set_points">Current set points:</string>
+    <string name="set_point_exchange_shop">Set Point Exchange</string>
+    <string name="set_point_exchange_total_cost">Total cost:</string>
+    <string name="set_point_exchange_autofill">Autofill</string>
+    <string name="set_point_exchange_reset">Reset</string>
+    <string name="set_point_exchange_purchase">Purchase</string>
+    <string name="set_point_exchange_sold_out">Sold out!</string>
+</resources>

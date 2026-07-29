@@ -7,12 +7,9 @@
     <string name="rarity_rare">Rare</string>
     <string name="rarity_epic">Epic</string>
     <string name="rarity_legendary">Legendary</string>
-    <string name="set_points_alternate_text">[M]</string>
 
     <!-- Content descriptions -->
     <string name="footsteps_icon_description">Footsteps icon</string>
-    <string name="decrease_icon_description">Decrease icon</string>
-    <string name="increase_icon_description">Increase icon</string>
     <string name="overflow_icon_description">Show actions button</string>
     <string name="checkmark_icon_description">Checkmark icon</string>
     <string name="close_screen_button">Close screen button</string>
@@ -38,15 +35,5 @@
     <string name="cards_sort_by_rarity">Sort by rarity</string>
     <string name="cards_sort_alphabetically">Sort alphabetically</string>
     <string name="cards_sort_by_visit_count">Sort by visit count</string>
-
-    <!-- SetPointExchangeScreen -->
-    <string name="set_point_exchange_explanation">Spend %1$s Set Points to instantly get a card of a specific rarity.</string>
-    <string name="set_point_exchange_current_set_points">Current set points:</string>
-    <string name="set_point_exchange_shop">Set Point Exchange</string>
-    <string name="set_point_exchange_total_cost">Total cost:</string>
-    <string name="set_point_exchange_autofill">Autofill</string>
-    <string name="set_point_exchange_reset">Reset</string>
-    <string name="set_point_exchange_purchase">Purchase</string>
-    <string name="set_point_exchange_sold_out">Sold out!</string>
 
 </resources>

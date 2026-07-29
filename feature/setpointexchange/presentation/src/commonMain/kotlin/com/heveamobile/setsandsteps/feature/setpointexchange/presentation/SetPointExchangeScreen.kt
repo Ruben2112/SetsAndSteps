@@ -1,4 +1,4 @@
-package com.heveamobile.setsandsteps.ui.setpointexchange
+package com.heveamobile.setsandsteps.feature.setpointexchange.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -57,21 +57,21 @@ import com.heveamobile.setsandsteps.core.designsystem.component.SetStatisticsLis
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
-import setsandsteps.shared.generated.resources.Res
-import setsandsteps.shared.generated.resources.decrease_icon_description
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.Res
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.decrease_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_map_points
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.map_points_icon_description
-import setsandsteps.shared.generated.resources.increase_icon_description
-import setsandsteps.shared.generated.resources.set_point_exchange_autofill
-import setsandsteps.shared.generated.resources.set_point_exchange_current_set_points
-import setsandsteps.shared.generated.resources.set_point_exchange_explanation
-import setsandsteps.shared.generated.resources.set_point_exchange_purchase
-import setsandsteps.shared.generated.resources.set_point_exchange_reset
-import setsandsteps.shared.generated.resources.set_point_exchange_shop
-import setsandsteps.shared.generated.resources.set_point_exchange_sold_out
-import setsandsteps.shared.generated.resources.set_point_exchange_total_cost
-import setsandsteps.shared.generated.resources.set_points_alternate_text
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.increase_icon_description
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_autofill
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_current_set_points
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_explanation
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_purchase
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_reset
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_shop
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_sold_out
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_total_cost
+import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_points_alternate_text
 
 @Composable
 fun SetPointExchangeScreen(modifier: Modifier = Modifier) {

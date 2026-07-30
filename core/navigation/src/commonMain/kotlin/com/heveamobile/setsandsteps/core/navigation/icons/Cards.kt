@@ -20,7 +20,7 @@ val ic_cards: ImageVector
         }
         _cards = ImageVector
             .Builder(
-                name = "binder",
+                name = "cards",
                 defaultWidth = 24.dp,
                 defaultHeight = 24.dp,
                 viewportWidth = 24f,

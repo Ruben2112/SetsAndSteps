@@ -18,7 +18,7 @@ val ic_statistics: ImageVector
         _statistics =
             ImageVector
                 .Builder(
-                    name = "bar_chart_4_bars",
+                    name = "statistics",
                     defaultWidth = 24.dp,
                     defaultHeight = 24.dp,
                     viewportWidth = 24f,

@@ -18,7 +18,7 @@ val ic_set_point_exchange: ImageVector
         _setPointExchange =
             ImageVector
                 .Builder(
-                    name = "storefront",
+                    name = "set_point_exchange",
                     defaultWidth = 24.dp,
                     defaultHeight = 24.dp,
                     viewportWidth = 24f,

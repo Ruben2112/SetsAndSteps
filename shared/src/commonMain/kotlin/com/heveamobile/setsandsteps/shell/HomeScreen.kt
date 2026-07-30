@@ -390,6 +390,7 @@ fun HomeContent(
                     NavDisplay(
                         modifier = Modifier.padding(
                             top = paddingValues.calculateTopPadding(),
+                            bottom = paddingValues.calculateBottomPadding(),
                         ),
                         backStack = backStack,
                         entryProvider = entryProvider,
@@ -408,7 +409,6 @@ fun HomeContent(
             }
         }
     }
-
     FoundCardsHost(
         onVisibilityChanged = { foundCardsVisible = it },
     )

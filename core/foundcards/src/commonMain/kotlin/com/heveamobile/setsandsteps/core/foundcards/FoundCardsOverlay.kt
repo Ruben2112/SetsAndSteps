@@ -37,6 +37,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -47,6 +48,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
@@ -54,8 +56,6 @@ import com.heveamobile.setsandsteps.core.designsystem.component.Card
 import com.heveamobile.setsandsteps.core.designsystem.component.CardDetailsCard
 import com.heveamobile.setsandsteps.core.designsystem.component.CollectableCardLayout
 import com.heveamobile.setsandsteps.core.designsystem.component.PrimaryButton
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_map_points
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.map_points_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.theme.color
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.domain.FormatMode
@@ -71,9 +71,7 @@ import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_set_points_gained
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_skip_button
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_title
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
 
 @Composable
 fun FoundCardsOverlay(
@@ -107,7 +105,7 @@ fun FoundCardsOverlay(
         )
     }
 
-    Box(
+    Scaffold(
         modifier = modifier
             .fillMaxSize()
             .background(backgroundColor.value)
@@ -116,9 +114,12 @@ fun FoundCardsOverlay(
                     /* Consumes tap events so they don't reach the UI behind */
                 }
             },
-    ) {
+        containerColor = Color.Transparent,
+    ) { paddingValues ->
         AnimatedContent(
-            modifier = Modifier.fillMaxHeight(),
+            modifier = Modifier
+                .fillMaxHeight()
+                .padding(bottom = paddingValues.calculateBottomPadding()),
             targetState = state.cardShown,
             transitionSpec = {
                 // Smooth fade when opening/closing the detail view
@@ -137,7 +138,7 @@ fun FoundCardsOverlay(
                             .padding(horizontal = MaterialTheme.spacing.medium),
                         contentPadding = PaddingValues(
                             top = MaterialTheme.spacing.extraLarge,
-                            bottom = MaterialTheme.spacing.large * 3,
+                            bottom = MaterialTheme.spacing.medium,
                         ),
                         cardSet = state.foundCards.first { it.card == card }.cardSet,
                         card = card,
@@ -172,9 +173,8 @@ fun FoundCardsOverlay(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(
-                        bottom = MaterialTheme.spacing.large,
-                    ),
+                    .padding(bottom = paddingValues.calculateBottomPadding())
+                    .padding(bottom = MaterialTheme.spacing.small),
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 FloatingActionButton(
@@ -204,9 +204,8 @@ fun FoundCardsOverlay(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(
-                        bottom = MaterialTheme.spacing.large,
-                    ),
+                    .padding(bottom = paddingValues.calculateBottomPadding())
+                    .padding(bottom = MaterialTheme.spacing.small),
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 val buttonTextResId = if (!state.isRevealingAll) {
@@ -422,17 +421,6 @@ private fun GridLayout(
                                 style = MaterialTheme.typography.bodyMedium,
                             )
                             Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
-
-                            val density = LocalDensity.current
-                            val mapPointsIconSize =
-                                with(density) { MaterialTheme.typography.bodyMedium.lineHeight.toDp() }
-
-                            Icon(
-                                modifier = Modifier.size(mapPointsIconSize),
-                                painter = painterResource(DesignSystemRes.drawable.ic_map_points),
-                                contentDescription = stringResource(DesignSystemRes.string.map_points_icon_description),
-                                tint = MaterialTheme.colorScheme.onSurface,
-                            )
                             Text(
                                 text = formatAmount(
                                     mapPointsGained,

@@ -10,6 +10,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -182,8 +183,8 @@ private fun SettingsContent(
 
     LazyColumn(
         modifier = modifier
-            .fillMaxWidth()
-            .padding(MaterialTheme.spacing.medium),
+            .fillMaxWidth(),
+        contentPadding = PaddingValues(MaterialTheme.spacing.medium),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
     ) {
         item {

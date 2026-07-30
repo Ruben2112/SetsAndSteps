@@ -9,7 +9,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,25 +39,23 @@ import coil3.compose.LocalPlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.heveamobile.setsandsteps.core.domain.FormatMode
-import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
-import com.heveamobile.setsandsteps.core.domain.formatAmount
-import com.heveamobile.setsandsteps.core.designsystem.theme.color
-import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
-import org.jetbrains.compose.resources.InternalResourceApi
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.card_image_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.card_image_loading_failed
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.card_new
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_map_points
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_question_mark
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.map_points_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.new_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.unrevealed_card_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.unrevealed_card_title
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.warning_card_icon_description
+import com.heveamobile.setsandsteps.core.designsystem.theme.color
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.domain.FormatMode
+import com.heveamobile.setsandsteps.core.domain.formatAmount
+import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
+import org.jetbrains.compose.resources.InternalResourceApi
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
@@ -282,27 +279,17 @@ private fun CardFront(
                 contentAlignment = Alignment.BottomEnd,
             ) {
                 Badge(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh) {
-                    Row(
+                    Text(
                         modifier = Modifier.padding(
                             horizontal = MaterialTheme.spacing.medium,
                             vertical = MaterialTheme.spacing.small,
                         ),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Icon(
-                            painter = painterResource(resource = Res.drawable.ic_map_points),
-                            modifier = Modifier.size(20.dp),
-                            contentDescription = stringResource(Res.string.map_points_icon_description),
-                            tint = MaterialTheme.colorScheme.onSurface,
-                        )
-                        Text(
-                            text = formatAmount(
-                                mapPointsGained,
-                                formatMode = FormatMode.Long,
-                            ),
-                            style = MaterialTheme.typography.bodySmall,
-                        )
-                    }
+                        text = formatAmount(
+                            mapPointsGained,
+                            formatMode = FormatMode.Long,
+                        ),
+                        style = MaterialTheme.typography.bodySmall,
+                    )
                 }
             }
         }
@@ -316,7 +303,8 @@ private fun CardBack(
     raritySpoiler: Boolean = false,
     card: CollectableCard,
 ) {
-    val userData = card.userData ?: return
+    val userData = card.userData
+        ?: return
 
     Column(
         modifier = modifier

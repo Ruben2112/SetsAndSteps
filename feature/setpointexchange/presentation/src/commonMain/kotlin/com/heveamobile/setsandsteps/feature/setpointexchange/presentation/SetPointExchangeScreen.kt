@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.InlineTextContent
-import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -32,13 +30,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.Placeholder
-import androidx.compose.ui.text.PlaceholderVerticalAlign
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.heveamobile.setsandsteps.core.designsystem.component.Card
@@ -48,8 +41,6 @@ import com.heveamobile.setsandsteps.core.designsystem.component.InputField
 import com.heveamobile.setsandsteps.core.designsystem.component.PrimaryButton
 import com.heveamobile.setsandsteps.core.designsystem.component.SecondaryButton
 import com.heveamobile.setsandsteps.core.designsystem.component.SetStatisticsList
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_map_points
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.map_points_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.theme.color
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.domain.FormatMode
@@ -68,11 +59,8 @@ import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.genera
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_shop
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_sold_out
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_point_exchange_total_cost
-import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.set_points_alternate_text
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
 
 @Composable
 fun SetPointExchangeScreen(modifier: Modifier = Modifier) {
@@ -92,45 +80,6 @@ fun SetPointExchangeContent(
     state: SetPointExchangeState,
     onAction: (SetPointExchangeAction) -> Unit,
 ) {
-
-    val density = LocalDensity.current
-    val pointsIconSize = with(density) { MaterialTheme.typography.bodyMedium.lineHeight.toDp() }
-
-    val explanation = stringResource(
-        Res.string.set_point_exchange_explanation,
-        stringResource(Res.string.set_points_alternate_text),
-    )
-    val inlineContentId = stringResource(DesignSystemRes.string.map_points_icon_description)
-    val inlinedString = buildAnnotatedString {
-        val splitExplanation =
-            explanation.split(stringResource(Res.string.set_points_alternate_text))
-        append(splitExplanation[0])
-        appendInlineContent(
-            inlineContentId,
-            stringResource(Res.string.set_points_alternate_text),
-        )
-        append(splitExplanation[1])
-    }
-    val inlineContent = mapOf(
-        Pair(
-            inlineContentId,
-            InlineTextContent(
-                placeholder = Placeholder(
-                    width = MaterialTheme.typography.bodyMedium.lineHeight,
-                    height = MaterialTheme.typography.bodyMedium.lineHeight,
-                    placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter,
-                ),
-            ) {
-                Icon(
-                    modifier = Modifier.size(pointsIconSize),
-                    painter = painterResource(DesignSystemRes.drawable.ic_map_points),
-                    contentDescription = stringResource(DesignSystemRes.string.map_points_icon_description),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                )
-            },
-        ),
-    )
-
     Box(modifier = modifier) {
         LazyColumn(
             modifier = Modifier
@@ -143,8 +92,7 @@ fun SetPointExchangeContent(
             item {
                 InfoCard(
                     modifier = Modifier.fillMaxWidth(),
-                    annotatedText = inlinedString,
-                    inlineContent = inlineContent,
+                    text = stringResource(Res.string.set_point_exchange_explanation),
                 )
             }
             if (state.sets.size > 1) {
@@ -172,12 +120,6 @@ fun SetPointExchangeContent(
                                     style = MaterialTheme.typography.bodyMedium,
                                 )
                                 Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraLarge))
-                                Icon(
-                                    modifier = Modifier.size(pointsIconSize),
-                                    painter = painterResource(DesignSystemRes.drawable.ic_map_points),
-                                    contentDescription = stringResource(DesignSystemRes.string.map_points_icon_description),
-                                    tint = MaterialTheme.colorScheme.onSurface,
-                                )
                                 Text(
                                     text = formatAmount(
                                         state.selectedSet.userData?.currentSetPoints
@@ -219,12 +161,6 @@ fun SetPointExchangeContent(
                                         style = MaterialTheme.typography.bodyMedium,
                                     )
                                     Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
-                                    Icon(
-                                        modifier = Modifier.size(pointsIconSize),
-                                        painter = painterResource(DesignSystemRes.drawable.ic_map_points),
-                                        contentDescription = stringResource(DesignSystemRes.string.map_points_icon_description),
-                                        tint = MaterialTheme.colorScheme.onSurface,
-                                    )
                                     Text(
                                         text = formatAmount(
                                             state.totalCost,
@@ -268,16 +204,12 @@ fun SetPointExchangeContent(
                                 cost = cost,
                                 amountInCart = amountInCart,
                                 amountInStock = amountInStock,
-                                mapPointsIconSize = pointsIconSize,
                                 onAction = onAction,
                             )
                         }
 
                     }
                 }
-            }
-            item {
-                Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             }
         }
 
@@ -292,7 +224,6 @@ private fun CardStockRow(
     cost: Int,
     amountInCart: Int,
     amountInStock: Int,
-    mapPointsIconSize: Dp,
     onAction: (SetPointExchangeAction) -> Unit,
 ) {
     Row(
@@ -306,12 +237,6 @@ private fun CardStockRow(
             style = MaterialTheme.typography.bodyMedium.copy(color = rarity.color(MaterialTheme.colorScheme.onPrimary)),
         )
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
-        Icon(
-            modifier = Modifier.size(mapPointsIconSize),
-            painter = painterResource(DesignSystemRes.drawable.ic_map_points),
-            contentDescription = stringResource(DesignSystemRes.string.map_points_icon_description),
-            tint = MaterialTheme.colorScheme.onSurface,
-        )
         Text(
             text = formatAmount(
                 cost.toLong(),

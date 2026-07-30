@@ -10,7 +10,6 @@
     <string name="rarity_icon_description">Rarity %1$s icon</string>
     <string name="expand_icon_description">Expand icon</string>
     <string name="new_icon_description">New icon</string>
-    <string name="map_points_icon_description">Map points icon</string>
     <string name="unrevealed_card_icon_description">Unrevealed card icon</string>
     <string name="card_image_description">Image of card %1$s</string>
     <string name="set_statistics_total_label">Cards:</string>

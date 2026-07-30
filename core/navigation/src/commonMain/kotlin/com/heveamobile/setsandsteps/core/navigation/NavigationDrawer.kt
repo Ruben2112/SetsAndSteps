@@ -58,7 +58,8 @@ fun NavigationDrawer(
                         else Res.drawable.logo,
                     ),
                     contentDescription = stringResource(Res.string.logo_description),
-                )
+
+                    )
                 NavigationDrawerRoute.entries.forEach { route ->
                     NavigationDrawerItem(
                         route = route,

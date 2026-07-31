@@ -1,5 +1,6 @@
 package com.heveamobile.setsandsteps.di
 
+import com.heveamobile.setsandsteps.core.data.di.supabaseModule
 import com.heveamobile.setsandsteps.core.domain.usecase.ExportDatabaseUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.FindCardsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.FoundCardsHandler
@@ -61,6 +62,7 @@ fun getKoinModules() = listOf(
     navigationModule,
     viewModelModule,
     useCaseModule,
+    supabaseModule,
     targetModule,
     foundCardsModule,
     settingsPresentationModule,

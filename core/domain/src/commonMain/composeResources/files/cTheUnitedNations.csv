@@ -1,4 +1,4 @@
-id;mapId;name;rarity;imageUrl;bbox;propertyValue1;propertyValue2;propertyValue3;propertyValue4;propertyValue5;propertyValue6;propertyValue7;propertyValue8;propertyValue9;propertyValue10
+id;setId;name;rarity;imageUrl;bbox;propertyValue1;propertyValue2;propertyValue3;propertyValue4;propertyValue5;propertyValue6;propertyValue7;propertyValue8;propertyValue9;propertyValue10
 dbca68b0-5a84-467c-875e-8935c6f66e87;4d08314f-2224-4eff-a3bd-8d141d981fad;🇦🇫 Afghanistan;3;https://borderly.dev/country/af.svg?fill=0000FF&stroke=0000FF;60.4857421875,29.3919433594,74.8913085938,38.4563964844;43844000;Kabul;Asia;Dari,Pashto,Turkmen;Afghan Afghani
 c6480c64-52fc-4297-bed1-92bd5d26cad4;4d08314f-2224-4eff-a3bd-8d141d981fad;🇦🇱 Albania;1;https://borderly.dev/country/al.svg?fill=A98467&stroke=A98467;19.2806640625,39.653515625,21.0310546875,42.6479492188;2335930;Tirana;Europe;Albanian;Albanian Lek
 0fd8f338-3432-4a31-934c-ddc58b7665f2;4d08314f-2224-4eff-a3bd-8d141d981fad;🇩🇿 Algeria;3;https://borderly.dev/country/dz.svg?fill=0000FF&stroke=0000FF;-8.68334960938,18.9866210938,11.9678710938,37.0923828125;47400000;Algiers;Africa;Arabic;Algerian Dinar

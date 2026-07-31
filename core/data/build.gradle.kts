@@ -13,6 +13,20 @@ kotlin {
             dependencies {
                 implementation(libs.findLibrary("koin-android").get())
                 implementation(libs.findLibrary("androidx-health-connect").get())
+                implementation(
+                    libs
+                        .findLibrary("ktor-client-okhttp")
+                        .get(),
+                )
+            }
+        }
+        iosMain {
+            dependencies {
+                implementation(
+                    libs
+                        .findLibrary("ktor-client-darwin")
+                        .get(),
+                )
             }
         }
         commonMain {
@@ -24,6 +38,12 @@ kotlin {
                 implementation(libs.findLibrary("androidx-datastore-preferences").get())
                 implementation(libs.findLibrary("kotlinx-coroutines-core").get())
                 implementation(libs.findLibrary("kotlinx-datetime").get())
+
+                implementation(
+                    libs
+                        .findLibrary("supabase-postgrest")
+                        .get(),
+                )
             }
         }
     }

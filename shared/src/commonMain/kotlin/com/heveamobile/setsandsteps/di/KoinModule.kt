@@ -1,9 +1,11 @@
 package com.heveamobile.setsandsteps.di
 
+import com.heveamobile.setsandsteps.core.data.di.cardSetCatalogModule
 import com.heveamobile.setsandsteps.core.data.di.supabaseModule
 import com.heveamobile.setsandsteps.core.domain.usecase.ExportDatabaseUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.FindCardsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.FoundCardsHandler
+import com.heveamobile.setsandsteps.core.domain.usecase.GetCatalogCardSetsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.GetCountOfCardsInExchangeStockUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.GetDailyStepsChartDataUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.GetSetsWithProgressUseCase
@@ -54,6 +56,7 @@ val useCaseModule = module {
     factoryOf(::GetDailyStepsChartDataUseCase)
     factoryOf(::ExportDatabaseUseCase)
     factoryOf(::ImportDatabaseUseCase)
+    factoryOf(::GetCatalogCardSetsUseCase)
 }
 
 expect val targetModule: Module
@@ -63,6 +66,7 @@ fun getKoinModules() = listOf(
     viewModelModule,
     useCaseModule,
     supabaseModule,
+    cardSetCatalogModule,
     targetModule,
     foundCardsModule,
     settingsPresentationModule,

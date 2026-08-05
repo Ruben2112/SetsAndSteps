@@ -1,4 +1,4 @@
-package com.example.test
+package com.heveamobile.setsandsteps.core.navigation.icons
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathFillType

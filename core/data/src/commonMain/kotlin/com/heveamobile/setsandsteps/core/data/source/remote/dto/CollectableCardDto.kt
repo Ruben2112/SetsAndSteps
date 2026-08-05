@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CardDto(
+data class CollectableCardDto(
     val id: String,
     @SerialName("set_id")
     val setId: String,

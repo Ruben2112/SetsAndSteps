@@ -2,4 +2,13 @@
 <resources>
     <string name="sets_level">Level %1$d</string>
     <string name="sets_steps_per_finding">Steps per finding:</string>
+    <string name="sets_tab_my_sets">My Sets</string>
+    <string name="sets_tab_catalog">Catalog</string>
+    <string name="sets_download">Download</string>
+    <string name="sets_update">Update</string>
+    <string name="sets_updating">Updating…</string>
+    <string name="sets_update_available_icon_description">Update available</string>
+    <string name="sets_purchase_successful">Purchase successful!</string>
+    <string name="sets_download_failed">Failed to download %1$s</string>
+    <string name="sets_update_failed">Failed to update %1$s</string>
 </resources>

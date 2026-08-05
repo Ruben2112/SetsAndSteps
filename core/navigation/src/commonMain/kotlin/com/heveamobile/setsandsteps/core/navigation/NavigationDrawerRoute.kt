@@ -1,9 +1,6 @@
 package com.heveamobile.setsandsteps.core.navigation
 
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.example.test.ic_set_point_exchange
-import com.example.test.ic_sets
-import com.example.test.ic_settings
 import com.heveamobile.setsandsteps.core.navigation.generated.resources.Res
 import com.heveamobile.setsandsteps.core.navigation.generated.resources.navigation_route_card_details
 import com.heveamobile.setsandsteps.core.navigation.generated.resources.navigation_route_cards
@@ -13,6 +10,9 @@ import com.heveamobile.setsandsteps.core.navigation.generated.resources.navigati
 import com.heveamobile.setsandsteps.core.navigation.generated.resources.navigation_route_statistics
 import com.heveamobile.setsandsteps.core.navigation.icons.ic_card_details
 import com.heveamobile.setsandsteps.core.navigation.icons.ic_cards
+import com.heveamobile.setsandsteps.core.navigation.icons.ic_set_point_exchange
+import com.heveamobile.setsandsteps.core.navigation.icons.ic_sets
+import com.heveamobile.setsandsteps.core.navigation.icons.ic_settings
 import com.heveamobile.setsandsteps.core.navigation.icons.ic_statistics
 import org.jetbrains.compose.resources.StringResource
 

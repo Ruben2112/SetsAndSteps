@@ -1,6 +1,7 @@
 plugins {
     id("kmp-core")
     id("koin")
+    id("kotlinx-serialization")
 }
 
 kotlin {

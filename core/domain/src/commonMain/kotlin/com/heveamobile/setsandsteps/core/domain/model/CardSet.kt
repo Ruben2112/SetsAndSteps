@@ -23,6 +23,7 @@ data class CardSet(
     val propertyName10: String? = null,
     val cards: List<CollectableCard> = emptyList(),
     val userData: CardSetUserData? = null,
+    val rarityCounts: CardRarityCounts? = null,
 ) {
 
     fun storePrice(rarity: Rarity): Int {

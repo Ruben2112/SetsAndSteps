@@ -13,6 +13,9 @@ interface CollectableCardUserDataDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertIfAbsent(userData: CollectableCardUserDataEntity)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertIfAbsent(userData: List<CollectableCardUserDataEntity>)
+
     @Upsert
     suspend fun upsert(userData: CollectableCardUserDataEntity)
 
@@ -27,4 +30,7 @@ interface CollectableCardUserDataDao {
         id: String,
         count: Int,
     )
+
+    @Query("DELETE FROM CollectableCardUserDataEntity WHERE id IN (:ids)")
+    suspend fun deleteByIds(ids: List<String>)
 }

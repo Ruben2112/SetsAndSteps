@@ -19,14 +19,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.heveamobile.setsandsteps.core.domain.model.CardSet
-import com.heveamobile.setsandsteps.core.domain.model.Rarity
-import com.heveamobile.setsandsteps.core.designsystem.theme.color
-import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
-import org.jetbrains.compose.resources.stringResource
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.expand_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.set_statistics_total_label
+import com.heveamobile.setsandsteps.core.designsystem.theme.color
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.domain.model.CardSet
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SetStatisticsList(
@@ -36,7 +36,7 @@ fun SetStatisticsList(
     showExpandIcon: Boolean = true,
 ) {
     val userData = set.userData
-    val showProgress = userData != null
+    userData != null
 
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -51,7 +51,9 @@ fun SetStatisticsList(
                 style = MaterialTheme.typography.bodyMedium,
             )
             Text(
-                text = userData?.formatProgress(null) ?: set.cards.size.toString(),
+                text = userData?.formatProgress(null)
+                    ?: set.rarityCounts?.total?.toString()
+                    ?: set.cards.size.toString(),
                 style = MaterialTheme.typography.bodyMedium,
             )
             if (showExpandIcon) {
@@ -82,9 +84,13 @@ fun SetStatisticsList(
                         ),
                         key = rarity.name,
                         keyStyle = MaterialTheme.typography.bodyMedium.copy(color = rarity.color(MaterialTheme.colorScheme.onPrimary)),
-                        value = userData?.formatProgress(rarity) ?: set.cards
-                            .count { it.rarity == rarity }
-                            .toString(),
+                        value = userData?.formatProgress(rarity)
+                            ?: set.rarityCounts
+                                ?.count(rarity)
+                                ?.toString()
+                            ?: set.cards
+                                .count { it.rarity == rarity }
+                                .toString(),
                     )
                 }
             }

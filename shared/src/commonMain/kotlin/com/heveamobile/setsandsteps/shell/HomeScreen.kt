@@ -56,6 +56,8 @@ import com.heveamobile.setsandsteps.core.navigation.DrawerRoute
 import com.heveamobile.setsandsteps.core.navigation.NavigationDrawer
 import com.heveamobile.setsandsteps.core.navigation.NavigationDrawerRoute
 import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
+import com.heveamobile.setsandsteps.core.presentation.BottomBarState
+import com.heveamobile.setsandsteps.core.presentation.LocalBottomBarState
 import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
 import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
 import com.heveamobile.setsandsteps.feature.cards.presentation.CardDetails
@@ -106,6 +108,7 @@ fun HomeContent(
 ) {
 
     val snackbarHostState = remember { SnackbarHostState() }
+    val bottomBarState = remember { BottomBarState() }
     var foundCardsVisible by remember { mutableStateOf(false) }
 
     val drawerState = rememberDrawerState(DrawerValue.Closed)
@@ -189,7 +192,10 @@ fun HomeContent(
     }
 
     val focusManager = LocalFocusManager.current
-    CompositionLocalProvider(LocalSnackbarHostState provides snackbarHostState) {
+    CompositionLocalProvider(
+        LocalSnackbarHostState provides snackbarHostState,
+        LocalBottomBarState provides bottomBarState,
+    ) {
         ModalNavigationDrawer(
             modifier = Modifier
                 .blur(
@@ -234,6 +240,9 @@ fun HomeContent(
         ) {
             Scaffold(
                 modifier = modifier,
+                bottomBar = {
+                    bottomBarState.content.value?.invoke()
+                },
                 snackbarHost = {
                     SnackbarHost(
                         hostState = snackbarHostState,
@@ -241,7 +250,7 @@ fun HomeContent(
                             Snackbar(
                                 snackbarData = snackbarData,
                                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                                contentColor = MaterialTheme.colorScheme.onSurface,
+                                contentColor = MaterialTheme.colorScheme.onSecondary,
                             )
                         },
                     )

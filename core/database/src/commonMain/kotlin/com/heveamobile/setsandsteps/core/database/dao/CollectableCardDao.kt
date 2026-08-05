@@ -28,6 +28,15 @@ interface CollectableCardDao {
     @Upsert
     suspend fun upsertCards(cards: List<CollectableCardEntity>)
 
+    @Query("SELECT id FROM CollectableCardEntity WHERE cardSetId = :cardSetId")
+    suspend fun getCardIdsByCardSetId(cardSetId: String): List<String>
+
+    @Query("DELETE FROM CollectableCardEntity WHERE cardSetId = :cardSetId AND id NOT IN (:ids)")
+    suspend fun deleteCardsNotIn(
+        cardSetId: String,
+        ids: List<String>,
+    )
+
 //    @Transaction
 //    @Query("UPDATE CollectableCardEntity SET isDiscovered = 0 WHERE cardSetId = :cardSetId")
 //    fun resetDiscovered(cardSetId: String)

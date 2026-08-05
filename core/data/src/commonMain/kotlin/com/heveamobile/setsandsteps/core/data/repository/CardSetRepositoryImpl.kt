@@ -1,12 +1,12 @@
 package com.heveamobile.setsandsteps.core.data.repository
 
+import com.heveamobile.setsandsteps.core.data.mapper.toDomain
+import com.heveamobile.setsandsteps.core.data.mapper.toEntity
+import com.heveamobile.setsandsteps.core.data.mapper.toUserDataEntity
 import com.heveamobile.setsandsteps.core.database.dao.CardSetDao
 import com.heveamobile.setsandsteps.core.database.dao.CardSetUserDataDao
 import com.heveamobile.setsandsteps.core.database.dao.CollectableCardDao
 import com.heveamobile.setsandsteps.core.database.entity.CardSetUserDataEntity
-import com.heveamobile.setsandsteps.core.data.mapper.toDomain
-import com.heveamobile.setsandsteps.core.data.mapper.toEntity
-import com.heveamobile.setsandsteps.core.data.mapper.toUserDataEntity
 import com.heveamobile.setsandsteps.core.domain.model.CardSet
 import com.heveamobile.setsandsteps.core.domain.repository.CardSetRepository
 import kotlinx.coroutines.flow.Flow
@@ -67,6 +67,10 @@ class CardSetRepositoryImpl(
     override suspend fun updateCardSet(cardSet: CardSet) {
         cardSetDao.upsertCardSet(cardSet.toEntity())
         cardSetUserDataDao.upsert(cardSet.toUserDataEntity())
+    }
+
+    override suspend fun toggleActiveState(setId: String) {
+        cardSetUserDataDao.toggleActiveState(setId)
     }
 
     override suspend fun getCardSetById(id: String): CardSet? {

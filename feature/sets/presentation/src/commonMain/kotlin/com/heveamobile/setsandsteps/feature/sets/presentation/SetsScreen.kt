@@ -47,6 +47,8 @@ import com.heveamobile.setsandsteps.core.navigation.icons.ic_sets
 import com.heveamobile.setsandsteps.core.presentation.LocalBottomBarState
 import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.Res
+import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_activate
+import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_deactivate
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_download
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_download_failed
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_level
@@ -155,7 +157,7 @@ private fun SetsContent(
                     items = state.sets,
                     key = { it.id },
                 ) { set ->
-                    MySetCard(
+                    OwnedSetCard(
                         set = set,
                         state = state,
                         onAction = onAction,
@@ -208,7 +210,7 @@ private fun SetsTabBar(
 }
 
 @Composable
-private fun MySetCard(
+private fun OwnedSetCard(
     set: CardSet,
     state: SetsState,
     onAction: (SetsAction) -> Unit,
@@ -276,6 +278,20 @@ private fun MySetCard(
                         SecondaryButton(label = stringResource(Res.string.sets_update)) {
                             onAction(SetsAction.UpdateSet(set.id))
                         }
+                    }
+                }
+            }
+            if (set.cards.isNotEmpty()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End,
+                ) {
+                    PrimaryButton(
+                        label = stringResource(
+                            if (userData.isActive) Res.string.sets_deactivate else Res.string.sets_activate,
+                        ),
+                    ) {
+                        onAction(SetsAction.ToggleActiveState(set))
                     }
                 }
             }

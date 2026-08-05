@@ -11,4 +11,6 @@
     <string name="sets_purchase_successful">Purchase successful!</string>
     <string name="sets_download_failed">Failed to download %1$s</string>
     <string name="sets_update_failed">Failed to update %1$s</string>
+    <string name="sets_activate">Activate</string>
+    <string name="sets_deactivate">Deactivate</string>
 </resources>

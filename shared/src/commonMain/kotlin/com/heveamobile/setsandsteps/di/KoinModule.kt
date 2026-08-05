@@ -14,6 +14,7 @@ import com.heveamobile.setsandsteps.core.domain.usecase.ImportDatabaseUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.PurchaseCardsFromExchangeUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.SpendStepsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.SyncStepsUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.ToggleSetActiveStateUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.UpdateUserRecordsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.UpsertInitialMapDataUseCase
 import com.heveamobile.setsandsteps.core.foundcards.foundCardsModule
@@ -57,6 +58,7 @@ val useCaseModule = module {
     factoryOf(::ExportDatabaseUseCase)
     factoryOf(::ImportDatabaseUseCase)
     factoryOf(::GetCatalogCardSetsUseCase)
+    factoryOf(::ToggleSetActiveStateUseCase)
 }
 
 expect val targetModule: Module

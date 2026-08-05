@@ -11,6 +11,8 @@ interface CardSetRepository {
 
     suspend fun updateCardSet(cardSet: CardSet)
 
+    suspend fun toggleActiveState(setId: String)
+
     suspend fun getCardSetById(id: String): CardSet?
     fun getAllSetProgressFlow(): Flow<List<CardSet>>
 }

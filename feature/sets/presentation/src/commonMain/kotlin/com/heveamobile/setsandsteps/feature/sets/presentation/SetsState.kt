@@ -27,6 +27,7 @@ sealed interface SetsAction {
     data class SelectTab(val tab: SetsTab) : SetsAction
     data class DownloadSet(val setId: String) : SetsAction
     data class UpdateSet(val setId: String) : SetsAction
+    data class ToggleActiveState(val set: CardSet) : SetsAction
 }
 
 sealed interface SetsEvent {

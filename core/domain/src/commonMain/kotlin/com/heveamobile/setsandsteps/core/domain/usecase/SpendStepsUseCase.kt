@@ -31,10 +31,12 @@ class SpendStepsUseCase(
     suspend operator fun invoke(): SpendStepsResult {
         val user = userRepository.getUser()
             ?: return SpendStepsResult()
-        val activeCardSet = cardSetRepository
+        val ownedSets = cardSetRepository
             .getAllSetProgressFlow()
             .first()
-            .first()
+        val activeCardSet = ownedSets.firstOrNull { it.userData?.isActive == true }
+            ?: ownedSets.firstOrNull()
+            ?: return SpendStepsResult()
         val activeCardSetUserData = activeCardSet.userData
             ?: return SpendStepsResult()
 

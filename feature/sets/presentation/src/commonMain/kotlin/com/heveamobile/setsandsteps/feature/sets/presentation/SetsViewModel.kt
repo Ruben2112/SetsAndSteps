@@ -8,6 +8,7 @@ import com.heveamobile.setsandsteps.core.domain.repository.CardSetCatalogReposit
 import com.heveamobile.setsandsteps.core.domain.usecase.GetCatalogCardSetsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.GetSetsWithProgressUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.GetUserUseCase
+import com.heveamobile.setsandsteps.core.domain.usecase.ToggleSetActiveStateUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.channels.Channel
@@ -31,6 +32,7 @@ class SetsViewModel(
     private val getCatalogCardSetsUseCase: GetCatalogCardSetsUseCase,
     private val cardSetCatalogRepository: CardSetCatalogRepository,
     private val cardSetDownloadCoordinator: CardSetDownloadCoordinator,
+    private val toggleSetActiveStateUseCase: ToggleSetActiveStateUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(SetsState())
@@ -183,6 +185,12 @@ class SetsViewModel(
 
             is SetsAction.UpdateSet -> {
                 cardSetDownloadCoordinator.updateCardSet(action.setId)
+            }
+
+            is SetsAction.ToggleActiveState -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    toggleSetActiveStateUseCase(action.set.id)
+                }
             }
         }
     }

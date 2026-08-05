@@ -11,8 +11,8 @@ import com.heveamobile.setsandsteps.core.database.entity.CardSetUserDataEntity
 import com.heveamobile.setsandsteps.core.database.entity.CollectableCardUserDataEntity
 import com.heveamobile.setsandsteps.core.domain.model.CardSet
 import com.heveamobile.setsandsteps.core.domain.repository.CardSetCatalogRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class CardSetCatalogRepositoryImpl(
@@ -24,7 +24,7 @@ class CardSetCatalogRepositoryImpl(
 ) : CardSetCatalogRepository {
 
     private val _remoteCardSets = MutableStateFlow<List<CardSet>>(emptyList())
-    override val remoteCardSets: StateFlow<List<CardSet>> = _remoteCardSets.asStateFlow()
+    override fun getRemoteCardSetsFlow(): Flow<List<CardSet>> = _remoteCardSets.asStateFlow()
 
     override suspend fun refreshCatalog(): Result<Unit> {
         return runCatching {

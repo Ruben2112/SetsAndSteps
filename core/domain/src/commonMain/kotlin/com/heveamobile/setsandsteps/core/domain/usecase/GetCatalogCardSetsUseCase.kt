@@ -13,7 +13,7 @@ class GetCatalogCardSetsUseCase(
     operator fun invoke(): Flow<List<CardSet>> {
         return combine(
             cardSetRepository.getAllSetProgressFlow(),
-            cardSetCatalogRepository.remoteCardSets,
+            cardSetCatalogRepository.getRemoteCardSetsFlow(),
         ) { ownedSets, remoteSets ->
             val ownedIds = ownedSets
                 .filter { it.userData?.isOwned == true }

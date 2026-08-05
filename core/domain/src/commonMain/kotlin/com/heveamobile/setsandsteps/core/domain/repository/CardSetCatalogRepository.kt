@@ -1,10 +1,10 @@
 package com.heveamobile.setsandsteps.core.domain.repository
 
 import com.heveamobile.setsandsteps.core.domain.model.CardSet
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.Flow
 
 interface CardSetCatalogRepository {
-    val remoteCardSets: StateFlow<List<CardSet>>
+    fun getRemoteCardSetsFlow(): Flow<List<CardSet>>
 
     suspend fun refreshCatalog(): Result<Unit>
     suspend fun downloadCardSet(setId: String): Result<Unit>

@@ -66,7 +66,7 @@ class SetsViewModel(
             combine(
                 ownedSetsFlow,
                 catalogSetsFlow,
-                cardSetCatalogRepository.remoteCardSets,
+                cardSetCatalogRepository.getRemoteCardSetsFlow(),
             ) { owned, catalog, remote ->
                 Triple(
                     owned,

@@ -2,6 +2,7 @@ package com.heveamobile.setsandsteps.core.foundcards
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.heveamobile.setsandsteps.core.domain.model.ObtainPacksResult
 import com.heveamobile.setsandsteps.core.domain.usecase.FoundCardsHandler
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -25,8 +26,9 @@ class FoundCardsViewModel(
             foundCardsHandler.foundCardsEvents.collectLatest { result ->
                 _state.update { state ->
                     state.copy(
-                        foundCards = result.cards.sortedBy { it.card.rarity },
-                        mapPointsGained = result.setPointsGained,
+                        foundCards = result.allCards.sortedBy { it.card.rarity },
+                        mapPointsGained = result.totalSetPointsGained,
+                        isPackOpening = result is ObtainPacksResult,
                     )
                 }
             }

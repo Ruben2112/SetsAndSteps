@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.heveamobile.setsandsteps.core.domain.manager.PermissionManager
 import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
 import com.heveamobile.setsandsteps.core.domain.manager.PermissionType
+import com.heveamobile.setsandsteps.core.domain.model.costPerPack
+import com.heveamobile.setsandsteps.core.domain.model.packsAvailable
 import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
 import com.heveamobile.setsandsteps.core.domain.usecase.FoundCardsHandler
 import com.heveamobile.setsandsteps.core.domain.usecase.GetSetsWithProgressUseCase
@@ -42,29 +44,22 @@ class HomeViewModel(
     init {
         _state.update { it.copy(isLoadingSteps = true) }
 
-        viewModelScope.launch {
-            getUserUseCase().collectLatest { user ->
-                _state.update {
-                    it.copy(
-                        availableSteps = user?.availableSteps
-                            ?: 0L,
-                    )
-                }
-            }
-        }
-
         viewModelScope.launch(Dispatchers.IO) {
             combine(
                 getCardSetsWithProgressUseCase(),
                 userPreferencesRepository.distanceMultiplier,
             ) { sets, multiplier -> sets to multiplier }.collectLatest { (sets, multiplier) ->
-                val calculatedDistance = sets.firstOrNull()?.userData?.calculatedDistance
-                    ?: 0L
-                val requiredSteps = (calculatedDistance * multiplier).toLong()
+                val openablePacks = sets
+                    .filter { it.userData?.isActive == true }
+                    .sumOf { set ->
+                        val userData = set.userData
+                            ?: return@sumOf 0
+                        userData.packsAvailable(userData.costPerPack(multiplier))
+                    }
 
                 _state.update { state ->
                     state.copy(
-                        requiredSteps = requiredSteps,
+                        openablePacks = openablePacks,
                     )
                 }
             }
@@ -139,7 +134,7 @@ class HomeViewModel(
             HomeAction.SpendSteps -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     val result = spendStepsUseCase()
-                    if (result.cards.isNotEmpty()) {
+                    if (result.allCards.isNotEmpty()) {
                         foundCardsHandler.announceFoundCards(result)
                     }
                 }

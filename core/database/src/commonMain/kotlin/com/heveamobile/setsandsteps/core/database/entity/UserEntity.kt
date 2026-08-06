@@ -10,7 +10,6 @@ data class UserEntity(
     val id: Long = 0L,
     val startTime: Instant,
     val lastSyncTime: Instant? = null,
-    val availableSteps: Long = 0,
     val totalSteps: Long = 0,
     val previousTwentyFourHours: Long = 0,
     val twentyFourHourRecord: Long = 0,

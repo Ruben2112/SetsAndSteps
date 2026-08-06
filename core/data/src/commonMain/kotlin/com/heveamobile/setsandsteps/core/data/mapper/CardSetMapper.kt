@@ -36,8 +36,10 @@ fun CardSetEntity.toDomain(): CardSet {
 fun CardSetWithUserData.toDomain(cards: List<CollectableCard>): CardSet {
     val entityUserData = this.userData
     val userData = if (entityUserData == null) null else CardSetUserData(
+        id = entityUserData.id,
         isOwned = entityUserData.isOwned,
         isActive = entityUserData.isActive,
+        currentSteps = entityUserData.currentSteps,
         currentLevel = entityUserData.currentLevel,
         calculatedDistance = run {
             val level = entityUserData.currentLevel
@@ -65,13 +67,31 @@ fun CardSetWithUserData.toDomain(cards: List<CollectableCard>): CardSet {
         )
 }
 
+fun CardSetWithUserData.toUserData(): CardSetUserData? {
+    val entityUserData = this.userData
+        ?: return null
+    return CardSetUserData(
+        id = entityUserData.id,
+        isOwned = entityUserData.isOwned,
+        isActive = entityUserData.isActive,
+        currentSteps = entityUserData.currentSteps,
+        currentLevel = entityUserData.currentLevel,
+        calculatedDistance = run {
+            val level = entityUserData.currentLevel
+            this.cardSet.baseDistance + (this.cardSet.baseDistance * (level - 1) * level) / 20
+        },
+        currentSetPoints = entityUserData.currentSetPoints,
+    )
+}
+
 fun CardSet.toUserDataEntity(): CardSetUserDataEntity {
     val userData = this.userData
-        ?: CardSetUserData()
+        ?: CardSetUserData(id = this.id)
     return CardSetUserDataEntity(
         id = this.id,
         isActive = userData.isActive,
         isOwned = userData.isOwned,
+        currentSteps = userData.currentSteps,
         currentLevel = userData.currentLevel,
         currentSetPoints = userData.currentSetPoints,
     )
@@ -99,5 +119,16 @@ fun CardSet.toEntity(): CardSetEntity {
         propertyName8 = this.propertyName8,
         propertyName9 = this.propertyName9,
         propertyName10 = this.propertyName10,
+    )
+}
+
+fun CardSetUserData.toEntity(): CardSetUserDataEntity {
+    return CardSetUserDataEntity(
+        id = this.id,
+        isActive = this.isActive,
+        isOwned = this.isOwned,
+        currentSteps = this.currentSteps,
+        currentLevel = this.currentLevel,
+        currentSetPoints = this.currentSetPoints,
     )
 }

@@ -11,5 +11,4 @@ fun getDatabaseBuilder(context: Context): RoomDatabase.Builder<AppDatabase> {
         context = appContext,
         name = dbFile.absolutePath,
     )
-        .fallbackToDestructiveMigration(dropAllTables = true) //TODO: Add migrations when distributing builds to testers
 }

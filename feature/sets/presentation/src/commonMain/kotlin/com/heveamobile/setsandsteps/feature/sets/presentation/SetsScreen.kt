@@ -53,7 +53,8 @@ import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resource
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_download_failed
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_level
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_purchase_successful
-import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_steps_per_finding
+import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_steps_per_pack
+import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_steps_to_next_pack
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_tab_catalog
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_tab_my_sets
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_update
@@ -142,8 +143,7 @@ private fun SetsContent(
 
     HorizontalPager(
         state = pagerState,
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
     ) { page ->
         val tab = SetsTab.entries[page]
         LazyColumn(
@@ -240,8 +240,11 @@ private fun OwnedSetCard(
         ) {
             KeyValueRow(
                 modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                key = stringResource(Res.string.sets_steps_per_finding),
+                key = stringResource(Res.string.sets_steps_to_next_pack),
                 value = formatAmount(
+                    userData.currentSteps,
+                    FormatMode.Long,
+                ) + " / " + formatAmount(
                     userData.calculatedDistance,
                     FormatMode.Long,
                 ),
@@ -311,6 +314,14 @@ private fun CatalogSetCard(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         ) {
+            KeyValueRow(
+                modifier = Modifier.padding(end = MaterialTheme.spacing.large),
+                key = stringResource(Res.string.sets_steps_per_pack),
+                value = formatAmount(
+                    set.baseDistance,
+                    FormatMode.Long,
+                ),
+            )
             SetStatisticsList(
                 set = set,
                 isExpanded = true,

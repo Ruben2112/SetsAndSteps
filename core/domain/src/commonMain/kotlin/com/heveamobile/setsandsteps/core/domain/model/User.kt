@@ -6,7 +6,6 @@ data class User(
     val id: Long,
     val startTime: Instant,
     val lastSyncTime: Instant? = null,
-    val availableSteps: Long = 0,
     val totalSteps: Long = 0,
     val previousTwentyFourHours: Long = 0,
     val twentyFourHourRecord: Long = 0,

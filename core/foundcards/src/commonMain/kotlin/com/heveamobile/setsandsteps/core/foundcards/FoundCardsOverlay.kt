@@ -60,8 +60,8 @@ import com.heveamobile.setsandsteps.core.designsystem.theme.color
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.domain.FormatMode
 import com.heveamobile.setsandsteps.core.domain.formatAmount
+import com.heveamobile.setsandsteps.core.domain.model.FoundCard
 import com.heveamobile.setsandsteps.core.domain.model.Rarity
-import com.heveamobile.setsandsteps.core.domain.usecase.FoundCard
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.Res
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.close_screen_button
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_cards_found
@@ -150,15 +150,27 @@ fun FoundCardsOverlay(
                     val height = with(density) { maxHeight.roundToPx() }
                     val width = with(density) { maxWidth.roundToPx() }
 
-                    GridLayout(
-                        state = state,
-                        foundCards = foundCards,
-                        onAction = onAction,
-                        showResultSummary = state.showResultSummary,
-                        mapPointsGained = state.mapPointsGained,
-                        screenHeight = height,
-                        screenWidth = width,
-                    )
+                    if (state.isPackOpening) {
+                        PackOpeningLayout(
+                            state = state,
+                            foundCards = foundCards,
+                            onAction = onAction,
+                            showResultSummary = state.showResultSummary,
+                            mapPointsGained = state.mapPointsGained,
+                            screenHeight = height,
+                            screenWidth = width,
+                        )
+                    } else {
+                        GridLayout(
+                            state = state,
+                            foundCards = foundCards,
+                            onAction = onAction,
+                            showResultSummary = state.showResultSummary,
+                            mapPointsGained = state.mapPointsGained,
+                            screenHeight = height,
+                            screenWidth = width,
+                        )
+                    }
                 }
             }
         }
@@ -235,6 +247,29 @@ fun FoundCardsOverlay(
             }
         }
     }
+}
+
+// TODO: dedicated pack-opening UI (e.g. reveal cards grouped/sequenced per pack).
+// For now this reuses the same grid rendering as the singles layout.
+@Composable
+private fun PackOpeningLayout(
+    state: FoundCardsState,
+    foundCards: List<FoundCard>,
+    onAction: (FoundCardsAction) -> Unit,
+    showResultSummary: Boolean,
+    mapPointsGained: Int,
+    screenHeight: Int,
+    screenWidth: Int,
+) {
+    GridLayout(
+        state = state,
+        foundCards = foundCards,
+        onAction = onAction,
+        showResultSummary = showResultSummary,
+        mapPointsGained = mapPointsGained,
+        screenHeight = screenHeight,
+        screenWidth = screenWidth,
+    )
 }
 
 @Composable

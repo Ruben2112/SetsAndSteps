@@ -1,8 +1,10 @@
 package com.heveamobile.setsandsteps.core.domain.model
 
 data class CardSetUserData(
+    val id: String,
     val isOwned: Boolean = false,
     val isActive: Boolean = false,
+    val currentSteps: Long = 0,
     val currentLevel: Int = 1,
     val calculatedDistance: Long = 0,
     val currentSetPoints: Long = 0,
@@ -59,3 +61,11 @@ data class CardSetUserData(
         return "$visited / $total ($progressPercentage%)"
     }
 }
+
+fun CardSetUserData.costPerPack(distanceMultiplier: Double): Long =
+    (calculatedDistance * distanceMultiplier).toLong()
+
+fun CardSetUserData.packsAvailable(costPerPack: Long): Int =
+    if (costPerPack == 0L) 1 else currentSteps
+        .floorDiv(costPerPack)
+        .toInt()

@@ -1,10 +1,11 @@
 package com.heveamobile.setsandsteps.core.foundcards
 
 import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
-import com.heveamobile.setsandsteps.core.domain.usecase.FoundCard
+import com.heveamobile.setsandsteps.core.domain.model.FoundCard
 
 data class FoundCardsState(
     val foundCards: List<FoundCard> = emptyList(),
+    val isPackOpening: Boolean = false,
     val cardShown: CollectableCard? = null,
     val isRevealingAll: Boolean = false,
     val mapPointsGained: Int = 0,

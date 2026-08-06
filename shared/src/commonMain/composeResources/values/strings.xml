@@ -10,6 +10,7 @@
 
     <!-- Content descriptions -->
     <string name="footsteps_icon_description">Footsteps icon</string>
+    <string name="pack_icon_description">Pack icon</string>
     <string name="overflow_icon_description">Show actions button</string>
     <string name="checkmark_icon_description">Checkmark icon</string>
     <string name="navigation_drawer_icon_description">Navigation drawer icon</string>

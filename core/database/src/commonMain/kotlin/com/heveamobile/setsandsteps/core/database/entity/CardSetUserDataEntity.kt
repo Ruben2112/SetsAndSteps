@@ -9,6 +9,7 @@ data class CardSetUserDataEntity(
     val id: String,
     val isActive: Boolean = false,
     val isOwned: Boolean = false,
+    val currentSteps: Long = 0,
     val currentLevel: Int = 1,
     val currentSetPoints: Long = 0,
 )

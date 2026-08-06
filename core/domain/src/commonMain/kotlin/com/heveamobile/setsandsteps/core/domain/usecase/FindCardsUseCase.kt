@@ -3,9 +3,16 @@ package com.heveamobile.setsandsteps.core.domain.usecase
 import com.heveamobile.setsandsteps.core.domain.model.CardSet
 import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
 import com.heveamobile.setsandsteps.core.domain.model.CollectableCardUserData
+import com.heveamobile.setsandsteps.core.domain.model.FoundCard
 import com.heveamobile.setsandsteps.core.domain.model.Rarity
 import com.heveamobile.setsandsteps.core.domain.repository.CardSetRepository
 import com.heveamobile.setsandsteps.core.domain.repository.CollectableCardRepository
+
+data class FindCardsResult(
+    val cards: List<FoundCard> = emptyList(),
+    val setPointsGained: Int = 0,
+    val levelUpOccurred: Boolean = false,
+)
 
 class FindCardsUseCase(
     private val collectableCardRepository: CollectableCardRepository,
@@ -15,12 +22,13 @@ class FindCardsUseCase(
         cardSet: CardSet,
         targetRarities: List<Rarity>,
         initialSetPointsDelta: Long = 0,
-    ): SpendStepsResult {
-        var result = SpendStepsResult()
-
+    ): FindCardsResult {
         val cardSetUserData = cardSet.userData
-            ?: return result
+            ?: return FindCardsResult()
         val cards = cardSet.cards
+
+        var foundCards = emptyList<FoundCard>()
+        var levelUpOccurred = false
 
         val updatedCardUserData = mutableMapOf<String, CollectableCardUserData>()
         fun userDataFor(card: CollectableCard) = updatedCardUserData[card.id]
@@ -63,24 +71,23 @@ class FindCardsUseCase(
 
                 // Update Card Set Level when all its cards are discovered
                 if (cards.all { userDataFor(it).isDiscovered }) {
-                    result = result.copy(levelUpOccurred = true)
+                    levelUpOccurred = true
 
                     // Break the loop to prevent finding more cards
                     return@loop
                 }
-                result = result.copy(cards = result.cards + foundCard)
+                foundCards = foundCards + foundCard
             }
         }
 
-        val levelUpOccurred = result.levelUpOccurred
-        val totalSetPointsGained = result.cards.sumOf { it.setPointsGained }
+        val totalSetPointsGained = foundCards.sumOf { it.setPointsGained }
 
         if (levelUpOccurred) {
             // Clear discovery flags in DB if level up occurred
             collectableCardRepository.resetDiscovered(cardSetId = cardSet.id)
         } else {
             // Update cards
-            collectableCardRepository.upsertCards(result.cards.map { it.card })
+            collectableCardRepository.upsertCards(foundCards.map { it.card })
         }
 
         cardSetRepository.updateCardSet(
@@ -96,6 +103,10 @@ class FindCardsUseCase(
             ),
         )
 
-        return result
+        return FindCardsResult(
+            cards = foundCards,
+            setPointsGained = totalSetPointsGained,
+            levelUpOccurred = levelUpOccurred,
+        )
     }
 }

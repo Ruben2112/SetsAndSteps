@@ -6,8 +6,7 @@ data class HomeState(
     val isLoadingSteps: Boolean = false,
 
     val isDrawerOpen: Boolean = false,
-    val availableSteps: Long = 0L,
-    val requiredSteps: Long = 0L,
+    val openablePacks: Int = 0,
 
     val sharedCardsState: SharedCardsState = SharedCardsState(),
 )

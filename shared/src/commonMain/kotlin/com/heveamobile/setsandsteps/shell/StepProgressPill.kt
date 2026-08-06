@@ -1,6 +1,5 @@
 package com.heveamobile.setsandsteps.shell
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.TweenSpec
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,67 +25,50 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_footstep
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_steps
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.domain.FormatMode
 import com.heveamobile.setsandsteps.core.domain.formatAmount
+import com.heveamobile.setsandsteps.core.navigation.icons.ic_pack
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import setsandsteps.shared.generated.resources.Res
-import setsandsteps.shared.generated.resources.footsteps_icon_description
+import setsandsteps.shared.generated.resources.pack_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
 
 @Composable
 fun StepProgressPill(
     modifier: Modifier = Modifier,
-    isLoading: Boolean = false,
-    availableSteps: Long,
-    requiredSteps: Long,
+    packCount: Int,
     onTap: () -> Unit,
 ) {
-    AnimatedContent(targetState = isLoading) {
-        Row(
-            modifier = modifier
-                .padding(horizontal = MaterialTheme.spacing.small)
-                .clip(shape = MaterialTheme.shapes.medium)
-                .background(MaterialTheme.colorScheme.secondaryContainer)
-                .clickable {
-                    onTap()
-                }
-                .padding(
-                    vertical = MaterialTheme.spacing.small,
-                    horizontal = MaterialTheme.spacing.medium,
-                ),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            if (isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(24.dp),
-                    color = MaterialTheme.colorScheme.onSurface,
-                    strokeWidth = 2.dp,
-                )
-            } else {
-                Text(
-                    text = formatAmount(
-                        availableSteps,
-                        FormatMode.Long,
-                    ),
-                    style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSecondaryContainer),
-                )
-                if (availableSteps >= requiredSteps) {
-                    Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
-                    WalkingFootsteps()
-                } else {
-                    Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
-                    Icon(
-                        modifier = Modifier.size(16.dp),
-                        painter = painterResource(DesignSystemRes.drawable.ic_steps),
-                        contentDescription = stringResource(Res.string.footsteps_icon_description),
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
-                    )
-                }
+    Row(
+        modifier = modifier
+            .padding(horizontal = MaterialTheme.spacing.small)
+            .clip(shape = MaterialTheme.shapes.medium)
+            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .clickable {
+                onTap()
             }
-        }
+            .padding(
+                vertical = MaterialTheme.spacing.small,
+                horizontal = MaterialTheme.spacing.medium,
+            ),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = formatAmount(
+                packCount.toLong(),
+                FormatMode.Long,
+            ),
+            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSecondaryContainer),
+        )
+        Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
+        Icon(
+            modifier = Modifier.size(16.dp),
+            imageVector = ic_pack,
+            contentDescription = stringResource(Res.string.pack_icon_description),
+            tint = MaterialTheme.colorScheme.onSecondaryContainer,
+        )
     }
 }
 

@@ -27,7 +27,7 @@ const val DATABASE_FILE_NAME = "map_by_step.db"
         CollectableCardEntity::class,
         CollectableCardUserDataEntity::class,
     ],
-    version = 1,
+    version = 2,
 )
 @TypeConverters(
     DateTimeConverters::class,

@@ -2,13 +2,16 @@ package com.heveamobile.setsandsteps.core.data.repository
 
 import com.heveamobile.setsandsteps.core.data.mapper.toDomain
 import com.heveamobile.setsandsteps.core.data.mapper.toEntity
+import com.heveamobile.setsandsteps.core.data.mapper.toUserData
 import com.heveamobile.setsandsteps.core.data.mapper.toUserDataEntity
 import com.heveamobile.setsandsteps.core.database.dao.CardSetDao
 import com.heveamobile.setsandsteps.core.database.dao.CardSetUserDataDao
 import com.heveamobile.setsandsteps.core.database.dao.CollectableCardDao
 import com.heveamobile.setsandsteps.core.database.entity.CardSetUserDataEntity
 import com.heveamobile.setsandsteps.core.domain.model.CardSet
+import com.heveamobile.setsandsteps.core.domain.model.CardSetUserData
 import com.heveamobile.setsandsteps.core.domain.repository.CardSetRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
@@ -58,7 +61,7 @@ class CardSetRepositoryImpl(
         cardSetUserDataDao.insertIfAbsent(
             CardSetUserDataEntity(
                 id = cardSet.id,
-                isActive = isActive,
+                isActive = true,
                 isOwned = true,
             ),
         )
@@ -79,6 +82,13 @@ class CardSetRepositoryImpl(
             ?.toDomain()
     }
 
+    override suspend fun getActiveCardSets(): List<CardSetUserData> {
+        return cardSetDao
+            .getActiveCardSetsUserData()
+            .mapNotNull { it.toUserData() }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun getAllSetProgressFlow(): Flow<List<CardSet>> {
         return cardSetDao
             .getAllSetsWithUserData()
@@ -97,5 +107,9 @@ class CardSetRepositoryImpl(
                     ) { cardSets -> cardSets.toList() }
                 }
             }
+    }
+
+    override suspend fun updateUserData(userData: CardSetUserData) {
+        cardSetUserDataDao.upsert(userData.toEntity())
     }
 }

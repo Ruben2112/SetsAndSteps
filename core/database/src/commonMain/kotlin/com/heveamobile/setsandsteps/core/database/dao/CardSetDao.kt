@@ -20,4 +20,14 @@ interface CardSetDao {
 
     @Upsert
     suspend fun upsertCardSet(cardSet: CardSetEntity)
+
+    @Transaction
+    @Query(
+        """
+        SELECT CardSetEntity.* FROM CardSetEntity
+        INNER JOIN CardSetUserDataEntity ON CardSetEntity.id = CardSetUserDataEntity.id
+        WHERE CardSetUserDataEntity.isActive = 1
+        """,
+    )
+    fun getActiveCardSetsUserData(): List<CardSetWithUserData>
 }

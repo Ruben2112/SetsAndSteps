@@ -50,12 +50,12 @@ class SetsViewModel(
 
         viewModelScope.launch {
             getUserUseCase().collectLatest { user ->
-                _state.update {
-                    it.copy(
-                        availableSteps = user?.availableSteps
-                            ?: 0L,
-                    )
-                }
+//                _state.update {
+//                    it.copy(
+//                        availableSteps = user?.availableSteps
+//                            ?: 0L,
+//                    )
+//                }
             }
         }
 

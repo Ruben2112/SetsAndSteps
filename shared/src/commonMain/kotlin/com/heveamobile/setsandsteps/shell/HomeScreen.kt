@@ -1,5 +1,6 @@
 package com.heveamobile.setsandsteps.shell
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -281,14 +282,18 @@ fun HomeContent(
                             }
                         },
                         actions = {
-                            StepProgressPill(
-                                isLoading = state.isLoadingSteps,
-                                availableSteps = state.availableSteps,
-                                requiredSteps = state.requiredSteps,
-                                onTap = {
-                                    onAction(HomeAction.SpendSteps)
-                                },
-                            )
+                            AnimatedVisibility(
+                                visible = state.openablePacks >= 1,
+                                enter = fadeIn(),
+                                exit = fadeOut(),
+                            ) {
+                                StepProgressPill(
+                                    packCount = state.openablePacks,
+                                    onTap = {
+                                        onAction(HomeAction.SpendSteps)
+                                    },
+                                )
+                            }
                             val currentBackStackEntry = backStack.lastOrNull()
                             if (currentBackStackEntry is Cards) {
                                 IconButton(onClick = { onAction(HomeAction.ToggleDropdownMenu) }) {

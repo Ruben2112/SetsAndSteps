@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="sets_level">Level %1$d</string>
-    <string name="sets_steps_per_finding">Steps per finding:</string>
+    <string name="sets_steps_to_next_pack">Steps to next pack:</string>
+    <string name="sets_steps_per_pack">Steps per pack:</string>
     <string name="sets_tab_my_sets">My Sets</string>
     <string name="sets_tab_catalog">Catalog</string>
     <string name="sets_download">Download</string>

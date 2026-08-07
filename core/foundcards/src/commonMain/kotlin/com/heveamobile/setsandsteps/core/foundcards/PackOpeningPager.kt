@@ -129,7 +129,7 @@ private fun SetPage(
     ) {
         if (isActiveSet) {
             onAction(
-                FoundCardsAction.UpdateVisiblePack(
+                FoundCardsAction.PackOpening.UpdateVisiblePack(
                     setIndex,
                     childPagerState.settledPage,
                 ),
@@ -197,10 +197,10 @@ private fun PackPage(
             onCardClick = { card ->
                 val found = packUiState.cards.first { it.card == card }
                 if (found.isRevealed) {
-                    onAction(FoundCardsAction.ToggleCardInfo(card))
+                    onAction(FoundCardsAction.Shared.ToggleCardInfo(card))
                 } else {
                     onAction(
-                        FoundCardsAction.RevealPackCard(
+                        FoundCardsAction.PackOpening.RevealPackCard(
                             setIndex,
                             packIndex,
                             card,

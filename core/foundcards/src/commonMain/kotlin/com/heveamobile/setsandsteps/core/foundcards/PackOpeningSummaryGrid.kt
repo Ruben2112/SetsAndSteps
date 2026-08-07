@@ -50,7 +50,7 @@ fun PackOpeningSummaryGrid(
                     isRevealed = true,
                     isNew = foundCard.isNew,
                     mapPointsGained = foundCard.setPointsGained,
-                    onClick = { onAction(FoundCardsAction.ToggleCardInfo(foundCard.card)) },
+                    onClick = { onAction(FoundCardsAction.Shared.ToggleCardInfo(foundCard.card)) },
                 )
             }
 

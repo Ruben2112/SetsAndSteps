@@ -66,6 +66,6 @@ fun CardSetUserData.costPerPack(distanceMultiplier: Double): Long =
     (calculatedDistance * distanceMultiplier).toLong()
 
 fun CardSetUserData.packsAvailable(costPerPack: Long): Int =
-    if (costPerPack == 0L) 2 else currentSteps
+    if (costPerPack == 0L) 1 else currentSteps
         .floorDiv(costPerPack)
         .toInt()

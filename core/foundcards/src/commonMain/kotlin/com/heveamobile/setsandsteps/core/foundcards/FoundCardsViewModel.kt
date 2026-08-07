@@ -264,9 +264,11 @@ class FoundCardsViewModel(
                             .orEmpty()
                             .all { it.allRevealed }
                         if (allRevealed) {
-                            delay(1000)
-                            _state.update { state ->
-                                state.copy(packOpeningState = state.packOpeningState?.copy(showSummaryPage = true))
+                            viewModelScope.launch {
+                                delay(1000)
+                                _state.update { state ->
+                                    state.copy(packOpeningState = state.packOpeningState?.copy(showSummaryPage = true))
+                                }
                             }
                         }
                     }

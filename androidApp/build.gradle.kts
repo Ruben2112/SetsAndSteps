@@ -43,8 +43,13 @@ android {
         }
     }
     buildTypes {
+        getByName("debug") {
+            applicationIdSuffix = ".debug"
+        }
         getByName("release") {
             isMinifyEnabled = false
+            // TODO: replace with a dedicated release signingConfig once a production keystore exists.
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {

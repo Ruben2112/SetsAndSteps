@@ -6,8 +6,9 @@
     <string name="overlay_skip_button">Skip</string>
     <string name="overlay_title">During your travels, you found...</string>
     <string name="overlay_cards_found">Cards found:</string>
-    <string name="overlay_pack_progress">Pack:</string>
+    <string name="overlay_pack_progress">Packs:</string>
     <string name="overlay_new_cards">New cards:</string>
     <string name="overlay_set_points_gained">Set points gained:</string>
     <string name="overlay_hold_to_reveal_button">Hold to reveal</string>
+    <string name="overlay_show_summary_button">Show summary</string>
 </resources>

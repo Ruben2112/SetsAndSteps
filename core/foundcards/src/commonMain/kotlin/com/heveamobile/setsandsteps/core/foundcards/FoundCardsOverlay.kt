@@ -72,6 +72,7 @@ import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_reveal_all_button
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_reveal_button
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_set_points_gained
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_show_summary_button
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_skip_button
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_title
 import org.jetbrains.compose.resources.stringResource
@@ -170,11 +171,19 @@ fun FoundCardsOverlay(
                         }
                     } else if (state.isPackOpening) {
                         state.packOpeningState?.let { packOpeningState ->
-                            PackOpeningPager(
-                                modifier = Modifier.fillMaxSize(),
-                                packOpeningState = packOpeningState,
-                                onAction = onAction,
-                            )
+                            if (packOpeningState.showSummaryScreen) {
+                                PackOpeningSummaryGrid(
+                                    modifier = Modifier.fillMaxSize(),
+                                    packOpeningState = packOpeningState,
+                                    onAction = onAction,
+                                )
+                            } else {
+                                PackOpeningPager(
+                                    modifier = Modifier.fillMaxSize(),
+                                    packOpeningState = packOpeningState,
+                                    onAction = onAction,
+                                )
+                            }
                         }
                     } else {
                         GridLayout(
@@ -192,7 +201,7 @@ fun FoundCardsOverlay(
         }
 
         val showCloseButton = state.cardShown != null || if (state.isPackOpening) {
-            state.packOpeningState?.showSummaryPage == true
+            state.packOpeningState?.showSummaryScreen == true
         } else {
             foundCards.none { !it.isRevealed }
         }
@@ -258,6 +267,36 @@ fun FoundCardsOverlay(
                     ) {
                         Text(
                             text = stringResource(Res.string.overlay_hold_to_reveal_button),
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            ),
+                        )
+                    }
+                }
+            }
+
+            AnimatedVisibility(
+                visible = packOpeningState != null &&
+                        packOpeningState.showSummaryPage &&
+                        !packOpeningState.showSummaryScreen,
+                enter = fadeIn(),
+                exit = fadeOut(),
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = paddingValues.calculateBottomPadding())
+                        .padding(bottom = MaterialTheme.spacing.medium),
+                    contentAlignment = Alignment.BottomCenter,
+                ) {
+                    Button(
+                        colors = ButtonDefaults
+                            .buttonColors()
+                            .copy(containerColor = MaterialTheme.colorScheme.secondaryContainer),
+                        onClick = { onAction(FoundCardsAction.ShowPackOpeningSummary) },
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.overlay_show_summary_button),
                             style = MaterialTheme.typography.bodySmall.copy(
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                             ),

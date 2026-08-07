@@ -294,6 +294,12 @@ class FoundCardsViewModel(
                     state.copy(packOpeningState = state.packOpeningState?.copy(isRevealing = false))
                 }
             }
+
+            is FoundCardsAction.ShowPackOpeningSummary -> {
+                _state.update { state ->
+                    state.copy(packOpeningState = state.packOpeningState?.copy(showSummaryScreen = true))
+                }
+            }
         }
     }
 }

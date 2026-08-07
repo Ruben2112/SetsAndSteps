@@ -1,9 +1,7 @@
 package com.heveamobile.setsandsteps.core.foundcards
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerDefaults
@@ -18,17 +16,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.heveamobile.setsandsteps.core.designsystem.component.Card
 import com.heveamobile.setsandsteps.core.designsystem.component.CircularPackLayout
-import com.heveamobile.setsandsteps.core.designsystem.component.KeyValueRow
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
-import com.heveamobile.setsandsteps.core.foundcards.generated.resources.Res
-import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_new_cards
-import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_pack_progress
-import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_set_points_gained
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun PackOpeningPager(
@@ -166,9 +157,9 @@ private fun SetPage(
 
     Column(modifier = Modifier.fillMaxSize()) {
         SetHeader(
+            modifier = Modifier.padding(MaterialTheme.spacing.medium),
             setName = setPageUiState.cardSet.name,
-            packIndex = childPagerState.settledPage,
-            packCount = packs.size,
+            packProgressValue = "${childPagerState.settledPage + 1} / ${packs.size}",
             newCardsCount = setPageUiState.newCardsCount,
             pointsGained = setPageUiState.pointsRevealedSoFar,
         )
@@ -187,40 +178,6 @@ private fun SetPage(
                 packIndex = packPage,
                 packUiState = packs[packPage],
                 onAction = onAction,
-            )
-        }
-    }
-}
-
-@Composable
-private fun SetHeader(
-    setName: String,
-    packIndex: Int,
-    packCount: Int,
-    newCardsCount: Int,
-    pointsGained: Int,
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(MaterialTheme.spacing.medium),
-        title = setName,
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-        ) {
-            KeyValueRow(
-                key = stringResource(Res.string.overlay_pack_progress),
-                value = "${packIndex + 1} / $packCount",
-            )
-            KeyValueRow(
-                key = stringResource(Res.string.overlay_new_cards),
-                value = newCardsCount.toString(),
-            )
-            KeyValueRow(
-                key = stringResource(Res.string.overlay_set_points_gained),
-                value = pointsGained.toString(),
             )
         }
     }

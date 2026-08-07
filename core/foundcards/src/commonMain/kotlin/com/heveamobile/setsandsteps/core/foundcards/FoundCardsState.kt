@@ -29,6 +29,7 @@ data class PackOpeningUiState(
     val setPages: List<SetPageUiState>,
     val isRevealing: Boolean = false,
     val showSummaryPage: Boolean = false,
+    val showSummaryScreen: Boolean = false,
     val visibleSetIndex: Int = 0,
     val visiblePackIndex: Int = 0,
 ) {
@@ -85,6 +86,7 @@ sealed interface FoundCardsAction {
 
     data object StartRevealing : FoundCardsAction
     data object StopRevealing : FoundCardsAction
+    data object ShowPackOpeningSummary : FoundCardsAction
     data class UpdateVisiblePack(
         val setIndex: Int,
         val packIndex: Int,

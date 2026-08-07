@@ -46,7 +46,6 @@ import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.domain.FormatMode
 import com.heveamobile.setsandsteps.core.domain.formatAmount
 import com.heveamobile.setsandsteps.core.domain.model.Rarity
-import com.heveamobile.setsandsteps.core.foundcards.FoundCardsHost
 import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.Res
 import com.heveamobile.setsandsteps.feature.setpointexchange.presentation.generated.resources.decrease_icon_description
@@ -212,8 +211,6 @@ fun SetPointExchangeContent(
                 }
             }
         }
-
-        FoundCardsHost()
     }
 }
 

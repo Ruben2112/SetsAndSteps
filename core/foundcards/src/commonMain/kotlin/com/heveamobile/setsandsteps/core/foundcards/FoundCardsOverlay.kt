@@ -9,6 +9,8 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -34,6 +36,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -47,15 +50,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.heveamobile.setsandsteps.core.designsystem.component.Card
 import com.heveamobile.setsandsteps.core.designsystem.component.CardDetailsCard
 import com.heveamobile.setsandsteps.core.designsystem.component.CollectableCardLayout
-import com.heveamobile.setsandsteps.core.designsystem.component.PrimaryButton
 import com.heveamobile.setsandsteps.core.designsystem.theme.color
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.domain.FormatMode
@@ -65,6 +67,7 @@ import com.heveamobile.setsandsteps.core.domain.model.Rarity
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.Res
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.close_screen_button
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_cards_found
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_hold_to_reveal_button
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_new_cards
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_reveal_all_button
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_reveal_button
@@ -119,7 +122,11 @@ fun FoundCardsOverlay(
         AnimatedContent(
             modifier = Modifier
                 .fillMaxHeight()
-                .padding(bottom = paddingValues.calculateBottomPadding()),
+                .padding(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = paddingValues
+                        .calculateBottomPadding(),
+                ),
             targetState = state.cardShown,
             transitionSpec = {
                 // Smooth fade when opening/closing the detail view
@@ -140,7 +147,7 @@ fun FoundCardsOverlay(
                             top = MaterialTheme.spacing.extraLarge,
                             bottom = MaterialTheme.spacing.medium,
                         ),
-                        cardSet = state.foundCards.first { it.card == card }.cardSet,
+                        cardSet = state.findFoundCard(card).cardSet,
                         card = card,
                     )
                 }
@@ -150,16 +157,25 @@ fun FoundCardsOverlay(
                     val height = with(density) { maxHeight.roundToPx() }
                     val width = with(density) { maxWidth.roundToPx() }
 
-                    if (state.isPackOpening) {
-                        PackOpeningLayout(
-                            state = state,
-                            foundCards = foundCards,
-                            onAction = onAction,
-                            showResultSummary = state.showResultSummary,
-                            mapPointsGained = state.mapPointsGained,
-                            screenHeight = height,
-                            screenWidth = width,
-                        )
+                    if (state.isLoading) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(48.dp),
+                                color = MaterialTheme.colorScheme.onSurface,
+                                strokeWidth = 4.dp,
+                            )
+                        }
+                    } else if (state.isPackOpening) {
+                        state.packOpeningState?.let { packOpeningState ->
+                            PackOpeningPager(
+                                modifier = Modifier.fillMaxSize(),
+                                packOpeningState = packOpeningState,
+                                onAction = onAction,
+                            )
+                        }
                     } else {
                         GridLayout(
                             state = state,
@@ -175,10 +191,14 @@ fun FoundCardsOverlay(
             }
         }
 
-        val showRevealAllButton = foundCards.any { !it.isRevealed }
+        val showCloseButton = state.cardShown != null || if (state.isPackOpening) {
+            state.packOpeningState?.showSummaryPage == true
+        } else {
+            foundCards.none { !it.isRevealed }
+        }
 
         AnimatedVisibility(
-            visible = !showRevealAllButton,
+            visible = showCloseButton,
             enter = fadeIn(),
             exit = fadeOut(),
         ) {
@@ -208,68 +228,86 @@ fun FoundCardsOverlay(
             }
         }
 
-        AnimatedVisibility(
-            visible = showRevealAllButton,
-            enter = fadeIn(),
-            exit = fadeOut(),
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = paddingValues.calculateBottomPadding())
-                    .padding(bottom = MaterialTheme.spacing.small),
-                contentAlignment = Alignment.BottomCenter,
+        if (state.isPackOpening) {
+            val packOpeningState = state.packOpeningState
+            AnimatedVisibility(
+                visible = packOpeningState != null && !packOpeningState.showSummaryPage,
+                enter = fadeIn(),
+                exit = fadeOut(),
             ) {
-                val buttonTextResId = if (!state.isRevealingAll) {
-                    if (foundCards.size > 1) Res.string.overlay_reveal_all_button else Res.string.overlay_reveal_button
-                } else {
-                    Res.string.overlay_skip_button
-                }
-                Button(
-                    colors = ButtonDefaults
-                        .buttonColors()
-                        .copy(containerColor = MaterialTheme.colorScheme.secondaryContainer),
-                    onClick = {
-                        if (!state.isRevealingAll) {
-                            onAction(FoundCardsAction.RevealAllCards)
-                        } else {
-                            onAction(FoundCardsAction.SkipRevealingAllCards)
-                        }
-                    },
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = paddingValues.calculateBottomPadding())
+                        .padding(MaterialTheme.spacing.medium),
+                    contentAlignment = Alignment.BottomEnd,
                 ) {
-                    Text(
-                        text = stringResource(buttonTextResId),
-                        style = MaterialTheme.typography.bodySmall.copy(
-                            color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        ),
-                    )
+                    val holdInteractionSource = remember { MutableInteractionSource() }
+                    val isHeld by holdInteractionSource.collectIsPressedAsState()
+                    LaunchedEffect(isHeld) {
+                        onAction(
+                            if (isHeld) FoundCardsAction.StartRevealing else FoundCardsAction.StopRevealing,
+                        )
+                    }
+                    Button(
+                        colors = ButtonDefaults
+                            .buttonColors()
+                            .copy(containerColor = MaterialTheme.colorScheme.secondaryContainer),
+                        interactionSource = holdInteractionSource,
+                        onClick = {},
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.overlay_hold_to_reveal_button),
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            ),
+                        )
+                    }
+                }
+            }
+        } else {
+            val showRevealAllButton = foundCards.any { !it.isRevealed }
+
+            AnimatedVisibility(
+                visible = showRevealAllButton,
+                enter = fadeIn(),
+                exit = fadeOut(),
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = paddingValues.calculateBottomPadding())
+                        .padding(bottom = MaterialTheme.spacing.small),
+                    contentAlignment = Alignment.BottomCenter,
+                ) {
+                    val buttonTextResId = if (!state.isRevealingAll) {
+                        if (foundCards.size > 1) Res.string.overlay_reveal_all_button else Res.string.overlay_reveal_button
+                    } else {
+                        Res.string.overlay_skip_button
+                    }
+                    Button(
+                        colors = ButtonDefaults
+                            .buttonColors()
+                            .copy(containerColor = MaterialTheme.colorScheme.secondaryContainer),
+                        onClick = {
+                            if (!state.isRevealingAll) {
+                                onAction(FoundCardsAction.RevealAllCards)
+                            } else {
+                                onAction(FoundCardsAction.SkipRevealingAllCards)
+                            }
+                        },
+                    ) {
+                        Text(
+                            text = stringResource(buttonTextResId),
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            ),
+                        )
+                    }
                 }
             }
         }
     }
-}
-
-// TODO: dedicated pack-opening UI (e.g. reveal cards grouped/sequenced per pack).
-// For now this reuses the same grid rendering as the singles layout.
-@Composable
-private fun PackOpeningLayout(
-    state: FoundCardsState,
-    foundCards: List<FoundCard>,
-    onAction: (FoundCardsAction) -> Unit,
-    showResultSummary: Boolean,
-    mapPointsGained: Int,
-    screenHeight: Int,
-    screenWidth: Int,
-) {
-    GridLayout(
-        state = state,
-        foundCards = foundCards,
-        onAction = onAction,
-        showResultSummary = showResultSummary,
-        mapPointsGained = mapPointsGained,
-        screenHeight = screenHeight,
-        screenWidth = screenWidth,
-    )
 }
 
 @Composable
@@ -470,15 +508,16 @@ private fun GridLayout(
         }
 
         item(span = { GridItemSpan(maxLineSpan) }) {
-            PrimaryButton(
+            // Reserves the same height as the floating reveal/skip button so the grid
+            // stays vertically balanced instead of being covered by it.
+            Spacer(
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .height(ButtonDefaults.MinHeight)
                     .padding(
                         bottom = MaterialTheme.spacing.large,
                         top = MaterialTheme.spacing.medium,
-                    )
-                    .alpha(0F),
-                label = "",
-                onClick = { },
+                    ),
             )
         }
     }

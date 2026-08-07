@@ -133,9 +133,12 @@ class HomeViewModel(
 
             HomeAction.SpendSteps -> {
                 viewModelScope.launch(Dispatchers.IO) {
+                    foundCardsHandler.announceLoading()
                     val result = spendStepsUseCase()
                     if (result.allCards.isNotEmpty()) {
                         foundCardsHandler.announceFoundCards(result)
+                    } else {
+                        foundCardsHandler.clearLoading()
                     }
                 }
             }

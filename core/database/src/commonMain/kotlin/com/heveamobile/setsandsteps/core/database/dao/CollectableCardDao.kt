@@ -19,6 +19,10 @@ interface CollectableCardDao {
     fun getCardsWithUserDataByCardSetId(cardSetId: String): Flow<List<CollectableCardWithUserData>>
 
     @Transaction
+    @Query("SELECT * FROM CollectableCardEntity WHERE cardSetId = :cardSetId")
+    suspend fun getCardsWithUserDataByCardSetIdSync(cardSetId: String): List<CollectableCardWithUserData>
+
+    @Transaction
     @Query("SELECT * FROM CollectableCardEntity WHERE id = :id")
     fun getCardById(id: String): CollectableCardWithUserData?
 

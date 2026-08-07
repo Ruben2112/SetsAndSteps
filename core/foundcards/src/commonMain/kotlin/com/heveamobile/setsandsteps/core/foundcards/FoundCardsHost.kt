@@ -19,12 +19,12 @@ fun FoundCardsHost(
     val viewModel = koinViewModel<FoundCardsViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    LaunchedEffect(state.foundCards.isNotEmpty()) {
-        onVisibilityChanged(state.foundCards.isNotEmpty())
+    LaunchedEffect(state.isVisible) {
+        onVisibilityChanged(state.isVisible)
     }
 
     AnimatedVisibility(
-        visible = state.foundCards.isNotEmpty(),
+        visible = state.isVisible,
         enter = fadeIn(tween(300)),
         exit = fadeOut(tween(300)),
     ) {

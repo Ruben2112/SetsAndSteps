@@ -77,9 +77,12 @@ class CardSetRepositoryImpl(
     }
 
     override suspend fun getCardSetById(id: String): CardSet? {
-        return cardSetDao
-            .getCardSetById(id = id)
-            ?.toDomain()
+        val setWithUserData = cardSetDao.getCardSetWithUserDataById(id = id)
+            ?: return null
+        val cards = collectableCardDao
+            .getCardsWithUserDataByCardSetIdSync(cardSetId = id)
+            .map { it.toDomain() }
+        return setWithUserData.toDomain(cards)
     }
 
     override suspend fun getActiveCardSets(): List<CardSetUserData> {

@@ -99,6 +99,7 @@ class SetPointExchangeViewModel(
 
                 viewModelScope.launch(Dispatchers.IO) {
                     _state.value.selectedSet?.let { set ->
+                        foundCardsHandler.announceLoading()
                         val result = purchaseCardsFromExchangeUseCase(
                             cardSet = set,
                             cart = currentState.cart,
@@ -106,6 +107,8 @@ class SetPointExchangeViewModel(
                         )
                         if (result.cards.isNotEmpty()) {
                             foundCardsHandler.announceFoundCards(result)
+                        } else {
+                            foundCardsHandler.clearLoading()
                         }
                     }
                 }

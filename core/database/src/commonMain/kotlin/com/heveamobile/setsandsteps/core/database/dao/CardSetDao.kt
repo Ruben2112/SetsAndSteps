@@ -15,8 +15,9 @@ interface CardSetDao {
     @Query("SELECT * FROM CardSetEntity")
     fun getAllSetsWithUserData(): Flow<List<CardSetWithUserData>>
 
+    @Transaction
     @Query("SELECT * FROM CardSetEntity WHERE id = :id")
-    suspend fun getCardSetById(id: String): CardSetEntity?
+    suspend fun getCardSetWithUserDataById(id: String): CardSetWithUserData?
 
     @Upsert
     suspend fun upsertCardSet(cardSet: CardSetEntity)

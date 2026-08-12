@@ -1,6 +1,6 @@
 package com.heveamobile.setsandsteps.core.designsystem.component
 
-import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -57,7 +57,6 @@ import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
-
 @Composable
 fun CollectableCardLayout(
     modifier: Modifier = Modifier,
@@ -69,11 +68,12 @@ fun CollectableCardLayout(
     isLarge: Boolean = false,
     mapPointsGained: Int = 0,
 ) {
+    val rotationAngle = 180F + (card.rarity.intValue - 1) * 360F
     val rotation = animateFloatAsState(
-        targetValue = if (isRevealed) 0F else 180F,
+        targetValue = if (isRevealed) 0F else rotationAngle,
         animationSpec = tween(
-            durationMillis = 300,
-            easing = FastOutSlowInEasing,
+            durationMillis = card.animationTime.toInt(),
+            easing = LinearOutSlowInEasing,
         ),
     )
     Box(
@@ -89,7 +89,8 @@ fun CollectableCardLayout(
     ) {
         Box(
             modifier = Modifier.graphicsLayer {
-                alpha = if (rotation.value <= 90F) 1f else 0f
+                val normalizedRotation = (rotation.value % 360F + 360F) % 360F
+                alpha = if (normalizedRotation <= 90F || normalizedRotation >= 270F) 1F else 0F
             },
         ) {
             CardFront(
@@ -102,7 +103,8 @@ fun CollectableCardLayout(
         Box(
             modifier = Modifier.graphicsLayer {
                 rotationY = 180F
-                alpha = if (rotation.value > 90F) 1f else 0f
+                val normalizedRotation = (rotation.value % 360F + 360F) % 360F
+                alpha = if (normalizedRotation > 90F && normalizedRotation < 270F) 1F else 0F
             },
         ) {
             CardBack(
@@ -356,3 +358,6 @@ private fun CardBack(
         }
     }
 }
+
+val CollectableCard.animationTime: Float
+    get() = ((rarity.intValue - 0.5F) * (300 * 2))

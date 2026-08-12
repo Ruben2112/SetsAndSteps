@@ -1,5 +1,6 @@
 package com.heveamobile.setsandsteps.core.foundcards
 
+import com.heveamobile.setsandsteps.core.designsystem.component.animationTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -35,7 +36,7 @@ internal class FoundCardsSinglesController(
                         .orEmpty()
                         .all { it.isRevealed }
                     if (allCardsRevealed) {
-                        delay(1000)
+                        delay(action.card.animationTime.toLong())
                         state.update { state ->
                             state.copy(singlesState = state.singlesState?.copy(showResultSummary = true))
                         }
@@ -73,15 +74,15 @@ internal class FoundCardsSinglesController(
 
                             // Add a delay to revealing next card.
                             if (index < toReveal.size - 1) {
-                                // Logic: Use the rarity of the NEXT card to determine the suspense delay
-                                delay((toReveal[index + 1].card.rarity.intValue * 300).toLong())
+                                // Logic: Use the rarity of the current card to determine the suspense delay
+                                delay(toReveal[index].card.animationTime.toLong())
                             }
                         }
 
                         state.update { state ->
                             state.copy(singlesState = state.singlesState?.copy(isRevealingAll = false))
                         }
-                        delay(1000)
+                        delay(toReveal.last().card.animationTime.toLong())
                         state.update { state ->
                             state.copy(singlesState = state.singlesState?.copy(showResultSummary = true))
                         }

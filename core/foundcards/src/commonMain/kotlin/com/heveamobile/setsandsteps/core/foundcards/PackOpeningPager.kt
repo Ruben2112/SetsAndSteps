@@ -17,6 +17,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.heveamobile.setsandsteps.core.designsystem.component.CircularPackLayout
+import com.heveamobile.setsandsteps.core.designsystem.component.animationTime
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -42,8 +43,8 @@ fun PackOpeningPager(
         }
     }
 
-    val currentSetAllRevealed =
-        setPages.getOrNull(parentPagerState.settledPage)?.allRevealed == true
+    val currentSet = setPages.getOrNull(parentPagerState.settledPage)
+    val currentSetAllRevealed = currentSet?.allRevealed == true
     LaunchedEffect(
         packOpeningState.isRevealing,
         parentPagerState.settledPage,
@@ -55,6 +56,8 @@ fun PackOpeningPager(
             targetPage = packOpeningState.firstUnrevealedPosition
                 ?.takeIf { it.first != parentPagerState.settledPage }
                 ?.first,
+            delayMillis = packOpeningState.lastRevealedCard?.animationTime?.toLong()
+                ?: 0L,
         )
         if (target != null) {
             coroutineScope.launch { parentPagerState.animateScrollToPage(target) }
@@ -90,9 +93,10 @@ private suspend fun awaitAutoAdvanceTarget(
     isRevealing: Boolean,
     allRevealedOnCurrentPage: Boolean,
     targetPage: Int?,
+    delayMillis: Long,
 ): Int? {
     if (isRevealing && allRevealedOnCurrentPage && targetPage != null) {
-        delay(1000)
+        delay(delayMillis)
         return targetPage
     }
     return null
@@ -137,7 +141,8 @@ private fun SetPage(
         }
     }
 
-    val currentPackAllRevealed = packs.getOrNull(childPagerState.settledPage)?.allRevealed == true
+    val currentPack = packs.getOrNull(childPagerState.settledPage)
+    val currentPackAllRevealed = currentPack?.allRevealed == true
     LaunchedEffect(
         isRevealing,
         childPagerState.settledPage,
@@ -149,6 +154,8 @@ private fun SetPage(
             targetPage = packOpeningState.firstUnrevealedPosition
                 ?.takeIf { it.first == setIndex && it.second != childPagerState.settledPage }
                 ?.second,
+            delayMillis = packOpeningState.lastRevealedCard?.animationTime?.toLong()
+                ?: 0L,
         )
         if (target != null) {
             coroutineScope.launch { childPagerState.animateScrollToPage(target) }

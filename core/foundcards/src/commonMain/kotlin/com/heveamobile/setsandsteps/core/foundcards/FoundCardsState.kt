@@ -38,6 +38,7 @@ data class PackOpeningUiState(
     val showSummaryScreen: Boolean = false,
     val visibleSetIndex: Int = 0,
     val visiblePackIndex: Int = 0,
+    val lastRevealedCard: CollectableCard? = null,
 ) {
     /**
      * The (setIndex, packIndex) of the first pack that still has unrevealed cards, in

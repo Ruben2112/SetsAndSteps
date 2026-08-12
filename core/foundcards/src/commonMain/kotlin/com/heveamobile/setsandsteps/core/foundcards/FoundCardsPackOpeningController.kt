@@ -1,5 +1,6 @@
 package com.heveamobile.setsandsteps.core.foundcards
 
+import com.heveamobile.setsandsteps.core.designsystem.component.animationTime
 import com.heveamobile.setsandsteps.core.domain.model.FoundCard
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -61,8 +62,15 @@ internal class FoundCardsPackOpeningController(
                     it.copy(isRevealed = true)
                 }
 
-                val allRevealed = state.value.packOpeningState
-                    ?.setPages
+                state.update { state ->
+                    state.copy(
+                        packOpeningState = state.packOpeningState?.copy(
+                            lastRevealedCard = action.card,
+                        ),
+                    )
+                }
+
+                val allRevealed = state.value.packOpeningState?.setPages
                     .orEmpty()
                     .all { it.allRevealed }
                 if (allRevealed) {
@@ -82,8 +90,7 @@ internal class FoundCardsPackOpeningController(
                         }
 
                         val packOpeningState = state.value.packOpeningState
-                        val remaining = packOpeningState
-                            ?.setPages
+                        val remaining = packOpeningState?.setPages
                             .orEmpty()
                             .flatMapIndexed { si, setPage ->
                                 setPage.packs.flatMapIndexed { pi, pack ->
@@ -108,9 +115,7 @@ internal class FoundCardsPackOpeningController(
                                 // auto-advance delay in PackOpeningPager.
                                 state.first { state ->
                                     val packOpeningState = state.packOpeningState
-                                    packOpeningState != null &&
-                                            packOpeningState.visibleSetIndex == si &&
-                                            packOpeningState.visiblePackIndex == pi
+                                    packOpeningState != null && packOpeningState.visibleSetIndex == si && packOpeningState.visiblePackIndex == pi
                                 }
                                 lastPosition = position
                             }
@@ -119,8 +124,15 @@ internal class FoundCardsPackOpeningController(
                                 pi,
                                 { it === foundCard },
                             ) { it.copy(isRevealed = true) }
+                            state.update { state ->
+                                state.copy(
+                                    packOpeningState = state.packOpeningState?.copy(
+                                        lastRevealedCard = foundCard.card,
+                                    ),
+                                )
+                            }
                             if (index < remaining.size - 1) {
-                                delay((remaining[index + 1].third.card.rarity.intValue * 300).toLong())
+                                delay(remaining[index].third.card.animationTime.toLong())
                             }
                         }
 
@@ -128,8 +140,7 @@ internal class FoundCardsPackOpeningController(
                             state.copy(packOpeningState = state.packOpeningState?.copy(isRevealing = false))
                         }
 
-                        val allRevealed = state.value.packOpeningState
-                            ?.setPages
+                        val allRevealed = state.value.packOpeningState?.setPages
                             .orEmpty()
                             .all { it.allRevealed }
                         if (allRevealed) {

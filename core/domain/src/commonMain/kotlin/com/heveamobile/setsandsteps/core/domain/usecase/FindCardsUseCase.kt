@@ -69,6 +69,8 @@ class FindCardsUseCase(
                 updatedCardUserData[cardData.id] = newUserData
                 foundCard = foundCard.copy(card = cardData.copy(userData = newUserData))
 
+                foundCards = foundCards + foundCard
+
                 // Update Card Set Level when all its cards are discovered
                 if (cards.all { userDataFor(it).isDiscovered }) {
                     levelUpOccurred = true
@@ -76,7 +78,6 @@ class FindCardsUseCase(
                     // Break the loop to prevent finding more cards
                     return@loop
                 }
-                foundCards = foundCards + foundCard
             }
         }
 

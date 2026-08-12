@@ -25,11 +25,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.heveamobile.setsandsteps.core.designsystem.component.Card
@@ -45,6 +51,7 @@ import com.heveamobile.setsandsteps.core.domain.model.CardSetDownloadState
 import com.heveamobile.setsandsteps.core.navigation.icons.ic_catalog
 import com.heveamobile.setsandsteps.core.navigation.icons.ic_sets
 import com.heveamobile.setsandsteps.core.presentation.LocalBottomBarState
+import com.heveamobile.setsandsteps.core.presentation.LocalDrawerState
 import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.Res
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_activate
@@ -62,6 +69,7 @@ import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resource
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_update_failed
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_updating
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -141,9 +149,56 @@ private fun SetsContent(
         }
     }
 
+    val drawerState = LocalDrawerState.current
+    val scope = rememberCoroutineScope()
+
+    val nestedScrollConnection = remember(
+        pagerState,
+        drawerState,
+        scope,
+    ) {
+        object : NestedScrollConnection {
+            override fun onPreScroll(
+                available: Offset,
+                source: NestedScrollSource,
+            ): Offset {
+                // If we're on the first page and swiping right, we let the parent handle it
+                return if (pagerState.currentPage == 0 && available.x > 0) {
+                    Offset.Zero
+                } else {
+                    super.onPreScroll(
+                        available,
+                        source,
+                    )
+                }
+            }
+
+            override fun onPostScroll(
+                consumed: Offset,
+                available: Offset,
+                source: NestedScrollSource,
+            ): Offset {
+                // If there's remaining delta after the pager (and others) handled the scroll,
+                // and we're on the first page swiping right, we open the drawer.
+                if (pagerState.currentPage == 0 && available.x > 0 && source == NestedScrollSource.UserInput) {
+                    scope.launch {
+                        drawerState.open()
+                    }
+                }
+                return super.onPostScroll(
+                    consumed,
+                    available,
+                    source,
+                )
+            }
+        }
+    }
+
     HorizontalPager(
         state = pagerState,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .nestedScroll(nestedScrollConnection),
     ) { page ->
         val tab = SetsTab.entries[page]
         LazyColumn(

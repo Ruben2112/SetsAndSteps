@@ -59,6 +59,7 @@ import com.heveamobile.setsandsteps.core.navigation.NavigationDrawerRoute
 import com.heveamobile.setsandsteps.core.navigation.NavigationHandler
 import com.heveamobile.setsandsteps.core.presentation.BottomBarState
 import com.heveamobile.setsandsteps.core.presentation.LocalBottomBarState
+import com.heveamobile.setsandsteps.core.presentation.LocalDrawerState
 import com.heveamobile.setsandsteps.core.presentation.LocalScaffoldPadding
 import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
 import com.heveamobile.setsandsteps.feature.cards.presentation.CardDetails
@@ -196,6 +197,7 @@ fun HomeContent(
     CompositionLocalProvider(
         LocalSnackbarHostState provides snackbarHostState,
         LocalBottomBarState provides bottomBarState,
+        LocalDrawerState provides drawerState,
     ) {
         ModalNavigationDrawer(
             modifier = Modifier

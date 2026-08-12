@@ -168,7 +168,7 @@ private fun CardFront(
                     }
 
                     SubcomposeAsyncImage(
-                        modifier = modifier,
+                        modifier = modifier.fillMaxSize(),
                         model = imageRequest,
                         loading = {
                             Box(
@@ -206,7 +206,7 @@ private fun CardFront(
                                 }
                             }
                         },
-                        contentScale = ContentScale.Crop,
+                        contentScale = ContentScale.FillBounds,
                         contentDescription = stringResource(
                             Res.string.card_image_description,
                             card.name,

@@ -138,7 +138,7 @@ private fun CardFront(
                 .clip(if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium)
                 .border(
                     width = if (isLarge) 4.dp else 1.dp,
-                    color = MaterialTheme.colorScheme.outline,
+                    color = card.rarity.color(MaterialTheme.colorScheme.onPrimary),
                     shape = if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium,
                 )
                 .background(
@@ -218,7 +218,7 @@ private fun CardFront(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(if (isLarge) 4.dp else 1.dp)
-                    .background(MaterialTheme.colorScheme.outline),
+                    .background(card.rarity.color(MaterialTheme.colorScheme.onPrimary)),
             )
             Box(
                 modifier = Modifier
@@ -315,7 +315,7 @@ private fun CardBack(
             .clip(if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium)
             .border(
                 width = if (isLarge) 4.dp else 1.dp,
-                color = MaterialTheme.colorScheme.outline,
+                color = MaterialTheme.colorScheme.onPrimary,
                 shape = if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium,
             )
             .background(if (userData.findCount > 0) MaterialTheme.colorScheme.surfaceContainer else MaterialTheme.colorScheme.primaryContainer),
@@ -330,14 +330,14 @@ private fun CardBack(
                 painter = painterResource(resource = Res.drawable.ic_question_mark),
                 contentDescription = stringResource(Res.string.unrevealed_card_icon_description),
                 tint = if (raritySpoiler) card.rarity.color(MaterialTheme.colorScheme.onPrimary)
-                else MaterialTheme.colorScheme.onSurface,
+                else MaterialTheme.colorScheme.onPrimary,
             )
         }
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(if (isLarge) 4.dp else 1.dp)
-                .background(MaterialTheme.colorScheme.outline),
+                .background(MaterialTheme.colorScheme.onPrimary),
         )
         Box(
             modifier = Modifier
@@ -351,7 +351,7 @@ private fun CardBack(
             Text(
                 text = stringResource(Res.string.unrevealed_card_title),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurface),
+                style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onPrimary),
             )
         }
     }

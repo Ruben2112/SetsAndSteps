@@ -134,7 +134,6 @@ internal class FoundCardsPackOpeningController(
                             .all { it.allRevealed }
                         if (allRevealed) {
                             scope.launch {
-                                delay(1000)
                                 state.update { state ->
                                     state.copy(packOpeningState = state.packOpeningState?.copy(showSummaryButton = true))
                                 }

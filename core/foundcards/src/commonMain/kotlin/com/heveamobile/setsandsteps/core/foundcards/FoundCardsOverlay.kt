@@ -191,6 +191,7 @@ fun FoundCardsOverlay(
             state.packOpeningState?.let { packOpeningState ->
                 PackOpeningFloatingActions(
                     packOpeningState = packOpeningState,
+                    cardDetailsShown = state.cardShown != null,
                     onAction = onAction,
                     bottomPadding = paddingValues.calculateBottomPadding(),
                 )

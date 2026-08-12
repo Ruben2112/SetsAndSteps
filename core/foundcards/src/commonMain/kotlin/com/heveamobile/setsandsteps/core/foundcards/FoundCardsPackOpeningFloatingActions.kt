@@ -28,11 +28,12 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 internal fun PackOpeningFloatingActions(
     packOpeningState: PackOpeningUiState,
+    cardDetailsShown: Boolean,
     onAction: (FoundCardsAction) -> Unit,
     bottomPadding: Dp,
 ) {
     AnimatedVisibility(
-        visible = !packOpeningState.showSummaryButton,
+        visible = !packOpeningState.showSummaryButton && !cardDetailsShown,
         enter = fadeIn(),
         exit = fadeOut(),
     ) {
@@ -72,7 +73,7 @@ internal fun PackOpeningFloatingActions(
     }
 
     AnimatedVisibility(
-        visible = packOpeningState.showSummaryButton && !packOpeningState.showSummaryScreen,
+        visible = packOpeningState.showSummaryButton && !packOpeningState.showSummaryScreen && !cardDetailsShown,
         enter = fadeIn(),
         exit = fadeOut(),
     ) {

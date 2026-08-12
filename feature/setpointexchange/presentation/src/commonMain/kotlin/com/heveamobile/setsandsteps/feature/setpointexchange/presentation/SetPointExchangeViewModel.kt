@@ -130,7 +130,15 @@ class SetPointExchangeViewModel(
                 }
             }
 
-            is SetPointExchangeAction.SelectSet -> TODO()
+            is SetPointExchangeAction.SelectSet -> {
+                _state.update { state ->
+                    state.copy(
+                        selectedSet = action.set,
+                        cart = emptyCart,
+                        totalCost = 0,
+                    )
+                }
+            }
             is SetPointExchangeAction.ToggleMapSelector -> TODO()
             is SetPointExchangeAction.UpdateCartAmount -> {
                 _state.update { state ->

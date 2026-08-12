@@ -41,7 +41,7 @@ val emptyCart: Map<Rarity, Int>
 
 sealed interface SetPointExchangeAction {
     data object ToggleMapSelector : SetPointExchangeAction
-    data class SelectSet(val map: CardSet) : SetPointExchangeAction
+    data class SelectSet(val set: CardSet) : SetPointExchangeAction
     data class UpdateCartAmount(
         val rarity: Rarity,
         val amount: Int,

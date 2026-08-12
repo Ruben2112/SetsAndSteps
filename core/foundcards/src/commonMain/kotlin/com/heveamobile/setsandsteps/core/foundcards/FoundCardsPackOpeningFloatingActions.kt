@@ -32,7 +32,7 @@ internal fun PackOpeningFloatingActions(
     bottomPadding: Dp,
 ) {
     AnimatedVisibility(
-        visible = !packOpeningState.showSummaryPage,
+        visible = !packOpeningState.showSummaryButton,
         enter = fadeIn(),
         exit = fadeOut(),
     ) {
@@ -72,7 +72,7 @@ internal fun PackOpeningFloatingActions(
     }
 
     AnimatedVisibility(
-        visible = packOpeningState.showSummaryPage && !packOpeningState.showSummaryScreen,
+        visible = packOpeningState.showSummaryButton && !packOpeningState.showSummaryScreen,
         enter = fadeIn(),
         exit = fadeOut(),
     ) {

@@ -60,6 +60,18 @@ internal class FoundCardsPackOpeningController(
                 ) {
                     it.copy(isRevealed = true)
                 }
+
+                val allRevealed = state.value.packOpeningState
+                    ?.setPages
+                    .orEmpty()
+                    .all { it.allRevealed }
+                if (allRevealed) {
+                    scope.launch {
+                        state.update { state ->
+                            state.copy(packOpeningState = state.packOpeningState?.copy(showSummaryButton = true))
+                        }
+                    }
+                }
             }
 
             is FoundCardsAction.PackOpening.StartRevealing -> {
@@ -124,7 +136,7 @@ internal class FoundCardsPackOpeningController(
                             scope.launch {
                                 delay(1000)
                                 state.update { state ->
-                                    state.copy(packOpeningState = state.packOpeningState?.copy(showSummaryPage = true))
+                                    state.copy(packOpeningState = state.packOpeningState?.copy(showSummaryButton = true))
                                 }
                             }
                         }

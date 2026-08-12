@@ -34,7 +34,7 @@ data class SinglesUiState(
 data class PackOpeningUiState(
     val setPages: List<SetPageUiState>,
     val isRevealing: Boolean = false,
-    val showSummaryPage: Boolean = false,
+    val showSummaryButton: Boolean = false,
     val showSummaryScreen: Boolean = false,
     val visibleSetIndex: Int = 0,
     val visiblePackIndex: Int = 0,

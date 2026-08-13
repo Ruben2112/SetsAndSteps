@@ -1,21 +1,28 @@
 package com.heveamobile.setsandsteps.feature.cards.presentation
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.heveamobile.setsandsteps.core.designsystem.component.CardDetailsCard
 import com.heveamobile.setsandsteps.core.designsystem.component.CardSetDropDownMenu
 import com.heveamobile.setsandsteps.core.designsystem.component.DropDownMenu
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.feature.cards.presentation.generated.resources.Res
+import com.heveamobile.setsandsteps.feature.cards.presentation.generated.resources.card_details_empty_state
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun CardDetailsScreen(
@@ -76,6 +83,21 @@ fun CardDetailsContent(
                         modifier = Modifier.fillMaxWidth(),
                         text = card.name,
                         style = MaterialTheme.typography.bodyMedium.copy(MaterialTheme.colorScheme.onPrimaryContainer),
+                    )
+                }
+            }
+        } else {
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillParentMaxSize()
+                        .padding(MaterialTheme.spacing.medium),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = stringResource(Res.string.card_details_empty_state),
+                        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurface),
+                        textAlign = TextAlign.Center,
                     )
                 }
             }

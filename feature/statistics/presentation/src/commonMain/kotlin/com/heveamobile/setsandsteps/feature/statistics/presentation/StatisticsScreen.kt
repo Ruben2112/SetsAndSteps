@@ -137,7 +137,7 @@ fun StatisticsContent(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = MaterialTheme.spacing.medium)
+            .padding(MaterialTheme.spacing.medium)
             .background(MaterialTheme.colorScheme.surface),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
     ) {

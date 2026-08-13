@@ -25,7 +25,7 @@ import com.heveamobile.setsandsteps.core.designsystem.component.SetStatisticsLis
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.feature.cards.presentation.generated.resources.Res
 import com.heveamobile.setsandsteps.feature.cards.presentation.generated.resources.cards_current_level
-import com.heveamobile.setsandsteps.feature.cards.presentation.generated.resources.cards_total_visits
+import com.heveamobile.setsandsteps.feature.cards.presentation.generated.resources.cards_total_findings
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -82,7 +82,7 @@ private fun CardsContent(
                     title = if (state.sets.size > 1) null else selectedSet.name,
                     bottomContent = {
                         KeyValueRow(
-                            key = stringResource(Res.string.cards_total_visits),
+                            key = stringResource(Res.string.cards_total_findings),
                             value = selectedSet.cards
                                 .sumOf {
                                     it.userData?.findCount

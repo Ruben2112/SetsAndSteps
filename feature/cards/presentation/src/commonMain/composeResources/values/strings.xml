@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="cards_total_visits">Total visits:</string>
+    <string name="cards_total_findings">Total findings:</string>
     <string name="cards_current_level">Current level:</string>
     <string name="card_details_empty_state">You haven't found any cards yet.\n\nTake a walk to find some!</string>
 </resources>

@@ -67,6 +67,7 @@ import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resource
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_steps_to_next_pack
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_tab_catalog
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_tab_my_sets
+import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_total_findings
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_update
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_update_available_icon_description
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_update_failed
@@ -326,6 +327,16 @@ private fun OwnedSetCard(
                     FormatMode.Long,
                 ),
             )
+            KeyValueRow(
+                modifier = Modifier.padding(end = MaterialTheme.spacing.large),
+                key = stringResource(Res.string.sets_total_findings),
+                value = set.cards
+                    .sumOf {
+                        it.userData?.findCount
+                            ?: 0
+                    }
+                    .toString(),
+            )
             SetStatisticsList(
                 set = set,
                 isExpanded = state.expandedSetId == set.id,
@@ -398,6 +409,16 @@ private fun CatalogSetCard(
                     set.baseDistance,
                     FormatMode.Long,
                 ),
+            )
+            KeyValueRow(
+                modifier = Modifier.padding(end = MaterialTheme.spacing.large),
+                key = stringResource(Res.string.sets_total_findings),
+                value = set.cards
+                    .sumOf {
+                        it.userData?.findCount
+                            ?: 0
+                    }
+                    .toString(),
             )
             SetStatisticsList(
                 set = set,

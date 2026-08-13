@@ -2,6 +2,7 @@ package com.heveamobile.setsandsteps.feature.sets.presentation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,6 +37,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.heveamobile.setsandsteps.core.designsystem.component.Card
@@ -55,6 +57,7 @@ import com.heveamobile.setsandsteps.core.presentation.LocalDrawerState
 import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.Res
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_activate
+import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_catalog_empty_state
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_deactivate
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_download
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_download_failed
@@ -219,14 +222,33 @@ private fun SetsContent(
                     )
                 }
 
-                SetsTab.Catalog -> items(
-                    items = state.catalogSets,
-                    key = { it.id },
-                ) { set ->
-                    CatalogSetCard(
-                        set = set,
-                        onAction = onAction,
-                    )
+                SetsTab.Catalog -> {
+                    if (state.catalogSets.isEmpty()) {
+                        item {
+                            Box(
+                                modifier = Modifier
+                                    .fillParentMaxSize()
+                                    .padding(MaterialTheme.spacing.medium),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Text(
+                                    text = stringResource(Res.string.sets_catalog_empty_state),
+                                    style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurface),
+                                    textAlign = TextAlign.Center,
+                                )
+                            }
+                        }
+                    } else {
+                        items(
+                            items = state.catalogSets,
+                            key = { it.id },
+                        ) { set ->
+                            CatalogSetCard(
+                                set = set,
+                                onAction = onAction,
+                            )
+                        }
+                    }
                 }
             }
         }

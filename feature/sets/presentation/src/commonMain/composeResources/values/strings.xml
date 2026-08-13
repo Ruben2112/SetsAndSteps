@@ -14,4 +14,5 @@
     <string name="sets_update_failed">Failed to update %1$s</string>
     <string name="sets_activate">Activate</string>
     <string name="sets_deactivate">Deactivate</string>
+    <string name="sets_catalog_empty_state">There are currently no sets available.</string>
 </resources>

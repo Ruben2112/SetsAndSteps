@@ -12,6 +12,7 @@ sentry {
     org.set("heveamobile")
     projectName.set("kotlin")
     authToken.set(System.getenv("SENTRY_AUTH_TOKEN"))
+    ignoredBuildTypes.set(setOf("debug"))
 }
 
 kotlin {

@@ -1,6 +1,7 @@
 package com.heveamobile.setsandsteps
 
 import android.app.Application
+import android.content.pm.ApplicationInfo
 import com.heveamobile.setsandsteps.core.data.manager.NotificationManager
 import com.heveamobile.setsandsteps.core.domain.repository.CardSetCatalogRepository
 import com.heveamobile.setsandsteps.di.initializeKoin
@@ -14,7 +15,10 @@ class SetsAndSteps : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        SentryAndroid.init(this)
+        val isDebuggable = ((applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0)
+        if (!isDebuggable) {
+            SentryAndroid.init(this)
+        }
 
         initializeKoin(
             config = {

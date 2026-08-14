@@ -43,6 +43,7 @@ kotlin {
     sourceSets {
         androidMain {
             dependencies {
+                implementation(libs.sentry.android)
                 implementation(libs.compose.uiToolingPreview)
                 implementation(libs.mapbox.maps)
                 implementation(libs.mapbox.maps.compose)

@@ -16,6 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
+
+        <meta-data
+            android:name="io.sentry.dsn"
+            android:value="https://7fb8f8e83a5fafd27bc8a938d60b1235@o4511908385718272.ingest.de.sentry.io/4511908397318224" />
+
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustNothing"

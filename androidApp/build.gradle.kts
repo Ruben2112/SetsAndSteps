@@ -4,6 +4,14 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.sentry)
+}
+
+sentry {
+    includeSourceContext.set(true)
+    org.set("heveamobile")
+    projectName.set("kotlin")
+    authToken.set(System.getenv("SENTRY_AUTH_TOKEN"))
 }
 
 kotlin {

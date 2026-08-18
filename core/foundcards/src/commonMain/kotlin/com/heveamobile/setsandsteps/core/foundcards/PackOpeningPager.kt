@@ -29,7 +29,9 @@ fun PackOpeningPager(
     onAction: (FoundCardsAction) -> Unit,
 ) {
     val setPages = packOpeningState.setPages
-    val parentPagerState = rememberPagerState { setPages.size }
+    val parentPagerState = rememberPagerState(
+        initialPage = packOpeningState.visibleSetIndex,
+    ) { setPages.size }
     val coroutineScope = rememberCoroutineScope()
 
     var revealTarget by remember { mutableStateOf<Pair<Int, Int>?>(null) }
@@ -113,7 +115,9 @@ private fun SetPage(
     val isRevealing = packOpeningState.isRevealing
     val setPageUiState = packOpeningState.setPages[setIndex]
     val packs = setPageUiState.packs
-    val childPagerState = rememberPagerState(pageCount = { packs.size })
+    val childPagerState = rememberPagerState(
+        initialPage = if (isActiveSet) packOpeningState.visiblePackIndex else 0,
+    ) { packs.size }
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(

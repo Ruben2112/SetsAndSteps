@@ -1,5 +1,6 @@
 package com.heveamobile.setsandsteps.core.designsystem.component
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,8 +18,7 @@ import com.heveamobile.setsandsteps.core.domain.toTitleCase
 @Composable
 fun KeyValueRow(
     modifier: Modifier = Modifier,
-    key: String,
-    keyStyle: TextStyle = MaterialTheme.typography.bodyMedium,
+    key: @Composable () -> Unit,
     value: String,
     valueStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     valueTitleCasingEnabled: Boolean = true,
@@ -26,7 +26,6 @@ fun KeyValueRow(
     KeyValueRow(
         modifier = modifier,
         key = key,
-        keyStyle = keyStyle,
         values = listOf(value),
         valueStyle = valueStyle,
         valueTitleCasingEnabled = valueTitleCasingEnabled,
@@ -36,8 +35,7 @@ fun KeyValueRow(
 @Composable
 fun KeyValueRow(
     modifier: Modifier = Modifier,
-    key: String,
-    keyStyle: TextStyle = MaterialTheme.typography.bodyMedium,
+    key: @Composable () -> Unit,
     values: List<String>,
     valueStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     valueTitleCasingEnabled: Boolean = true,
@@ -45,11 +43,9 @@ fun KeyValueRow(
     Row(
         modifier = modifier.fillMaxWidth(),
     ) {
-        Text(
-            modifier = Modifier.weight(1F),
-            text = key,
-            style = keyStyle,
-        )
+        Box(modifier = Modifier.weight(1F)) {
+            key()
+        }
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraLarge))
         Column(
             horizontalAlignment = Alignment.End,

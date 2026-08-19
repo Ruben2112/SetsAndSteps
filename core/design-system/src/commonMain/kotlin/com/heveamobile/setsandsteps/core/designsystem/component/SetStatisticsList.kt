@@ -1,7 +1,10 @@
 package com.heveamobile.setsandsteps.core.designsystem.component
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.expand_icon_description
@@ -82,8 +86,34 @@ fun SetStatisticsList(
                         modifier = Modifier.padding(
                             end = if (showExpandIcon) MaterialTheme.spacing.large else 0.dp,
                         ),
-                        key = rarity.name,
-                        keyStyle = MaterialTheme.typography.bodyMedium.copy(color = rarity.color(MaterialTheme.colorScheme.onPrimary)),
+                        key = {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(
+                                    MaterialTheme.spacing.small,
+                                ),
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(MaterialTheme.spacing.medium)
+                                        .clip(MaterialTheme.shapes.medium)
+                                        .background(
+                                            color = rarity.color(
+                                                MaterialTheme.colorScheme.onSurface,
+                                            ),
+                                        )
+                                        .border(
+                                            width = 1.dp,
+                                            color = MaterialTheme.colorScheme.onSurface,
+                                            shape = MaterialTheme.shapes.medium,
+                                        ),
+                                )
+                                Text(
+                                    text = "${rarity.name}:",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            }
+                        },
                         value = userData?.formatProgress(rarity)
                             ?: set.rarityCounts
                                 ?.count(rarity)

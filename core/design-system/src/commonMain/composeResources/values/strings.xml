@@ -12,6 +12,7 @@
     <string name="new_icon_description">New icon</string>
     <string name="unrevealed_card_icon_description">Unrevealed card icon</string>
     <string name="card_image_description">Image of card %1$s</string>
+    <string name="card_set_image_description">Back image of card set</string>
     <string name="set_statistics_total_label">Cards:</string>
     <string name="card_new">New!</string>
     <string name="unrevealed_card_title">???</string>

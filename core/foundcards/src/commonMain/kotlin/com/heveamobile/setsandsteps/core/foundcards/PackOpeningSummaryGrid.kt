@@ -46,6 +46,7 @@ fun PackOpeningSummaryGrid(
                     .sortedBy { it.card.rarity },
             ) { foundCard ->
                 CollectableCardLayout(
+                    backsideImageUrl = foundCard.cardSet.backsideImageUrl,
                     card = foundCard.card,
                     isRevealed = true,
                     isNew = foundCard.isNew,

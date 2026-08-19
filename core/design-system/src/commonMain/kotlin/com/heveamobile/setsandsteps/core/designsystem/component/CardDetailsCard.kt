@@ -22,19 +22,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.heveamobile.setsandsteps.core.domain.model.CardSet
-import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
-import com.heveamobile.setsandsteps.core.domain.model.Rarity
-import com.heveamobile.setsandsteps.core.domain.formatAmount
-import com.heveamobile.setsandsteps.core.designsystem.theme.color
-import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.pluralStringResource
-import org.jetbrains.compose.resources.stringResource
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.details_card_times_found
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_steps
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.rarity_icon_description
+import com.heveamobile.setsandsteps.core.designsystem.theme.color
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.domain.formatAmount
+import com.heveamobile.setsandsteps.core.domain.model.CardSet
+import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.pluralStringResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun CardDetailsCard(
@@ -51,6 +51,7 @@ fun CardDetailsCard(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
     ) {
         CollectableCardLayout(
+            backsideImageUrl = cardSet.backsideImageUrl,
             card = card,
             isLarge = true,
             isRevealed = true,
@@ -79,7 +80,7 @@ fun CardDetailsCard(
                                 .padding(MaterialTheme.spacing.small)
                                 .size(48.dp),
                             painter = painterResource(Res.drawable.ic_steps),
-                            tint = if (card.rarity == Rarity.Common) MaterialTheme.colorScheme.onSurface else card.rarity.color(MaterialTheme.colorScheme.onPrimary),
+                            tint = if (card.rarity == Rarity.Common) MaterialTheme.colorScheme.onSurface else card.rarity.color(MaterialTheme.colorScheme.onSurface),
                             contentDescription = stringResource(
                                 Res.string.rarity_icon_description,
                                 card.rarity.name,
@@ -88,7 +89,7 @@ fun CardDetailsCard(
                         Text(
                             text = card.rarity.name,
                             style = MaterialTheme.typography.bodyMedium.copy(
-                                color = if (card.rarity == Rarity.Common) MaterialTheme.colorScheme.onSurface else card.rarity.color(MaterialTheme.colorScheme.onPrimary),
+                                color = if (card.rarity == Rarity.Common) MaterialTheme.colorScheme.onSurface else card.rarity.color(MaterialTheme.colorScheme.onSurface),
                             ),
                         )
                     }
@@ -172,7 +173,12 @@ fun CardDetailsCard(
                     ) {
                         properties.forEach { (name, value) ->
                             KeyValueRow(
-                                key = name,
+                                key = {
+                                    Text(
+                                        text = name,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                    )
+                                },
                                 values = value
                                     .split(",")
                                     .map {

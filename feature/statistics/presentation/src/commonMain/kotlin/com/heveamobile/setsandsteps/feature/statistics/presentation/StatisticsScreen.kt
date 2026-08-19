@@ -218,7 +218,7 @@ private fun HistoricDataCard(state: StatisticsState) {
             }
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             KeyValueRow(
-                key = stringResource(Res.string.historic_step_data_start_time),
+                key = { Text(text = stringResource(Res.string.historic_step_data_start_time)) },
                 value = formatDateTime(
                     state.startTime,
                     FormatMode.Medium,
@@ -226,7 +226,7 @@ private fun HistoricDataCard(state: StatisticsState) {
             )
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
             KeyValueRow(
-                key = stringResource(Res.string.historic_step_data_total_steps),
+                key = { Text(text = stringResource(Res.string.historic_step_data_total_steps)) },
                 value = formatAmount(
                     state.totalSteps,
                     FormatMode.Long,
@@ -343,7 +343,7 @@ private fun PersonalRecordsDataCard(state: StatisticsState) {
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         ) {
             KeyValueRow(
-                key = stringResource(Res.string.personal_records_twenty_four_hours),
+                key = { Text(text = stringResource(Res.string.personal_records_twenty_four_hours)) },
                 value = stringResource(
                     Res.string.personal_current_vs_best_steps,
                     formatAmount(
@@ -358,7 +358,7 @@ private fun PersonalRecordsDataCard(state: StatisticsState) {
                 valueTitleCasingEnabled = false,
             )
             KeyValueRow(
-                key = stringResource(Res.string.personal_records_seven_days),
+                key = { Text(text = stringResource(Res.string.personal_records_seven_days)) },
                 value = stringResource(
                     Res.string.personal_current_vs_best_steps,
                     formatAmount(
@@ -373,7 +373,7 @@ private fun PersonalRecordsDataCard(state: StatisticsState) {
                 valueTitleCasingEnabled = false,
             )
             KeyValueRow(
-                key = stringResource(Res.string.personal_records_thirty_days),
+                key = { Text(text = stringResource(Res.string.personal_records_thirty_days)) },
                 value = stringResource(
                     Res.string.personal_current_vs_best_steps,
                     formatAmount(

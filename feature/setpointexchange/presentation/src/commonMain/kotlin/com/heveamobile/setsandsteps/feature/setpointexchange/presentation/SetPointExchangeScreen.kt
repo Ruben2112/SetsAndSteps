@@ -231,7 +231,7 @@ private fun CardStockRow(
         Text(
             modifier = Modifier.weight(1F),
             text = rarity.name,
-            style = MaterialTheme.typography.bodyMedium.copy(color = rarity.color(MaterialTheme.colorScheme.onPrimary)),
+            style = MaterialTheme.typography.bodyMedium.copy(color = rarity.color(MaterialTheme.colorScheme.onSurface)),
         )
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
         Text(

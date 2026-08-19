@@ -43,7 +43,7 @@ class CardSetRepositoryImpl(
                     rareValue = columns[6].toInt(),
                     epicValue = columns[7].toInt(),
                     legendaryValue = columns[8].toInt(),
-                    backsideImageUrl = columns[9],
+                    backsideImageUrl = columns.getOrNull(9),
                     propertyName1 = columns.getOrNull(10),
                     propertyName2 = columns.getOrNull(11),
                     propertyName3 = columns.getOrNull(12),

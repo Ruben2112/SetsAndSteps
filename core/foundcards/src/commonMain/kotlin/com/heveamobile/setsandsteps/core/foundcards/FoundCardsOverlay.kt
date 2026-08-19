@@ -53,10 +53,10 @@ fun FoundCardsOverlay(
         .maxByOrNull { it.rarity }
 
     val highestRarityColor = highestRarityCard?.rarity
-        ?.color(MaterialTheme.colorScheme.onPrimary)
+        ?.color(MaterialTheme.colorScheme.onSurface)
         ?.copy(alpha = 0.25F)
         ?: Rarity.Common
-            .color(MaterialTheme.colorScheme.onPrimary)
+            .color(MaterialTheme.colorScheme.onSurface)
             .copy(alpha = 0.25F)
 
 

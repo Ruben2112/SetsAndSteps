@@ -51,6 +51,7 @@ fun CircularPackLayout(
                             offsetY,
                         )
                     },
+                backsideImageUrl = foundCard.cardSet.backsideImageUrl,
                 card = foundCard.card,
                 isRevealed = foundCard.isRevealed,
                 isLarge = false,

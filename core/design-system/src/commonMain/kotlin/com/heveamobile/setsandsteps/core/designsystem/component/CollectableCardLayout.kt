@@ -25,7 +25,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,7 +33,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil3.SingletonImageLoader
 import coil3.compose.LocalPlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.ImageRequest
@@ -43,10 +41,10 @@ import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.card_image_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.card_image_loading_failed
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.card_new
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.card_set_image_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_question_mark
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.new_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.unrevealed_card_icon_description
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.unrevealed_card_title
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.warning_card_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.theme.color
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
@@ -60,10 +58,10 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun CollectableCardLayout(
     modifier: Modifier = Modifier,
+    backsideImageUrl: String?,
     card: CollectableCard,
     isRevealed: Boolean,
     isNew: Boolean = false,
-    raritySpoiler: Boolean = false,
     onClick: (() -> Unit)? = null,
     isLarge: Boolean = false,
     mapPointsGained: Int = 0,
@@ -109,8 +107,7 @@ fun CollectableCardLayout(
         ) {
             CardBack(
                 isLarge = isLarge,
-                raritySpoiler = raritySpoiler,
-                card = card,
+                backsideImageUrl = backsideImageUrl,
             )
         }
     }
@@ -140,7 +137,7 @@ private fun CardFront(
                 .clip(if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium)
                 .border(
                     width = if (isLarge) 4.dp else 1.dp,
-                    color = card.rarity.color(MaterialTheme.colorScheme.onPrimary),
+                    color = card.rarity.color(MaterialTheme.colorScheme.onSurface),
                     shape = if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium,
                 )
                 .background(
@@ -162,13 +159,6 @@ private fun CardFront(
                         .crossfade(true)
                         .build()
 
-                    LaunchedEffect(imageUrl) {
-//                        Preload the image so the user is less likely to see the loading state
-                        SingletonImageLoader
-                            .get(context)
-                            .enqueue(imageRequest)
-                    }
-
                     SubcomposeAsyncImage(
                         modifier = modifier.fillMaxSize(),
                         model = imageRequest,
@@ -179,7 +169,7 @@ private fun CardFront(
                             ) {
                                 CircularProgressIndicator(
                                     modifier = Modifier.size(24.dp),
-                                    color = card.rarity.color(MaterialTheme.colorScheme.onPrimary),
+                                    color = card.rarity.color(MaterialTheme.colorScheme.onSurface),
                                     strokeWidth = 2.dp,
                                 )
                             }
@@ -197,7 +187,7 @@ private fun CardFront(
                                         Icons.Rounded.Warning,
                                         contentDescription = stringResource(Res.string.warning_card_icon_description),
                                         modifier = Modifier.size(24.dp),
-                                        tint = card.rarity.color(MaterialTheme.colorScheme.onPrimary),
+                                        tint = card.rarity.color(MaterialTheme.colorScheme.onSurface),
                                     )
                                     Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
                                     Text(
@@ -220,7 +210,7 @@ private fun CardFront(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(if (isLarge) 4.dp else 1.dp)
-                    .background(card.rarity.color(MaterialTheme.colorScheme.onPrimary)),
+                    .background(card.rarity.color(MaterialTheme.colorScheme.onSurface)),
             )
             Box(
                 modifier = Modifier
@@ -234,7 +224,7 @@ private fun CardFront(
                 Text(
                     text = card.name,
                     textAlign = TextAlign.Center,
-                    style = if (isLarge) MaterialTheme.typography.bodyLarge.copy(card.rarity.color(MaterialTheme.colorScheme.onPrimary)) else MaterialTheme.typography.bodySmall.copy(card.rarity.color(MaterialTheme.colorScheme.onPrimary)),
+                    style = if (isLarge) MaterialTheme.typography.bodyLarge.copy(card.rarity.color(MaterialTheme.colorScheme.onSurface)) else MaterialTheme.typography.bodySmall.copy(card.rarity.color(MaterialTheme.colorScheme.onSurface)),
                     overflow = TextOverflow.Ellipsis,
                 )
             }
@@ -302,60 +292,75 @@ private fun CardFront(
 private fun CardBack(
     modifier: Modifier = Modifier,
     isLarge: Boolean,
-    raritySpoiler: Boolean = false,
-    card: CollectableCard,
+    backsideImageUrl: String?,
 ) {
-    val userData = card.userData
-        ?: return
-
-    Column(
-        modifier = modifier
-            .aspectRatio(
-                5F / 7F,
-                matchHeightConstraintsFirst = true,
-            )
-            .clip(if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium)
-            .border(
-                width = if (isLarge) 4.dp else 1.dp,
-                color = MaterialTheme.colorScheme.onPrimary,
-                shape = if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium,
-            )
-            .background(if (userData.findCount > 0) MaterialTheme.colorScheme.surfaceContainer else MaterialTheme.colorScheme.primaryContainer),
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1F),
-        ) {
-            Icon(
-                modifier = Modifier.fillMaxSize(),
-                painter = painterResource(resource = Res.drawable.ic_question_mark),
-                contentDescription = stringResource(Res.string.unrevealed_card_icon_description),
-                tint = if (raritySpoiler) card.rarity.color(MaterialTheme.colorScheme.onPrimary)
-                else MaterialTheme.colorScheme.onPrimary,
-            )
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(if (isLarge) 4.dp else 1.dp)
-                .background(MaterialTheme.colorScheme.onPrimary),
-        )
-        Box(
-            modifier = Modifier
+    if (backsideImageUrl == null) {
+        Icon(
+            painter = painterResource(resource = Res.drawable.ic_question_mark),
+            contentDescription = stringResource(Res.string.unrevealed_card_icon_description),
+            modifier = modifier
+                .aspectRatio(
+                    5F / 7F,
+                    matchHeightConstraintsFirst = true,
+                )
                 .fillMaxSize()
-                .padding(
-                    horizontal = if (isLarge) MaterialTheme.spacing.large else MaterialTheme.spacing.small,
-                    vertical = MaterialTheme.spacing.small,
-                ),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(
-                text = stringResource(Res.string.unrevealed_card_title),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onPrimary),
-            )
-        }
+                .clip(if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium)
+                .border(
+                    width = if (isLarge) 4.dp else 1.dp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    shape = if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium,
+                )
+                .background(MaterialTheme.colorScheme.surfaceContainer),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    } else {
+        val context = LocalPlatformContext.current
+        val imageRequest = ImageRequest
+            .Builder(context)
+            .data(backsideImageUrl)
+            .crossfade(true)
+            .build()
+
+        SubcomposeAsyncImage(
+            modifier = modifier.fillMaxSize(),
+            model = imageRequest,
+            loading = {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        strokeWidth = 2.dp,
+                    )
+                }
+            },
+            error = {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Column(
+                        modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Icon(
+                            Icons.Rounded.Warning,
+                            contentDescription = stringResource(Res.string.warning_card_icon_description),
+                            modifier = Modifier.size(24.dp),
+                        )
+                        Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
+                        Text(
+                            stringResource(Res.string.card_image_loading_failed),
+                            style = MaterialTheme.typography.bodySmall,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+                }
+            },
+            contentScale = ContentScale.FillBounds,
+            contentDescription = stringResource(Res.string.card_set_image_description),
+        )
     }
 }
 

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.heveamobile.setsandsteps.core.designsystem.component.Card
@@ -32,15 +33,15 @@ internal fun SetHeader(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         ) {
             KeyValueRow(
-                key = stringResource(Res.string.overlay_pack_progress),
+                key = { Text(text = stringResource(Res.string.overlay_pack_progress)) },
                 value = packProgressValue,
             )
             KeyValueRow(
-                key = stringResource(Res.string.overlay_new_cards),
+                key = { Text(text = stringResource(Res.string.overlay_new_cards)) },
                 value = newCardsCount.toString(),
             )
             KeyValueRow(
-                key = stringResource(Res.string.overlay_set_points_gained),
+                key = { Text(text = stringResource(Res.string.overlay_set_points_gained)) },
                 value = pointsGained.toString(),
             )
         }

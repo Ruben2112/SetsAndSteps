@@ -1,16 +1,7 @@
 package com.heveamobile.setsandsteps.core.designsystem.theme
 
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SliderColors
-import androidx.compose.material3.SliderDefaults
-import androidx.compose.material3.SwitchColors
-import androidx.compose.material3.SwitchDefaults
-import androidx.compose.material3.TimePickerColors
-import androidx.compose.material3.TimePickerDefaults
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import com.heveamobile.setsandsteps.core.domain.model.Rarity
@@ -145,9 +136,9 @@ val darkScheme = darkColorScheme(
     surfaceContainerHighest = VanillaCream,
 )
 
-fun Rarity.color(onPrimaryColor: Color): Color {
+fun Rarity.color(onSurfaceColor: Color): Color {
     return when (this) {
-        Rarity.Common -> onPrimaryColor
+        Rarity.Common -> onSurfaceColor
         Rarity.Uncommon -> Color(0xFF00FF00)
         Rarity.Rare -> Color(0xFF0000FF)
         Rarity.Epic -> Color(0xFF800080)
@@ -155,50 +146,50 @@ fun Rarity.color(onPrimaryColor: Color): Color {
     }
 }
 
-@Composable
-fun switchColors(): SwitchColors {
-    return SwitchDefaults
-        .colors()
-        .copy(
-            uncheckedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            uncheckedThumbColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            uncheckedTrackColor = MaterialTheme.colorScheme.primaryContainer,
-            checkedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            checkedThumbColor = MaterialTheme.colorScheme.primaryContainer,
-            checkedTrackColor = MaterialTheme.colorScheme.onPrimaryContainer,
-        )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun timePickerColors(): TimePickerColors {
-    return TimePickerDefaults
-        .colors()
-        .copy(
-            clockDialColor = MaterialTheme.colorScheme.primaryContainer,
-            selectorColor = MaterialTheme.colorScheme.secondaryContainer,
-            clockDialSelectedContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-            clockDialUnselectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            periodSelectorBorderColor = MaterialTheme.colorScheme.primaryContainer,
-            periodSelectorSelectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
-            periodSelectorUnselectedContainerColor = MaterialTheme.colorScheme.surface,
-            periodSelectorSelectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            periodSelectorUnselectedContentColor = MaterialTheme.colorScheme.onSurface,
-            timeSelectorSelectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
-            timeSelectorUnselectedContainerColor = MaterialTheme.colorScheme.surface,
-            timeSelectorSelectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            timeSelectorUnselectedContentColor = MaterialTheme.colorScheme.onSurface,
-        )
-}
-
-@Composable
-fun sliderColors(): SliderColors {
-    return SliderDefaults
-        .colors()
-        .copy(
-            activeTrackColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            inactiveTrackColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-            activeTickColor = Color.Transparent,
-            inactiveTickColor = Color.Transparent,
-        )
-}
+//@Composable
+//fun switchColors(): SwitchColors {
+//    return SwitchDefaults
+//        .colors()
+//        .copy(
+//            uncheckedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,
+//            uncheckedThumbColor = MaterialTheme.colorScheme.onPrimaryContainer,
+//            uncheckedTrackColor = MaterialTheme.colorScheme.primaryContainer,
+//            checkedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,
+//            checkedThumbColor = MaterialTheme.colorScheme.primaryContainer,
+//            checkedTrackColor = MaterialTheme.colorScheme.onPrimaryContainer,
+//        )
+//}
+//
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Composable
+//fun timePickerColors(): TimePickerColors {
+//    return TimePickerDefaults
+//        .colors()
+//        .copy(
+//            clockDialColor = MaterialTheme.colorScheme.primaryContainer,
+//            selectorColor = MaterialTheme.colorScheme.secondaryContainer,
+//            clockDialSelectedContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+//            clockDialUnselectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+//            periodSelectorBorderColor = MaterialTheme.colorScheme.primaryContainer,
+//            periodSelectorSelectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+//            periodSelectorUnselectedContainerColor = MaterialTheme.colorScheme.surface,
+//            periodSelectorSelectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+//            periodSelectorUnselectedContentColor = MaterialTheme.colorScheme.onSurface,
+//            timeSelectorSelectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+//            timeSelectorUnselectedContainerColor = MaterialTheme.colorScheme.surface,
+//            timeSelectorSelectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+//            timeSelectorUnselectedContentColor = MaterialTheme.colorScheme.onSurface,
+//        )
+//}
+//
+//@Composable
+//fun sliderColors(): SliderColors {
+//    return SliderDefaults
+//        .colors()
+//        .copy(
+//            activeTrackColor = MaterialTheme.colorScheme.onPrimaryContainer,
+//            inactiveTrackColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+//            activeTickColor = Color.Transparent,
+//            inactiveTickColor = Color.Transparent,
+//        )
+//}

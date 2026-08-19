@@ -318,7 +318,7 @@ private fun OwnedSetCard(
         ) {
             KeyValueRow(
                 modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                key = stringResource(Res.string.sets_steps_to_next_pack),
+                key = { Text(text = stringResource(Res.string.sets_steps_to_next_pack)) },
                 value = formatAmount(
                     userData.currentSteps,
                     FormatMode.Long,
@@ -329,7 +329,7 @@ private fun OwnedSetCard(
             )
             KeyValueRow(
                 modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                key = stringResource(Res.string.sets_total_findings),
+                key = { Text(text = stringResource(Res.string.sets_total_findings)) },
                 value = set.cards
                     .sumOf {
                         it.userData?.findCount
@@ -404,7 +404,7 @@ private fun CatalogSetCard(
         ) {
             KeyValueRow(
                 modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                key = stringResource(Res.string.sets_steps_per_pack),
+                key = { Text(text = stringResource(Res.string.sets_steps_per_pack)) },
                 value = formatAmount(
                     set.baseDistance,
                     FormatMode.Long,
@@ -412,7 +412,7 @@ private fun CatalogSetCard(
             )
             KeyValueRow(
                 modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                key = stringResource(Res.string.sets_total_findings),
+                key = { Text(text = stringResource(Res.string.sets_total_findings)) },
                 value = set.cards
                     .sumOf {
                         it.userData?.findCount

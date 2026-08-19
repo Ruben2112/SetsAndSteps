@@ -151,6 +151,7 @@ internal fun SinglesGrid(
             },
         ) { card ->
             CollectableCardLayout(
+                backsideImageUrl = card.cardSet.backsideImageUrl,
                 card = card.card,
                 isRevealed = card.isRevealed,
                 isLarge = foundCards.size == 1,

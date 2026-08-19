@@ -51,10 +51,7 @@ import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_continue
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_save
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.permissions_not_granted_error
-import com.heveamobile.setsandsteps.core.designsystem.theme.sliderColors
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
-import com.heveamobile.setsandsteps.core.designsystem.theme.switchColors
-import com.heveamobile.setsandsteps.core.designsystem.theme.timePickerColors
 import com.heveamobile.setsandsteps.core.domain.FormatMode
 import com.heveamobile.setsandsteps.core.domain.formatTime
 import com.heveamobile.setsandsteps.core.domain.manager.PermissionStatus
@@ -257,7 +254,7 @@ private fun ReminderCard(
                                 Switch(
                                     checked = reminderIsEnabled,
                                     onCheckedChange = { onAction(SettingsAction.UpdateReminderIsEnabled(it)) },
-                                    colors = switchColors(),
+//                                    colors = switchColors(),
                                 )
                             }
                             Row(
@@ -351,7 +348,7 @@ fun TimePickerDialog(
         text = {
             TimePicker(
                 state = state,
-                colors = timePickerColors(),
+//                colors = timePickerColors(),
             )
         },
     )
@@ -424,7 +421,7 @@ private fun DistanceMultiplierCard(
                         track = { state ->
                             CenteredTrack(
                                 modifier = Modifier.height(8.dp),
-                                colors = sliderColors(),
+//                                colors = sliderColors(),
                                 drawStopIndicator = {},
                                 thumbTrackGapSize = 0.dp,
                                 sliderState = state,

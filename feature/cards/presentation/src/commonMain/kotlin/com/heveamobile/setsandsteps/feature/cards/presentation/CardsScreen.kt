@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -82,7 +83,7 @@ private fun CardsContent(
                     title = if (state.sets.size > 1) null else selectedSet.name,
                     bottomContent = {
                         KeyValueRow(
-                            key = stringResource(Res.string.cards_total_findings),
+                            key = { Text(text = stringResource(Res.string.cards_total_findings)) },
                             value = selectedSet.cards
                                 .sumOf {
                                     it.userData?.findCount
@@ -99,7 +100,7 @@ private fun CardsContent(
                     ) {
                         KeyValueRow(
                             modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                            key = stringResource(Res.string.cards_current_level),
+                            key = { Text(text = stringResource(Res.string.cards_current_level)) },
                             value = userData.currentLevel.toString(),
                         )
                         SetStatisticsList(
@@ -115,10 +116,10 @@ private fun CardsContent(
                 key = { it.id },
             ) { card ->
                 CollectableCardLayout(
+                    backsideImageUrl = selectedSet.backsideImageUrl,
                     card = card,
                     isRevealed = card.userData?.isDiscovered
                         ?: false,
-                    raritySpoiler = true,
                     onClick = {
                         if (card.userData?.isDiscovered == true) {
                             onAction(CardsAction.OpenCardDetails(card.id))

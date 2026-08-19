@@ -97,6 +97,7 @@ kotlin {
                 implementation(libs.coil.svg)
 
                 implementation(libs.material.kolor)
+                implementation(libs.materialyou)
             }
         }
         commonTest {

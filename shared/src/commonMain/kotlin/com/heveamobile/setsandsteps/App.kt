@@ -5,10 +5,10 @@ import androidx.compose.runtime.Composable
 import coil3.ImageLoader
 import coil3.compose.setSingletonImageLoaderFactory
 import coil3.svg.SvgDecoder
-import com.heveamobile.setsandsteps.core.designsystem.theme.SetsAndStepsTheme
 import com.heveamobile.setsandsteps.core.designsystem.theme.darkScheme
 import com.heveamobile.setsandsteps.core.designsystem.theme.lightScheme
 import com.heveamobile.setsandsteps.shell.HomeScreen
+import dev.zwander.compose.DynamicMaterialTheme
 
 @Composable
 fun App() {
@@ -25,7 +25,7 @@ fun App() {
         else -> lightScheme
     }
 
-    SetsAndStepsTheme {
+    DynamicMaterialTheme {
         HomeScreen()
     }
 }

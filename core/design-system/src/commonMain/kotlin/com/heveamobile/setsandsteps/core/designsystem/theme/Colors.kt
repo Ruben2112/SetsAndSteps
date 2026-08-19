@@ -148,29 +148,10 @@ val darkScheme = darkColorScheme(
 fun Rarity.color(onPrimaryColor: Color): Color {
     return when (this) {
         Rarity.Common -> onPrimaryColor
-        Rarity.Uncommon -> lerp(
-            onPrimaryColor,
-            Color(0xFF00FF00),
-            0.5F,
-        )
-
-        Rarity.Rare -> lerp(
-            onPrimaryColor,
-            Color(0xFF0000FF),
-            0.5F,
-        )
-
-        Rarity.Epic -> lerp(
-            onPrimaryColor,
-            Color(0xFF800080),
-            0.5F,
-        )
-
-        Rarity.Legendary -> lerp(
-            onPrimaryColor,
-            Color(0xFFFF8000),
-            0.5F,
-        )
+        Rarity.Uncommon -> Color(0xFF00FF00)
+        Rarity.Rare -> Color(0xFF0000FF)
+        Rarity.Epic -> Color(0xFF800080)
+        Rarity.Legendary -> Color(0xFFFF8000)
     }
 }
 

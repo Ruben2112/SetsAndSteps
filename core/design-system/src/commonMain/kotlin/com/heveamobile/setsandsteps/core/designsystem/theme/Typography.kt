@@ -2,13 +2,11 @@ package com.heveamobile.setsandsteps.core.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
-import org.jetbrains.compose.resources.Font
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.tomorrow_regular
+import org.jetbrains.compose.resources.Font
 
 val Tomorrow
     @Composable get() = FontFamily(
@@ -19,30 +17,14 @@ val Tomorrow
     )
 
 val Typography: Typography
-    @Composable get() = Typography(
-        titleLarge = TextStyle(
-            fontFamily = Tomorrow,
-            fontSize = 24.sp,
-        ),
-        titleMedium = TextStyle(
-            fontFamily = Tomorrow,
-            fontSize = 18.sp,
-        ),
-        titleSmall = TextStyle(
-            fontFamily = Tomorrow,
-            fontSize = 14.sp,
-        ),
-        bodySmall = TextStyle(
-            fontFamily = Tomorrow,
-            fontSize = 12.sp,
-        ),
-        bodyMedium = TextStyle(
-            fontFamily = Tomorrow,
-            fontSize = 14.sp,
-            lineHeight = 16.sp,
-        ),
-        bodyLarge = TextStyle(
-            fontFamily = Tomorrow,
-            fontSize = 20.sp,
-        ),
-    )
+    @Composable get() {
+        val defaultTypography = Typography()
+        return Typography(
+            titleLarge = defaultTypography.titleLarge.copy(fontFamily = Tomorrow),
+            titleMedium = defaultTypography.titleMedium.copy(fontFamily = Tomorrow),
+            titleSmall = defaultTypography.titleSmall.copy(fontFamily = Tomorrow),
+            bodySmall = defaultTypography.bodySmall.copy(fontFamily = Tomorrow),
+            bodyMedium = defaultTypography.bodyMedium.copy(fontFamily = Tomorrow),
+            bodyLarge = defaultTypography.bodyLarge.copy(fontFamily = Tomorrow),
+        )
+    }

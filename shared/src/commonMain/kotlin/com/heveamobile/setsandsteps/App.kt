@@ -1,12 +1,11 @@
 package com.heveamobile.setsandsteps
 
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import coil3.ImageLoader
 import coil3.compose.setSingletonImageLoaderFactory
 import coil3.svg.SvgDecoder
-import com.heveamobile.setsandsteps.core.designsystem.theme.darkScheme
-import com.heveamobile.setsandsteps.core.designsystem.theme.lightScheme
+import com.heveamobile.setsandsteps.core.designsystem.theme.Typography
 import com.heveamobile.setsandsteps.shell.HomeScreen
 import dev.zwander.compose.DynamicMaterialTheme
 
@@ -19,13 +18,9 @@ fun App() {
             .build()
     }
 
-    val darkTheme = isSystemInDarkTheme()
-    when {
-        darkTheme -> darkScheme
-        else -> lightScheme
-    }
-
     DynamicMaterialTheme {
-        HomeScreen()
+        MaterialTheme(typography = Typography) {
+            HomeScreen()
+        }
     }
 }

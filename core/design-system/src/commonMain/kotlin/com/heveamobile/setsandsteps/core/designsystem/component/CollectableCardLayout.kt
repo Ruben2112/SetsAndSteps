@@ -1,6 +1,6 @@
 package com.heveamobile.setsandsteps.core.designsystem.component
 
-import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -27,6 +27,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
@@ -49,9 +52,11 @@ import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.domain.FormatMode
 import com.heveamobile.setsandsteps.core.domain.formatAmount
 import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
 import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import kotlin.math.roundToInt
 
 @Composable
 fun CollectableCardLayout(
@@ -69,9 +74,17 @@ fun CollectableCardLayout(
         targetValue = if (isRevealed) 0F else rotationAngle,
         animationSpec = tween(
             durationMillis = card.animationTime.toInt(),
-            easing = LinearOutSlowInEasing,
+            easing = LinearEasing,
         ),
     )
+
+    val currentRarityInt = (card.rarity.intValue - (rotation.value / 360f).roundToInt()).coerceIn(
+        1,
+        card.rarity.intValue,
+    )
+    val currentRarity = Rarity.fromInt(currentRarityInt)
+    val animatedCard = card.copy(rarity = currentRarity)
+
     Box(
         modifier = modifier
             .graphicsLayer {
@@ -93,7 +106,8 @@ fun CollectableCardLayout(
                 isLarge = isLarge,
                 isNew = isNew,
                 mapPointsGained = mapPointsGained,
-                card = card,
+                card = animatedCard,
+                isFinalRarity = animatedCard.rarity == card.rarity,
             )
         }
         Box(
@@ -111,6 +125,39 @@ fun CollectableCardLayout(
     }
 }
 
+private fun monochromeColorFilter(tint: Color): ColorFilter {
+    // Standard luminance weights (Rec. 601 style)
+    val lumR = 0.299f
+    val lumG = 0.587f
+    val lumB = 0.114f
+
+    val matrix = ColorMatrix(
+        floatArrayOf(
+            lumR * tint.red,
+            lumG * tint.red,
+            lumB * tint.red,
+            0f,
+            0f,
+            lumR * tint.green,
+            lumG * tint.green,
+            lumB * tint.green,
+            0f,
+            0f,
+            lumR * tint.blue,
+            lumG * tint.blue,
+            lumB * tint.blue,
+            0f,
+            0f,
+            0f,
+            0f,
+            0f,
+            1f,
+            0f,
+        ),
+    )
+    return ColorFilter.colorMatrix(matrix)
+}
+
 @OptIn(InternalResourceApi::class)
 @Composable
 private fun CardFront(
@@ -119,6 +166,7 @@ private fun CardFront(
     isNew: Boolean = false,
     mapPointsGained: Int,
     card: CollectableCard,
+    isFinalRarity: Boolean,
 ) {
     val userData = card.userData
     if (userData == null || !userData.isDiscovered) return
@@ -160,6 +208,9 @@ private fun CardFront(
                     SubcomposeAsyncImage(
                         modifier = modifier.fillMaxSize(),
                         model = imageRequest,
+                        colorFilter = if (!isFinalRarity) {
+                            monochromeColorFilter(card.rarity.color(MaterialTheme.colorScheme.onSurface))
+                        } else null,
                         loading = {
                             Box(
                                 modifier = Modifier.fillMaxSize(),

@@ -15,6 +15,16 @@ kotlin {
 
                 implementation(
                     libs
+                        .findLibrary("coil-compose")
+                        .get(),
+                )
+                implementation(
+                    libs
+                        .findLibrary("coil-network")
+                        .get(),
+                )
+                implementation(
+                    libs
                         .findLibrary("jetbrains-material-icons")
                         .get(),
                 )

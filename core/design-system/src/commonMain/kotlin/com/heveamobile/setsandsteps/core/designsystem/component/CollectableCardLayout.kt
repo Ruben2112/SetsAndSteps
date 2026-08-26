@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.rounded.Warning
 import androidx.compose.material3.Badge
 import androidx.compose.material3.CircularProgressIndicator
@@ -43,7 +42,6 @@ import com.heveamobile.setsandsteps.core.designsystem.generated.resources.card_i
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.card_new
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.card_set_image_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_question_mark
-import com.heveamobile.setsandsteps.core.designsystem.generated.resources.new_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.unrevealed_card_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.warning_card_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.theme.color
@@ -198,7 +196,7 @@ private fun CardFront(
                                 }
                             }
                         },
-                        contentScale = ContentScale.FillBounds,
+                        contentScale = ContentScale.Fit,
                         contentDescription = stringResource(
                             Res.string.card_image_description,
                             card.name,
@@ -238,26 +236,15 @@ private fun CardFront(
                     ),
                 contentAlignment = Alignment.TopEnd,
             ) {
-                Badge(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh) {
-                    if (isLarge) {
-                        Text(
-                            modifier = Modifier.padding(
-                                horizontal = MaterialTheme.spacing.medium,
-                                vertical = MaterialTheme.spacing.small,
-                            ),
-                            text = if (isLarge) {
-                                stringResource(Res.string.card_new)
-                            } else "",
-                            style = MaterialTheme.typography.bodySmall,
-                        )
-                    } else {
-                        Icon(
-                            Icons.Default.Star,
-                            modifier = Modifier.size(8.dp),
-                            contentDescription = stringResource(Res.string.new_icon_description),
-                            tint = MaterialTheme.colorScheme.onSecondary,
-                        )
-                    }
+                Badge(containerColor = MaterialTheme.colorScheme.primary) {
+                    Text(
+                        modifier = Modifier.padding(
+                            horizontal = if (isLarge) MaterialTheme.spacing.medium else MaterialTheme.spacing.small,
+                            vertical = if (isLarge) MaterialTheme.spacing.small else MaterialTheme.spacing.extraSmall,
+                        ),
+                        text = stringResource(Res.string.card_new),
+                        style = MaterialTheme.typography.bodySmall,
+                    )
                 }
             }
         }
@@ -322,7 +309,19 @@ private fun CardBack(
             .build()
 
         SubcomposeAsyncImage(
-            modifier = modifier.fillMaxSize(),
+            modifier = modifier
+                .aspectRatio(
+                    5F / 7F,
+                    matchHeightConstraintsFirst = true,
+                )
+                .fillMaxSize()
+                .clip(if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium)
+                .border(
+                    width = if (isLarge) 4.dp else 1.dp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    shape = if (isLarge) MaterialTheme.shapes.large else MaterialTheme.shapes.medium,
+                )
+                .background(MaterialTheme.colorScheme.surfaceContainer),
             model = imageRequest,
             loading = {
                 Box(
@@ -348,17 +347,20 @@ private fun CardBack(
                             Icons.Rounded.Warning,
                             contentDescription = stringResource(Res.string.warning_card_icon_description),
                             modifier = Modifier.size(24.dp),
+                            tint = MaterialTheme.colorScheme.onSurface,
                         )
                         Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
                         Text(
                             stringResource(Res.string.card_image_loading_failed),
-                            style = MaterialTheme.typography.bodySmall,
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                color = MaterialTheme.colorScheme.onSurface,
+                            ),
                             textAlign = TextAlign.Center,
                         )
                     }
                 }
             },
-            contentScale = ContentScale.FillBounds,
+            contentScale = ContentScale.Fit,
             contentDescription = stringResource(Res.string.card_set_image_description),
         )
     }

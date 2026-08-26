@@ -83,7 +83,12 @@ private fun CardsContent(
                     title = if (state.sets.size > 1) null else selectedSet.name,
                     bottomContent = {
                         KeyValueRow(
-                            key = { Text(text = stringResource(Res.string.cards_total_findings)) },
+                            key = {
+                                Text(
+                                    text = stringResource(Res.string.cards_total_findings),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            },
                             value = selectedSet.cards
                                 .sumOf {
                                     it.userData?.findCount
@@ -100,7 +105,12 @@ private fun CardsContent(
                     ) {
                         KeyValueRow(
                             modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                            key = { Text(text = stringResource(Res.string.cards_current_level)) },
+                            key = {
+                                Text(
+                                    text = stringResource(Res.string.cards_current_level),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            },
                             value = userData.currentLevel.toString(),
                         )
                         SetStatisticsList(

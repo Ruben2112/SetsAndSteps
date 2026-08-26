@@ -23,6 +23,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.SliderDefaults.CenteredTrack
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -35,6 +36,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -279,10 +281,6 @@ private fun ReminderCard(
                             }
 
                             PrimaryButton(
-                                modifier = Modifier.padding(
-                                    bottom = MaterialTheme.spacing.medium,
-                                    end = MaterialTheme.spacing.medium,
-                                ),
                                 label = stringResource(Res.string.settings_daily_reminder_change_time),
                             ) {
                                 onAction(SettingsAction.ToggleTimePickerAlertDialog)
@@ -421,7 +419,12 @@ private fun DistanceMultiplierCard(
                         track = { state ->
                             CenteredTrack(
                                 modifier = Modifier.height(8.dp),
-//                                colors = sliderColors(),
+                                colors = SliderDefaults
+                                    .colors()
+                                    .copy(
+                                        activeTickColor = Color.Transparent,
+                                        inactiveTickColor = Color.Transparent,
+                                    ),
                                 drawStopIndicator = {},
                                 thumbTrackGapSize = 0.dp,
                                 sliderState = state,

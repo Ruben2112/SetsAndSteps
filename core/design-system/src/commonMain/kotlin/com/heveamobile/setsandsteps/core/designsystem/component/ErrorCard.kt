@@ -14,10 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
-import org.jetbrains.compose.resources.stringResource
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.error_card_icon_description
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ErrorCard(
@@ -48,12 +48,12 @@ fun ErrorCard(
                 Icons.Filled.Warning,
                 contentDescription = stringResource(Res.string.error_card_icon_description),
                 modifier = Modifier.size(24.dp),
-                tint = MaterialTheme.colorScheme.onError,
+                tint = MaterialTheme.colorScheme.onErrorContainer,
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
             Text(
                 errorMessage,
-                style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onError),
+                style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onErrorContainer),
             )
         }
     }

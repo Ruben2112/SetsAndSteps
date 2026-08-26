@@ -19,12 +19,12 @@ fun SecondaryButton(
         onClick = onClick,
         border = BorderStroke(
             width = 1.dp,
-            color = MaterialTheme.colorScheme.outline,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
         ),
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSecondaryContainer),
         )
     }
 }

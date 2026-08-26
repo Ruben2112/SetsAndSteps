@@ -33,15 +33,30 @@ internal fun SetHeader(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         ) {
             KeyValueRow(
-                key = { Text(text = stringResource(Res.string.overlay_pack_progress)) },
+                key = {
+                    Text(
+                        text = stringResource(Res.string.overlay_pack_progress),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                },
                 value = packProgressValue,
             )
             KeyValueRow(
-                key = { Text(text = stringResource(Res.string.overlay_new_cards)) },
+                key = {
+                    Text(
+                        text = stringResource(Res.string.overlay_new_cards),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                },
                 value = newCardsCount.toString(),
             )
             KeyValueRow(
-                key = { Text(text = stringResource(Res.string.overlay_set_points_gained)) },
+                key = {
+                    Text(
+                        text = stringResource(Res.string.overlay_set_points_gained),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                },
                 value = pointsGained.toString(),
             )
         }

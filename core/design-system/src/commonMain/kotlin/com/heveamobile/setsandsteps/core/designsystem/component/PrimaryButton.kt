@@ -1,12 +1,11 @@
 package com.heveamobile.setsandsteps.core.designsystem.component
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun PrimaryButton(
@@ -15,23 +14,19 @@ fun PrimaryButton(
     isDestructive: Boolean = false,
     onClick: () -> Unit,
 ) {
-    OutlinedButton(
+    Button(
         modifier = modifier,
         onClick = onClick,
-        border = BorderStroke(
-            width = 1.dp,
-            color = if (isDestructive) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.outlineVariant,
-        ),
+        colors = ButtonDefaults
+            .buttonColors()
+            .copy(
+                containerColor = if (isDestructive) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary,
+                contentColor = if (isDestructive) MaterialTheme.colorScheme.onError else MaterialTheme.colorScheme.onPrimary,
+            ),
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.bodySmall.copy(
-                color = if (isDestructive) {
-                    MaterialTheme.colorScheme.onErrorContainer
-                } else {
-                    MaterialTheme.colorScheme.onSurface
-                },
-            ),
+            style = MaterialTheme.typography.bodySmall,
         )
     }
 }

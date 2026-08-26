@@ -218,7 +218,12 @@ private fun HistoricDataCard(state: StatisticsState) {
             }
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
             KeyValueRow(
-                key = { Text(text = stringResource(Res.string.historic_step_data_start_time)) },
+                key = {
+                    Text(
+                        text = stringResource(Res.string.historic_step_data_start_time),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                },
                 value = formatDateTime(
                     state.startTime,
                     FormatMode.Medium,
@@ -226,7 +231,12 @@ private fun HistoricDataCard(state: StatisticsState) {
             )
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
             KeyValueRow(
-                key = { Text(text = stringResource(Res.string.historic_step_data_total_steps)) },
+                key = {
+                    Text(
+                        text = stringResource(Res.string.historic_step_data_total_steps),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                },
                 value = formatAmount(
                     state.totalSteps,
                     FormatMode.Long,
@@ -278,7 +288,7 @@ private fun DailyStepsChart(dailyStepData: Map<Instant, Long>) {
             rememberColumnCartesianLayer(
                 columnProvider = ColumnProvider.series(
                     rememberLineComponent(
-                        fill = Fill(MaterialTheme.colorScheme.onBackground),
+                        fill = Fill(MaterialTheme.colorScheme.primaryContainer),
                         thickness = 32.dp,
                         shape = MaterialTheme.shapes.small.copy(
                             bottomStart = CornerSize(0.dp),
@@ -286,7 +296,7 @@ private fun DailyStepsChart(dailyStepData: Map<Instant, Long>) {
                         ),
                     ),
                 ),
-                dataLabel = rememberTextComponent(MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurface)),
+                dataLabel = rememberTextComponent(MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)),
                 dataLabelPosition = Position.Vertical.Top,
                 dataLabelValueFormatter = dataValueFormatter,
                 columnCollectionSpacing = MaterialTheme.spacing.small,
@@ -343,7 +353,12 @@ private fun PersonalRecordsDataCard(state: StatisticsState) {
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         ) {
             KeyValueRow(
-                key = { Text(text = stringResource(Res.string.personal_records_twenty_four_hours)) },
+                key = {
+                    Text(
+                        text = stringResource(Res.string.personal_records_twenty_four_hours),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                },
                 value = stringResource(
                     Res.string.personal_current_vs_best_steps,
                     formatAmount(
@@ -358,7 +373,12 @@ private fun PersonalRecordsDataCard(state: StatisticsState) {
                 valueTitleCasingEnabled = false,
             )
             KeyValueRow(
-                key = { Text(text = stringResource(Res.string.personal_records_seven_days)) },
+                key = {
+                    Text(
+                        text = stringResource(Res.string.personal_records_seven_days),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                },
                 value = stringResource(
                     Res.string.personal_current_vs_best_steps,
                     formatAmount(
@@ -373,7 +393,12 @@ private fun PersonalRecordsDataCard(state: StatisticsState) {
                 valueTitleCasingEnabled = false,
             )
             KeyValueRow(
-                key = { Text(text = stringResource(Res.string.personal_records_thirty_days)) },
+                key = {
+                    Text(
+                        text = stringResource(Res.string.personal_records_thirty_days),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                },
                 value = stringResource(
                     Res.string.personal_current_vs_best_steps,
                     formatAmount(

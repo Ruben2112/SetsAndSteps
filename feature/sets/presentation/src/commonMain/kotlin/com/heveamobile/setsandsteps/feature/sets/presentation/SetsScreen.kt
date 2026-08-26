@@ -318,7 +318,12 @@ private fun OwnedSetCard(
         ) {
             KeyValueRow(
                 modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                key = { Text(text = stringResource(Res.string.sets_steps_to_next_pack)) },
+                key = {
+                    Text(
+                        text = stringResource(Res.string.sets_steps_to_next_pack),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                },
                 value = formatAmount(
                     userData.currentSteps,
                     FormatMode.Long,
@@ -329,7 +334,12 @@ private fun OwnedSetCard(
             )
             KeyValueRow(
                 modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                key = { Text(text = stringResource(Res.string.sets_total_findings)) },
+                key = {
+                    Text(
+                        text = stringResource(Res.string.sets_total_findings),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                },
                 value = set.cards
                     .sumOf {
                         it.userData?.findCount
@@ -404,7 +414,12 @@ private fun CatalogSetCard(
         ) {
             KeyValueRow(
                 modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                key = { Text(text = stringResource(Res.string.sets_steps_per_pack)) },
+                key = {
+                    Text(
+                        text = stringResource(Res.string.sets_steps_per_pack),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                },
                 value = formatAmount(
                     set.baseDistance,
                     FormatMode.Long,
@@ -412,7 +427,12 @@ private fun CatalogSetCard(
             )
             KeyValueRow(
                 modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                key = { Text(text = stringResource(Res.string.sets_total_findings)) },
+                key = {
+                    Text(
+                        text = stringResource(Res.string.sets_total_findings),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                },
                 value = set.cards
                     .sumOf {
                         it.userData?.findCount

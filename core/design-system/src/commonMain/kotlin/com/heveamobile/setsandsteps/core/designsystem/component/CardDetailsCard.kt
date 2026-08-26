@@ -175,7 +175,7 @@ fun CardDetailsCard(
                             KeyValueRow(
                                 key = {
                                     Text(
-                                        text = name,
+                                        text = "$name:",
                                         style = MaterialTheme.typography.bodyMedium,
                                     )
                                 },

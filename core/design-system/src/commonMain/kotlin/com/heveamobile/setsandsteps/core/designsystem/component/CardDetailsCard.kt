@@ -28,7 +28,6 @@ import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_ste
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.rarity_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.theme.color
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
-import com.heveamobile.setsandsteps.core.domain.formatAmount
 import com.heveamobile.setsandsteps.core.domain.model.CardSet
 import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
 import com.heveamobile.setsandsteps.core.domain.model.Rarity
@@ -181,12 +180,6 @@ fun CardDetailsCard(
                                 },
                                 values = value
                                     .split(",")
-                                    .map {
-                                        it
-                                            .toIntOrNull()
-                                            ?.let(::formatAmount)
-                                            ?: it
-                                    },
                             )
                         }
                     }

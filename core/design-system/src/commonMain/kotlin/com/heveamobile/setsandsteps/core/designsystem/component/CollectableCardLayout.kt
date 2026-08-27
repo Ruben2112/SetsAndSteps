@@ -203,10 +203,13 @@ private fun CardFront(
                         .Builder(context)
                         .data(imageUrl)
                         .crossfade(true)
+                        .size(512)
                         .build()
 
                     SubcomposeAsyncImage(
-                        modifier = modifier.fillMaxSize(),
+                        modifier = modifier
+                            .fillMaxSize()
+                            .aspectRatio(1F),
                         model = imageRequest,
                         colorFilter = if (!isFinalRarity) {
                             monochromeColorFilter(card.rarity.color(MaterialTheme.colorScheme.onSurface))
@@ -418,4 +421,4 @@ private fun CardBack(
 }
 
 val CollectableCard.animationTime: Float
-    get() = ((rarity.intValue - 0.5F) * (300 * 2))
+    get() = ((rarity.intValue - 0.5F) * (400 * 2))

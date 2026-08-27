@@ -212,15 +212,27 @@ private fun SetsContent(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         ) {
             when (tab) {
-                SetsTab.MySets -> items(
-                    items = state.sets,
-                    key = { it.id },
-                ) { set ->
-                    OwnedSetCard(
-                        set = set,
-                        state = state,
-                        onAction = onAction,
-                    )
+                SetsTab.MySets -> {
+                    items(
+                        items = state.sets,
+                        key = { it.id },
+                    ) { set ->
+                        OwnedSetCard(
+                            set = set,
+                            state = state,
+                            onAction = onAction,
+                        )
+                    }
+                    if (!state.catalogSets.isEmpty()) {
+                        item {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = "Browse the catalog to start collecting for more card sets!",
+                                textAlign = TextAlign.Center,
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                        }
+                    }
                 }
 
                 SetsTab.Catalog -> {

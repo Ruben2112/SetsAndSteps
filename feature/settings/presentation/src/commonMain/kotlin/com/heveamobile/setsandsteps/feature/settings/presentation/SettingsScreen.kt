@@ -65,12 +65,15 @@ import com.heveamobile.setsandsteps.feature.settings.presentation.generated.reso
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_daily_reminder_enable_daily_reminder
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_daily_reminder_explanation
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_daily_reminder_reminder_time
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_daily_reminder_title
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_distance_multiplier
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_distance_multiplier_explanation
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_distance_multiplier_title
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_error_notifications_not_granted
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_export
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_export_failed
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_export_import_explanation
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_export_import_title
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_export_successful
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_import
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_import_confirmation_dialog_body
@@ -215,7 +218,7 @@ private fun ReminderCard(
     onAction: (SettingsAction) -> Unit,
     onPermissionRequest: () -> Unit,
 ) {
-    Card(title = "Daily reminder") {
+    Card(title = stringResource(Res.string.settings_daily_reminder_title)) {
         Column(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
             horizontalAlignment = Alignment.End,
@@ -256,7 +259,6 @@ private fun ReminderCard(
                                 Switch(
                                     checked = reminderIsEnabled,
                                     onCheckedChange = { onAction(SettingsAction.UpdateReminderIsEnabled(it)) },
-//                                    colors = switchColors(),
                                 )
                             }
                             Row(
@@ -344,10 +346,7 @@ fun TimePickerDialog(
             }
         },
         text = {
-            TimePicker(
-                state = state,
-//                colors = timePickerColors(),
-            )
+            TimePicker(state = state)
         },
     )
 }
@@ -383,7 +382,7 @@ private fun DistanceMultiplierCard(
         onAction(SettingsAction.UpdateDistanceMultiplier(sliderState.value + 1F))
     }
 
-    Card(title = "Distance multiplier") {
+    Card(title = stringResource(Res.string.settings_distance_multiplier_title)) {
         Column {
             Text(
                 text = stringResource(
@@ -447,7 +446,7 @@ private fun DistanceMultiplierCard(
 private fun ExportImportDataCard(
     onAction: (SettingsAction) -> Unit,
 ) {
-    Card(title = "Export and import") {
+    Card(title = stringResource(Res.string.settings_export_import_title)) {
         Column(
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),

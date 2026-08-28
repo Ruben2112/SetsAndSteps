@@ -1,11 +1,11 @@
 package com.heveamobile.setsandsteps.core.navigation
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,15 +16,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
-import com.heveamobile.setsandsteps.core.navigation.generated.resources.Res
-import com.heveamobile.setsandsteps.core.navigation.generated.resources.logo
-import com.heveamobile.setsandsteps.core.navigation.generated.resources.logo_dark
-import com.heveamobile.setsandsteps.core.navigation.generated.resources.logo_description
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun NavigationDrawer(
@@ -45,21 +41,25 @@ fun NavigationDrawer(
                         .fillMaxWidth()
                         .statusBarsPadding()
                         .navigationBarsPadding()
-                        .height(40.dp),
+                        .height(MaterialTheme.spacing.large),
                 )
-                Image(
-                    modifier = Modifier
-                        .padding(
-                            horizontal = MaterialTheme.spacing.large,
-                        )
-                        .padding(bottom = MaterialTheme.spacing.extraLarge),
-                    painter = painterResource(
-                        if (isSystemInDarkTheme()) Res.drawable.logo_dark
-                        else Res.drawable.logo,
-                    ),
-                    contentDescription = stringResource(Res.string.logo_description),
-
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall),
+                ) {
+                    CardText(
+                        text = "SETS&",
+                        fontSize = 32.sp,
+                        modifier = Modifier.padding(horizontal = MaterialTheme.spacing.large),
                     )
+                    CardText(
+                        text = "STEPS",
+                        fontSize = 32.sp,
+                        modifier = Modifier.padding(horizontal = MaterialTheme.spacing.large),
+                    )
+                }
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraLarge))
                 NavigationDrawerRoute.entries.forEach { route ->
                     NavigationDrawerItem(
                         route = route,
@@ -74,7 +74,7 @@ fun NavigationDrawer(
                 modifier = Modifier
                     .fillMaxHeight()
                     .width(1.dp)
-                    .background(MaterialTheme.colorScheme.outlineVariant),
+                    .background(MaterialTheme.colorScheme.outline),
             )
         }
     }

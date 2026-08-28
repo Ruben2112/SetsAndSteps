@@ -1,4 +1,3 @@
-import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 plugins {
@@ -11,6 +10,11 @@ extensions.configure<KotlinMultiplatformExtension> {
         androidMain {
             dependencies {
                 implementation(libs.findLibrary("compose-uiToolingPreview").get())
+                implementation(
+                    libs
+                        .findLibrary("compose-uiTooling")
+                        .get(),
+                )
             }
         }
         commonMain {

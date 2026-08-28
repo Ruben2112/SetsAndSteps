@@ -1,6 +1,5 @@
 package com.heveamobile.setsandsteps.core.foundcards
 
-import androidx.compose.animation.Animatable
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -23,17 +22,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import com.heveamobile.setsandsteps.core.designsystem.theme.color
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
-import com.heveamobile.setsandsteps.core.domain.model.Rarity
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.Res
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.close_screen_button
 import org.jetbrains.compose.resources.stringResource
@@ -44,37 +39,11 @@ fun FoundCardsOverlay(
     state: FoundCardsState,
     onAction: (FoundCardsAction) -> Unit,
 ) {
-    val revealedCards = state.singlesState?.foundCards
-        .orEmpty()
-        .filter { it.isRevealed }
-
-    val highestRarityCard = revealedCards
-        .map { it.card }
-        .maxByOrNull { it.rarity }
-
-    val highestRarityColor = highestRarityCard?.rarity
-        ?.color(MaterialTheme.colorScheme.onSurface)
-        ?.copy(alpha = 0.25F)
-        ?: Rarity.Common
-            .color(MaterialTheme.colorScheme.onSurface)
-            .copy(alpha = 0.25F)
-
-
-    val backgroundColor = remember { Animatable(highestRarityColor) }
-
-    LaunchedEffect(
-        highestRarityCard,
-    ) {
-        backgroundColor.animateTo(
-            highestRarityColor,
-            tween(300),
-        )
-    }
 
     Scaffold(
         modifier = modifier
             .fillMaxSize()
-            .background(backgroundColor.value)
+            .background(Color.Black.copy(alpha = 0.5F))
             .pointerInput(Unit) {
                 detectTapGestures {
                     /* Consumes tap events so they don't reach the UI behind */
@@ -169,7 +138,6 @@ fun FoundCardsOverlay(
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 FloatingActionButton(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
                     onClick = {
                         if (state.cardShown != null) {
                             onAction(FoundCardsAction.Shared.ToggleCardInfo(null))

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -48,9 +47,6 @@ internal fun SinglesFloatingActions(
                 Res.string.overlay_skip_button
             }
             Button(
-                colors = ButtonDefaults
-                    .buttonColors()
-                    .copy(containerColor = MaterialTheme.colorScheme.secondaryContainer),
                 onClick = {
                     if (!singlesState.isRevealingAll) {
                         onAction(FoundCardsAction.Singles.RevealAllCards)
@@ -59,12 +55,7 @@ internal fun SinglesFloatingActions(
                     }
                 },
             ) {
-                Text(
-                    text = stringResource(buttonTextResId),
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    ),
-                )
+                Text(text = stringResource(buttonTextResId))
             }
         }
     }

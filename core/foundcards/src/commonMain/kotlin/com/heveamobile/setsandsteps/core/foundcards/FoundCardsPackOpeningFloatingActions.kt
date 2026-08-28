@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -56,18 +55,10 @@ internal fun PackOpeningFloatingActions(
                 )
             }
             Button(
-                colors = ButtonDefaults
-                    .buttonColors()
-                    .copy(containerColor = MaterialTheme.colorScheme.secondaryContainer),
                 interactionSource = holdInteractionSource,
                 onClick = {},
             ) {
-                Text(
-                    text = stringResource(Res.string.overlay_hold_to_reveal_button),
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    ),
-                )
+                Text(text = stringResource(Res.string.overlay_hold_to_reveal_button))
             }
         }
     }
@@ -84,18 +75,8 @@ internal fun PackOpeningFloatingActions(
                 .padding(bottom = MaterialTheme.spacing.medium),
             contentAlignment = Alignment.BottomCenter,
         ) {
-            Button(
-                colors = ButtonDefaults
-                    .buttonColors()
-                    .copy(containerColor = MaterialTheme.colorScheme.secondaryContainer),
-                onClick = { onAction(FoundCardsAction.PackOpening.ShowPackOpeningSummary) },
-            ) {
-                Text(
-                    text = stringResource(Res.string.overlay_show_summary_button),
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    ),
-                )
+            Button(onClick = { onAction(FoundCardsAction.PackOpening.ShowPackOpeningSummary) }) {
+                Text(text = stringResource(Res.string.overlay_show_summary_button))
             }
         }
     }

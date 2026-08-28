@@ -62,6 +62,7 @@ import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resource
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_download
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_download_failed
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_level
+import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_my_sets_list_footer
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_purchase_successful
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_steps_per_pack
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_steps_to_next_pack
@@ -227,7 +228,7 @@ private fun SetsContent(
                         item {
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
-                                text = "Browse the catalog to start collecting for more card sets!",
+                                text = stringResource(Res.string.sets_my_sets_list_footer),
                                 textAlign = TextAlign.Center,
                                 style = MaterialTheme.typography.bodyMedium,
                             )

@@ -13,16 +13,16 @@ import com.heveamobile.setsandsteps.core.domain.model.CardSet
 
 @Composable
 fun CardSetDropDownMenu(
-    modifier: Modifier = Modifier,
     sets: List<CardSet>,
     selectedSet: CardSet,
     onItemSelected: (CardSet) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     DropDownMenu(
-        modifier = modifier,
         items = sets,
         selectedItem = selectedSet,
         onItemSelected = { map -> onItemSelected(map) },
+        modifier = modifier,
         itemContent = { map ->
             Row(
                 modifier = Modifier

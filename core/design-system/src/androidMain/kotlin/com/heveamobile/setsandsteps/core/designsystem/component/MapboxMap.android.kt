@@ -21,8 +21,8 @@ import com.mapbox.maps.toCameraOptions
 @Suppress("COMPOSE_APPLIER_CALL_MISMATCH")
 @Composable
 actual fun MapboxMap(
-    modifier: Modifier,
     boundingBox: List<Double>,
+    modifier: Modifier,
 ) {
     val mapViewportState = rememberMapViewportState()
 

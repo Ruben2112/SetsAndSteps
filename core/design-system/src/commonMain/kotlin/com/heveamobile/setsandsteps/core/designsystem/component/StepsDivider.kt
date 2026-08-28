@@ -10,11 +10,11 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.ic_footstep
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.steps_divider_icon_description
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 enum class StepPosition {
     Top,
@@ -36,6 +36,7 @@ fun StepsDivider(
             {
                 Step(
                     stepPosition = StepPosition.Top,
+                    modifier = Modifier,
                     iconSize = iconSize,
                 )
             },
@@ -69,6 +70,7 @@ fun StepsDivider(
                 {
                     Step(
                         stepPosition = if ((index % 2) == 0) StepPosition.Top else StepPosition.Bottom,
+                        modifier = Modifier,
                         iconSize = iconSize,
                     )
                 },
@@ -101,8 +103,8 @@ fun StepsDivider(
 
 @Composable
 fun Step(
-    modifier: Modifier = Modifier,
     stepPosition: StepPosition,
+    modifier: Modifier = Modifier,
     iconSize: Dp = 24.dp,
 ) {
     Column(modifier = modifier) {

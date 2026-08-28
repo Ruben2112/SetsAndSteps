@@ -27,17 +27,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
-import org.jetbrains.compose.resources.stringResource
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.expand_icon_description
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun <T> DropDownMenu(
-    modifier: Modifier = Modifier,
     items: List<T>,
     selectedItem: T,
     onItemSelected: (T) -> Unit,
+    modifier: Modifier = Modifier,
     itemContent: @Composable (T) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }

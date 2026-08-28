@@ -203,7 +203,6 @@ private fun PackPage(
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         CircularPackLayout(
-            modifier = Modifier.fillMaxSize(),
             cards = packUiState.cards,
             onCardClick = { card ->
                 val found = packUiState.cards.first { it.card == card }
@@ -219,6 +218,7 @@ private fun PackPage(
                     )
                 }
             },
+            modifier = Modifier.fillMaxSize(),
         )
     }
 }

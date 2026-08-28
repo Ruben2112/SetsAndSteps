@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun PrimaryButton(
-    modifier: Modifier = Modifier,
     label: String,
+    modifier: Modifier = Modifier,
     isDestructive: Boolean = false,
     onClick: () -> Unit,
 ) {

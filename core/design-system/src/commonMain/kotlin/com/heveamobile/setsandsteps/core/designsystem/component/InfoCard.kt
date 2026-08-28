@@ -16,15 +16,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
-import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
-import org.jetbrains.compose.resources.stringResource
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.error_card_icon_description
+import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun InfoCard(
-    modifier: Modifier = Modifier,
     text: String = "",
+    modifier: Modifier = Modifier,
     annotatedText: AnnotatedString? = null,
     inlineContent: Map<String, InlineTextContent>? = null,
 ) {

@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun InputField(
-    modifier: Modifier = Modifier,
     state: TextFieldState,
+    modifier: Modifier = Modifier,
     textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     inputTransformation: InputTransformation? = null,
     contentPadding: PaddingValues = PaddingValues(16.dp),

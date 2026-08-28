@@ -124,17 +124,17 @@ fun SetsScreen(modifier: Modifier = Modifier) {
     }
 
     SetsContent(
-        modifier = modifier,
         state = state,
         onAction = viewModel::onAction,
+        modifier = modifier,
     )
 }
 
 @Composable
 private fun SetsContent(
-    modifier: Modifier = Modifier,
     state: SetsState,
     onAction: (SetsAction) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val pagerState = rememberPagerState(
         initialPage = state.selectedTab.ordinal,
@@ -329,13 +329,6 @@ private fun OwnedSetCard(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         ) {
             KeyValueRow(
-                modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                key = {
-                    Text(
-                        text = stringResource(Res.string.sets_steps_to_next_pack),
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                },
                 value = formatAmount(
                     userData.currentSteps,
                     FormatMode.Long,
@@ -343,22 +336,27 @@ private fun OwnedSetCard(
                     userData.calculatedDistance,
                     FormatMode.Long,
                 ),
-            )
-            KeyValueRow(
                 modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                key = {
-                    Text(
-                        text = stringResource(Res.string.sets_total_findings),
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                },
+            ) {
+                Text(
+                    text = stringResource(Res.string.sets_steps_to_next_pack),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+            KeyValueRow(
                 value = set.cards
                     .sumOf {
                         it.userData?.findCount
                             ?: 0
                     }
                     .toString(),
-            )
+                modifier = Modifier.padding(end = MaterialTheme.spacing.large),
+            ) {
+                Text(
+                    text = stringResource(Res.string.sets_total_findings),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
             SetStatisticsList(
                 set = set,
                 isExpanded = state.expandedSetId == set.id,
@@ -425,33 +423,31 @@ private fun CatalogSetCard(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         ) {
             KeyValueRow(
-                modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                key = {
-                    Text(
-                        text = stringResource(Res.string.sets_steps_per_pack),
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                },
                 value = formatAmount(
                     set.baseDistance,
                     FormatMode.Long,
                 ),
-            )
-            KeyValueRow(
                 modifier = Modifier.padding(end = MaterialTheme.spacing.large),
-                key = {
-                    Text(
-                        text = stringResource(Res.string.sets_total_findings),
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                },
+            ) {
+                Text(
+                    text = stringResource(Res.string.sets_steps_per_pack),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+            KeyValueRow(
                 value = set.cards
                     .sumOf {
                         it.userData?.findCount
                             ?: 0
                     }
                     .toString(),
-            )
+                modifier = Modifier.padding(end = MaterialTheme.spacing.large),
+            ) {
+                Text(
+                    text = stringResource(Res.string.sets_total_findings),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
             SetStatisticsList(
                 set = set,
                 isExpanded = true,

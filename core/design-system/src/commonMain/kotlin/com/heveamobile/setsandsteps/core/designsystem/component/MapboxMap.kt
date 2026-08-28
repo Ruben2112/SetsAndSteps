@@ -5,6 +5,6 @@ import androidx.compose.ui.Modifier
 
 @Composable
 expect fun MapboxMap(
-    modifier: Modifier = Modifier,
     boundingBox: List<Double>,
+    modifier: Modifier = Modifier,
 )

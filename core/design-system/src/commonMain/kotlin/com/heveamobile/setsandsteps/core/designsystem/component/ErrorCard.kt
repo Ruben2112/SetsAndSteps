@@ -21,8 +21,8 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ErrorCard(
-    modifier: Modifier = Modifier,
     errorMessage: String,
+    modifier: Modifier = Modifier,
     actionLabel: String? = null,
     onAction: (() -> Unit)? = null,
 ) {

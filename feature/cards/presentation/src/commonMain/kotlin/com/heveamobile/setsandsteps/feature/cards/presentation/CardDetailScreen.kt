@@ -58,11 +58,11 @@ fun CardDetailsContent(
         if (state.sets.size > 1) {
             item {
                 CardSetDropDownMenu(
-                    modifier = Modifier.fillMaxWidth(),
                     sets = state.sets,
                     selectedSet = state.selectedSet
                         ?: state.sets.first(),
                     onItemSelected = { map -> onAction(CardDetailsAction.SelectSet(map)) },
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
         }
@@ -70,7 +70,6 @@ fun CardDetailsContent(
         if (state.cards.isNotEmpty()) {
             item {
                 DropDownMenu(
-                    modifier = Modifier.fillMaxWidth(),
                     items = state.cards,
                     selectedItem = state.selectedCard
                         ?: state.selectedSet?.cards?.first()
@@ -78,6 +77,7 @@ fun CardDetailsContent(
                     onItemSelected = { card ->
                         onAction(CardDetailsAction.SelectCard(card))
                     },
+                    modifier = Modifier.fillMaxWidth(),
                 ) { card ->
                     Text(
                         modifier = Modifier.fillMaxWidth(),

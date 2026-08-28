@@ -17,28 +17,28 @@ import com.heveamobile.setsandsteps.core.domain.toTitleCase
 
 @Composable
 fun KeyValueRow(
-    modifier: Modifier = Modifier,
-    key: @Composable () -> Unit,
     value: String,
+    modifier: Modifier = Modifier,
     valueStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     valueTitleCasingEnabled: Boolean = true,
+    key: @Composable () -> Unit,
 ) {
     KeyValueRow(
         modifier = modifier,
-        key = key,
         values = listOf(value),
         valueStyle = valueStyle,
         valueTitleCasingEnabled = valueTitleCasingEnabled,
+        key = key,
     )
 }
 
 @Composable
 fun KeyValueRow(
-    modifier: Modifier = Modifier,
-    key: @Composable () -> Unit,
     values: List<String>,
+    modifier: Modifier = Modifier,
     valueStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     valueTitleCasingEnabled: Boolean = true,
+    key: @Composable () -> Unit,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),

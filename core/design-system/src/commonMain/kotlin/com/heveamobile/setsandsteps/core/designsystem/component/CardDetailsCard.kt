@@ -37,9 +37,9 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun CardDetailsCard(
-    modifier: Modifier = Modifier,
     cardSet: CardSet,
     card: CollectableCard,
+    modifier: Modifier = Modifier,
     foundCountOverride: Int? = null,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
@@ -139,10 +139,10 @@ fun CardDetailsCard(
                             .clip(shape = MaterialTheme.shapes.small),
                     ) {
                         MapboxMap(
-                            modifier = Modifier.fillMaxSize(),
                             boundingBox = bbox
                                 .split(",")
                                 .map { it.toDouble() },
+                            modifier = Modifier.fillMaxSize(),
                         )
                     }
                     HorizontalDivider(
@@ -172,15 +172,13 @@ fun CardDetailsCard(
                     ) {
                         properties.forEach { (name, value) ->
                             KeyValueRow(
-                                key = {
-                                    Text(
-                                        text = "$name:",
-                                        style = MaterialTheme.typography.bodyMedium,
-                                    )
-                                },
-                                values = value
-                                    .split(",")
-                            )
+                                values = value.split(","),
+                            ) {
+                                Text(
+                                    text = "$name:",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            }
                         }
                     }
                 }

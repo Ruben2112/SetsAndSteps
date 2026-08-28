@@ -34,8 +34,8 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SetStatisticsList(
-    modifier: Modifier = Modifier,
     set: CardSet,
+    modifier: Modifier = Modifier,
     isExpanded: Boolean = true,
     showExpandIcon: Boolean = true,
 ) {
@@ -83,37 +83,6 @@ fun SetStatisticsList(
             ) {
                 Rarity.entries.forEach { rarity ->
                     KeyValueRow(
-                        modifier = Modifier.padding(
-                            end = if (showExpandIcon) MaterialTheme.spacing.large else 0.dp,
-                        ),
-                        key = {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(
-                                    MaterialTheme.spacing.small,
-                                ),
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(MaterialTheme.spacing.medium)
-                                        .clip(MaterialTheme.shapes.medium)
-                                        .background(
-                                            color = rarity.color(
-                                                MaterialTheme.colorScheme.onSurface,
-                                            ),
-                                        )
-                                        .border(
-                                            width = 1.dp,
-                                            color = MaterialTheme.colorScheme.onSurface,
-                                            shape = MaterialTheme.shapes.medium,
-                                        ),
-                                )
-                                Text(
-                                    text = "${rarity.name}:",
-                                    style = MaterialTheme.typography.bodyMedium,
-                                )
-                            }
-                        },
                         value = userData?.formatProgress(rarity)
                             ?: set.rarityCounts
                                 ?.count(rarity)
@@ -121,7 +90,37 @@ fun SetStatisticsList(
                             ?: set.cards
                                 .count { it.rarity == rarity }
                                 .toString(),
-                    )
+                        modifier = Modifier.padding(
+                            end = if (showExpandIcon) MaterialTheme.spacing.large else 0.dp,
+                        ),
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(
+                                MaterialTheme.spacing.small,
+                            ),
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(MaterialTheme.spacing.medium)
+                                    .clip(MaterialTheme.shapes.medium)
+                                    .background(
+                                        color = rarity.color(
+                                            MaterialTheme.colorScheme.onSurface,
+                                        ),
+                                    )
+                                    .border(
+                                        width = 1.dp,
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                        shape = MaterialTheme.shapes.medium,
+                                    ),
+                            )
+                            Text(
+                                text = "${rarity.name}:",
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                        }
+                    }
                 }
             }
         }

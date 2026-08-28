@@ -90,8 +90,8 @@ fun SetPointExchangeContent(
         ) {
             item {
                 InfoCard(
-                    modifier = Modifier.fillMaxWidth(),
                     text = stringResource(Res.string.set_point_exchange_explanation),
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
             if (state.sets.size > 1) {
@@ -347,10 +347,10 @@ private fun ShopControls(
         }
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
         InputField(
+            state = textFieldState,
             modifier = Modifier
                 .width(40.dp)
                 .height(40.dp),
-            state = textFieldState,
             textStyle = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.Center),
             contentPadding = PaddingValues(MaterialTheme.spacing.small),
             imeAction = if (isLast) ImeAction.Done else ImeAction.Next,

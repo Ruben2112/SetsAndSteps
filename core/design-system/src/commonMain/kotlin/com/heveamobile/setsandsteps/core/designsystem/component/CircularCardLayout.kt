@@ -17,9 +17,9 @@ import kotlin.math.sin
 
 @Composable
 fun CircularPackLayout(
-    modifier: Modifier = Modifier,
     cards: List<FoundCard>,
     onCardClick: (CollectableCard) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     BoxWithConstraints(
         modifier = modifier.fillMaxSize(),
@@ -43,6 +43,9 @@ fun CircularPackLayout(
             val offsetY = with(density) { (radius.toPx() * sin(angleRadians)).toInt() }
 
             CollectableCardLayout(
+                backsideImageUrl = foundCard.cardSet.backsideImageUrl,
+                card = foundCard.card,
+                isRevealed = foundCard.isRevealed,
                 modifier = Modifier
                     .width(cardWidth)
                     .offset {
@@ -51,9 +54,6 @@ fun CircularPackLayout(
                             offsetY,
                         )
                     },
-                backsideImageUrl = foundCard.cardSet.backsideImageUrl,
-                card = foundCard.card,
-                isRevealed = foundCard.isRevealed,
                 isLarge = false,
                 isNew = foundCard.isNew,
                 mapPointsGained = foundCard.setPointsGained,

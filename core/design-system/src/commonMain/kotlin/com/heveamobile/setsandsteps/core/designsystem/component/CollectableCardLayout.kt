@@ -60,14 +60,14 @@ import kotlin.math.roundToInt
 
 @Composable
 fun CollectableCardLayout(
-    modifier: Modifier = Modifier,
     backsideImageUrl: String?,
     card: CollectableCard,
     isRevealed: Boolean,
+    modifier: Modifier = Modifier,
     isNew: Boolean = false,
-    onClick: (() -> Unit)? = null,
     isLarge: Boolean = false,
     mapPointsGained: Int = 0,
+    onClick: (() -> Unit)? = null,
 ) {
     val rotationAngle = 180F + (card.rarity.intValue - 1) * 360F
     val rotation = animateFloatAsState(
@@ -103,11 +103,11 @@ fun CollectableCardLayout(
             },
         ) {
             CardFront(
-                isLarge = isLarge,
-                isNew = isNew,
-                mapPointsGained = mapPointsGained,
                 card = animatedCard,
                 isFinalRarity = animatedCard.rarity == card.rarity,
+                mapPointsGained = mapPointsGained,
+                isLarge = isLarge,
+                isNew = isNew,
             )
         }
         Box(
@@ -118,8 +118,8 @@ fun CollectableCardLayout(
             },
         ) {
             CardBack(
-                isLarge = isLarge,
                 backsideImageUrl = backsideImageUrl,
+                isLarge = isLarge,
             )
         }
     }
@@ -161,12 +161,12 @@ private fun monochromeColorFilter(tint: Color): ColorFilter {
 @OptIn(InternalResourceApi::class)
 @Composable
 private fun CardFront(
-    modifier: Modifier = Modifier,
-    isLarge: Boolean,
-    isNew: Boolean = false,
-    mapPointsGained: Int,
     card: CollectableCard,
     isFinalRarity: Boolean,
+    mapPointsGained: Int,
+    isLarge: Boolean,
+    modifier: Modifier = Modifier,
+    isNew: Boolean = false,
 ) {
     val userData = card.userData
     if (userData == null || !userData.isDiscovered) return
@@ -331,9 +331,9 @@ private fun CardFront(
 
 @Composable
 private fun CardBack(
-    modifier: Modifier = Modifier,
-    isLarge: Boolean,
     backsideImageUrl: String?,
+    isLarge: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     if (backsideImageUrl == null) {
         Icon(

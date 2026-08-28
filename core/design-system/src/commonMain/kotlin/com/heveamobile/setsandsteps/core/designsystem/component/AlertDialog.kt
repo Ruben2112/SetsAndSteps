@@ -17,15 +17,15 @@ import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlertDialog(
-    modifier: Modifier = Modifier,
     title: String,
     body: String,
+    onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
     primaryActionLabel: String? = null,
     primaryAction: (() -> Unit)? = null,
     isPrimaryActionDestructive: Boolean = false,
     secondaryActionLabel: String? = null,
     secondaryAction: (() -> Unit)? = null,
-    onDismissRequest: () -> Unit,
 ) {
     BasicAlertDialog(
         modifier = modifier,

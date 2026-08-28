@@ -81,22 +81,6 @@ private fun CardsContent(
                             onAction(CardsAction.ToggleProgressDisplay)
                         },
                     title = if (state.sets.size > 1) null else selectedSet.name,
-                    bottomContent = {
-                        KeyValueRow(
-                            value = selectedSet.cards
-                                .sumOf {
-                                    it.userData?.findCount
-                                        ?: 0
-                                }
-                                .toString(),
-                            key = {
-                                Text(
-                                    text = stringResource(Res.string.cards_total_findings),
-                                    style = MaterialTheme.typography.bodyMedium,
-                                )
-                            },
-                        )
-                    },
                 ) {
                     Column(
                         modifier = Modifier
@@ -116,6 +100,20 @@ private fun CardsContent(
                         SetStatisticsList(
                             set = selectedSet,
                             isExpanded = state.isProgressExpanded,
+                        )
+                        KeyValueRow(
+                            value = selectedSet.cards
+                                .sumOf {
+                                    it.userData?.findCount
+                                        ?: 0
+                                }
+                                .toString(),
+                            key = {
+                                Text(
+                                    text = stringResource(Res.string.cards_total_findings),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            },
                         )
                     }
                 }

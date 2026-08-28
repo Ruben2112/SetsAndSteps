@@ -8,7 +8,7 @@
     <string name="settings_daily_reminder_reminder_time">Reminder time:</string>
     <string name="settings_daily_reminder_change_time">Change time</string>
     <string name="settings_distance_multiplier_title">Distance multiplier</string>
-    <string name="settings_distance_multiplier_explanation">Adjust how many steps are required to find a card. This allows you to play the game at your own pace with respect to your body's ability. Setting the multiplier to 0.0 allows you to open one pack of each active set whenever you want.</string>
+    <string name="settings_distance_multiplier_explanation">Adjust how many steps are required to find a card. This allows you to play the game at your own pace with respect to your body's ability.\n\nSetting the multiplier to 0.0 allows you to open one pack of each active set whenever you want.</string>
     <string name="settings_distance_multiplier">Distance multiplier:</string>
     <string name="settings_export_import_title">Export and import</string>
     <string name="settings_export_import_explanation">Save your progress and user preferences by exporting it to a file. Move that file somewhere safe to prevent loss of progress. Restore your data by importing it again. You can also transfer your progress to a different device this way.</string>

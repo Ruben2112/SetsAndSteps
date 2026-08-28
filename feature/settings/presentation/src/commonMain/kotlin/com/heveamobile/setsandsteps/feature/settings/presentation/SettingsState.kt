@@ -6,6 +6,10 @@ import kotlinx.datetime.LocalTime
 data class SettingsState(
     val isLoading: Boolean = false,
 
+    val showExplanationDialog: Boolean = false,
+    val explanationDialogTitle: String? = null,
+    val explanationDialogBody: String? = null,
+
     val distanceMultiplier: Double = 1.0,
     val reminderIsEnabled: Boolean = false,
     val reminderTime: LocalTime = LocalTime(
@@ -33,6 +37,12 @@ sealed interface SettingsAction {
     data object ShowNotificationSettingsDialog : SettingsAction
     data object DismissNotificationSettingsDialog : SettingsAction
     data class UpdateHasRequestedNotificationPermission(val hasRequested: Boolean) : SettingsAction
+    data class ShowExplanationDialog(
+        val title: String?,
+        val body: String?,
+    ) : SettingsAction
+
+    data object HideExplanationDialog : SettingsAction
 }
 
 sealed interface SettingsEvent {

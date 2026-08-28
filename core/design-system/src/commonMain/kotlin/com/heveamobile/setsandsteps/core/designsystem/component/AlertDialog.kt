@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -33,23 +32,13 @@ fun AlertDialog(
     ) {
         Card(
             containerColor = MaterialTheme.colorScheme.surface,
+            title = title,
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(MaterialTheme.spacing.medium),
+                modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large),
                 horizontalAlignment = Alignment.End,
             ) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = title,
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        if
-                                (isPrimaryActionDestructive) MaterialTheme.colorScheme.onErrorContainer else
-                            MaterialTheme.colorScheme.onSurface,
-                    ),
-                )
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = body,

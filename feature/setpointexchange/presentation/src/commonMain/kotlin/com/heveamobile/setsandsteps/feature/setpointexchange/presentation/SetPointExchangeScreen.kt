@@ -106,9 +106,13 @@ fun SetPointExchangeContent(
             }
             if (state.selectedSet != null) {
                 item {
-                    Card(
-                        modifier = Modifier.fillMaxWidth(),
-                        bottomContent = {
+                    Card(modifier = Modifier.fillMaxWidth()) {
+                        Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)) {
+                            SetStatisticsList(
+                                modifier = Modifier.fillMaxWidth(),
+                                set = state.selectedSet,
+                                showExpandIcon = false,
+                            )
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 verticalAlignment = Alignment.CenterVertically,
@@ -128,14 +132,7 @@ fun SetPointExchangeContent(
                                     style = MaterialTheme.typography.bodyMedium,
                                 )
                             }
-                        },
-                    ) {
-                        SetStatisticsList(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            set = state.selectedSet,
-                            showExpandIcon = false,
-                        )
+                        }
                     }
                 }
             }
@@ -144,7 +141,26 @@ fun SetPointExchangeContent(
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         title = stringResource(Res.string.set_point_exchange_shop),
-                        bottomContent = {
+                    ) {
+                        Column(
+                            verticalArrangement = Arrangement.spacedBy(
+                                MaterialTheme.spacing.medium,
+                            ),
+                        ) {
+                            Rarity.entries.forEach { rarity ->
+                                val cost = state.selectedSet.storePrice(rarity)
+                                val amountInCart = state.cart[rarity]
+                                    ?: 0
+                                val amountInStock = state.amountInStock[rarity]
+                                    ?: 0
+                                CardStockRow(
+                                    rarity = rarity,
+                                    cost = cost,
+                                    amountInCart = amountInCart,
+                                    amountInStock = amountInStock,
+                                    onAction = onAction,
+                                )
+                            }
                             Column(modifier = Modifier.fillMaxWidth()) {
                                 Row(
                                     modifier = Modifier
@@ -190,23 +206,7 @@ fun SetPointExchangeContent(
                                     )
                                 }
                             }
-                        },
-                    ) {
-                        Rarity.entries.forEach { rarity ->
-                            val cost = state.selectedSet.storePrice(rarity)
-                            val amountInCart = state.cart[rarity]
-                                ?: 0
-                            val amountInStock = state.amountInStock[rarity]
-                                ?: 0
-                            CardStockRow(
-                                rarity = rarity,
-                                cost = cost,
-                                amountInCart = amountInCart,
-                                amountInStock = amountInStock,
-                                onAction = onAction,
-                            )
                         }
-
                     }
                 }
             }
@@ -224,8 +224,7 @@ private fun CardStockRow(
     onAction: (SetPointExchangeAction) -> Unit,
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
@@ -327,8 +326,7 @@ private fun ShopControls(
         OutlinedIconButton(
             modifier = Modifier.size(20.dp),
             enabled = minusEnabled,
-            colors = IconButtonDefaults
-                .outlinedIconButtonColors(),
+            colors = IconButtonDefaults.outlinedIconButtonColors(),
             onClick = {
                 onAction(
                     SetPointExchangeAction.UpdateCartAmount(
@@ -367,8 +365,7 @@ private fun ShopControls(
         OutlinedIconButton(
             modifier = Modifier.size(20.dp),
             enabled = plusEnabled,
-            colors = IconButtonDefaults
-                .outlinedIconButtonColors(),
+            colors = IconButtonDefaults.outlinedIconButtonColors(),
             onClick = {
                 onAction(
                     SetPointExchangeAction.UpdateCartAmount(

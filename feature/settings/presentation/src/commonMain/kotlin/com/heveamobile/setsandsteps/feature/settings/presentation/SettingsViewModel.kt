@@ -159,6 +159,24 @@ class SettingsViewModel(
                     userPreferencesRepository.updateHasRequestedNotificationPermission(action.hasRequested)
                 }
             }
+
+            is SettingsAction.ShowExplanationDialog -> {
+                _state.update {
+                    it.copy(
+                        showExplanationDialog = true,
+                        explanationDialogTitle = action.title,
+                        explanationDialogBody = action.body,
+                    )
+                }
+            }
+
+            is SettingsAction.HideExplanationDialog -> {
+                _state.update {
+                    it.copy(
+                        showExplanationDialog = false,
+                    )
+                }
+            }
         }
     }
 }

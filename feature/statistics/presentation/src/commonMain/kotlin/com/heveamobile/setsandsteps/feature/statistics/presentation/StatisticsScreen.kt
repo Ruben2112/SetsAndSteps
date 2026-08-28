@@ -1,8 +1,5 @@
 ﻿package com.heveamobile.setsandsteps.feature.statistics.presentation
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -130,57 +128,62 @@ fun StatisticsContent(
     onAction: (StatisticsAction) -> Unit,
     onPermissionRequest: () -> Unit,
 ) {
-    AnimatedVisibility(visible = state.showHealthSettingsDialog) {
+    if (state.showHealthSettingsDialog) {
         HealthSettingsDialog(onAction = onAction)
     }
 
-    Column(
+    LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(MaterialTheme.spacing.medium)
-            .background(MaterialTheme.colorScheme.surface),
+            .padding(MaterialTheme.spacing.medium),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
     ) {
-        AnimatedVisibility(state.isLoading) {
-            Column {
-                Card {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(24.dp),
-                            color = MaterialTheme.colorScheme.onSurface,
-                            strokeWidth = 2.dp,
-                        )
-                        Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
-                        Text(
-                            text = stringResource(Res.string.statistics_loading_step_data),
-                            style = MaterialTheme.typography.bodyMedium,
-                        )
+        if (state.isLoading) {
+            item {
+                Column(modifier = Modifier.animateItem()) {
+                    Card {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(24.dp),
+                                color = MaterialTheme.colorScheme.onSurface,
+                                strokeWidth = 2.dp,
+                            )
+                            Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
+                            Text(
+                                text = stringResource(Res.string.statistics_loading_step_data),
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                        }
                     }
                 }
             }
         }
-        AnimatedContent(targetState = state.healthPermissionState) { permissionState ->
-            when (permissionState) {
-                PermissionStatus.Loading -> {}
-                PermissionStatus.Granted -> {}
-                PermissionStatus.NotGranted, PermissionStatus.RationaleRequired -> Column(modifier = Modifier.fillMaxWidth()) {
-                    ErrorCard(
-                        errorMessage = stringResource(DesignSystemRes.string.permissions_not_granted_error),
-                        actionLabel = stringResource(DesignSystemRes.string.error_action_request_permissions),
-                        onAction = onPermissionRequest,
-                    )
-                }
-
-                PermissionStatus.NotInstalled -> Column(modifier = Modifier.fillMaxWidth()) {
-                    ErrorCard(errorMessage = stringResource(Res.string.statistics_error_health_connect_not_installed))
-                }
+        if (state.healthPermissionState == PermissionStatus.NotGranted || state.healthPermissionState == PermissionStatus.RationaleRequired) {
+            item {
+                ErrorCard(
+                    errorMessage = stringResource(DesignSystemRes.string.permissions_not_granted_error),
+                    modifier = Modifier.animateItem(),
+                    actionLabel = stringResource(DesignSystemRes.string.error_action_request_permissions),
+                    onAction = onPermissionRequest,
+                )
+            }
+        } else if (state.healthPermissionState == PermissionStatus.NotInstalled) {
+            item {
+                ErrorCard(
+                    errorMessage = stringResource(Res.string.statistics_error_health_connect_not_installed),
+                    modifier = Modifier.animateItem(),
+                )
             }
         }
-        HistoricDataCard(state = state)
-        PersonalRecordsDataCard(state = state)
+        item {
+            HistoricDataCard(state = state)
+        }
+        item {
+            PersonalRecordsDataCard(state = state)
+        }
     }
 }
 

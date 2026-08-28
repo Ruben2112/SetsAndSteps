@@ -1,7 +1,6 @@
 ﻿package com.heveamobile.setsandsteps.feature.settings.presentation
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -51,6 +50,7 @@ import com.heveamobile.setsandsteps.core.designsystem.component.SecondaryButton
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.error_action_request_permissions
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_cancel
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_continue
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_ok
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_save
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.permissions_not_granted_error
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
@@ -168,24 +168,35 @@ private fun SettingsContent(
     onPermissionRequest: () -> Unit,
 ) {
 
-    AnimatedVisibility(visible = state.showImportConfirmationAlert) {
+    if (state.showExplanationDialog) {
+        AlertDialog(
+            title = state.explanationDialogTitle
+                ?: "",
+            body = state.explanationDialogBody
+                ?: "",
+            onDismissRequest = { onAction(SettingsAction.HideExplanationDialog) },
+            primaryActionLabel = stringResource(DesignSystemRes.string.label_ok),
+            primaryAction = { onAction(SettingsAction.HideExplanationDialog) },
+        )
+    }
+
+    if (state.showImportConfirmationAlert) {
         ImportConfirmationDialog(onAction = onAction)
     }
 
-    AnimatedVisibility(visible = state.showTimePickerAlertDialog) {
+    if (state.showTimePickerAlertDialog) {
         TimePickerDialog(
             initialTime = state.reminderTime,
             onAction = onAction,
         )
     }
 
-    AnimatedVisibility(visible = state.showNotificationSettingsDialog) {
+    if (state.showNotificationSettingsDialog) {
         NotificationSettingsDialog(onAction = onAction)
     }
 
     LazyColumn(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         contentPadding = PaddingValues(MaterialTheme.spacing.medium),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
     ) {
@@ -218,16 +229,23 @@ private fun ReminderCard(
     onAction: (SettingsAction) -> Unit,
     onPermissionRequest: () -> Unit,
 ) {
-    Card(title = stringResource(Res.string.settings_daily_reminder_title)) {
+    val title = stringResource(Res.string.settings_daily_reminder_title)
+    val explanation = stringResource(Res.string.settings_daily_reminder_explanation)
+    Card(
+        title = title,
+        onExplanationClick = {
+            onAction(
+                SettingsAction.ShowExplanationDialog(
+                    title = title,
+                    body = explanation,
+                ),
+            )
+        },
+    ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
             horizontalAlignment = Alignment.End,
         ) {
-            Text(
-                text = stringResource(Res.string.settings_daily_reminder_explanation),
-                style = MaterialTheme.typography.bodyMedium,
-            )
-
             AnimatedContent(
                 targetState = notificationPermissionStatus,
                 transitionSpec = {
@@ -382,14 +400,20 @@ private fun DistanceMultiplierCard(
         onAction(SettingsAction.UpdateDistanceMultiplier(sliderState.value + 1F))
     }
 
-    Card(title = stringResource(Res.string.settings_distance_multiplier_title)) {
-        Column {
-            Text(
-                text = stringResource(
-                    Res.string.settings_distance_multiplier_explanation,
+    val title = stringResource(Res.string.settings_distance_multiplier_title)
+    val explanation = stringResource(Res.string.settings_distance_multiplier_explanation)
+    Card(
+        title = title,
+        onExplanationClick = {
+            onAction(
+                SettingsAction.ShowExplanationDialog(
+                    title = title,
+                    body = explanation,
                 ),
-                style = MaterialTheme.typography.bodyMedium,
             )
+        },
+    ) {
+        Column {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -446,27 +470,32 @@ private fun DistanceMultiplierCard(
 private fun ExportImportDataCard(
     onAction: (SettingsAction) -> Unit,
 ) {
-    Card(title = stringResource(Res.string.settings_export_import_title)) {
-        Column(
-            horizontalAlignment = Alignment.End,
-            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        ) {
-            Text(
-                text = stringResource(
-                    Res.string.settings_export_import_explanation,
+    val title = stringResource(Res.string.settings_export_import_title)
+    val explanation = stringResource(Res.string.settings_export_import_explanation)
+    Card(
+        title = title,
+        onExplanationClick = {
+            onAction(
+                SettingsAction.ShowExplanationDialog(
+                    title = title,
+                    body = explanation,
                 ),
-                style = MaterialTheme.typography.bodyMedium,
             )
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-            ) {
-                PrimaryButton(label = stringResource(Res.string.settings_export)) {
-                    onAction(SettingsAction.ExportProgress)
-                }
-                PrimaryButton(label = stringResource(Res.string.settings_import)) {
-                    onAction(SettingsAction.ImportProgress)
-                }
+        },
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(
+                MaterialTheme.spacing.medium,
+                Alignment.End,
+            ),
+        ) {
+            PrimaryButton(label = stringResource(Res.string.settings_export)) {
+                onAction(SettingsAction.ExportProgress)
+            }
+            PrimaryButton(label = stringResource(Res.string.settings_import)) {
+                onAction(SettingsAction.ImportProgress)
             }
         }
     }

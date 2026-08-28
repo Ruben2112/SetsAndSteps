@@ -1,5 +1,7 @@
 package com.heveamobile.setsandsteps.core.designsystem.component
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,7 +30,25 @@ fun ErrorCard(
 ) {
     Card(
         modifier = modifier,
-        bottomContent = {
+        containerColor = MaterialTheme.colorScheme.errorContainer,
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    Icons.Filled.Warning,
+                    contentDescription = stringResource(Res.string.error_card_icon_description),
+                    modifier = Modifier.size(24.dp),
+                    tint = MaterialTheme.colorScheme.onErrorContainer,
+                )
+                Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
+                Text(
+                    errorMessage,
+                    style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onErrorContainer),
+                )
+            }
             if (actionLabel != null && onAction != null) {
                 PrimaryButton(
                     label = actionLabel,
@@ -36,25 +56,6 @@ fun ErrorCard(
                     onClick = onAction,
                 )
             }
-        },
-        showOutline = false,
-        containerColor = MaterialTheme.colorScheme.errorContainer,
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Icon(
-                Icons.Filled.Warning,
-                contentDescription = stringResource(Res.string.error_card_icon_description),
-                modifier = Modifier.size(24.dp),
-                tint = MaterialTheme.colorScheme.onErrorContainer,
-            )
-            Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
-            Text(
-                errorMessage,
-                style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onErrorContainer),
-            )
         }
     }
 }

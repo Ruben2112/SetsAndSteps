@@ -2,6 +2,7 @@
     <string name="label_cancel">Cancel</string>
     <string name="label_continue">Continue</string>
     <string name="label_save">Save</string>
+    <string name="label_ok">Ok</string>
     <string name="permissions_not_granted_error">Missing required permissions</string>
     <string name="error_action_request_permissions">Grant permissions</string>
     <string name="error_card_icon_description">Error icon</string>
@@ -13,6 +14,7 @@
     <string name="unrevealed_card_icon_description">Unrevealed card icon</string>
     <string name="card_image_description">Image of card %1$s</string>
     <string name="card_set_image_description">Back image of card set</string>
+    <string name="question_mark_icon_description">Question mark icon</string>
     <string name="set_statistics_total_label">Cards:</string>
     <string name="card_new">New!</string>
     <string name="unrevealed_card_title">???</string>

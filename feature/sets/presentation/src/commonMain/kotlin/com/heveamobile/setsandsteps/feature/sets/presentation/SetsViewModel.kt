@@ -7,7 +7,6 @@ import com.heveamobile.setsandsteps.core.domain.model.CardSetDownloadState
 import com.heveamobile.setsandsteps.core.domain.repository.CardSetCatalogRepository
 import com.heveamobile.setsandsteps.core.domain.usecase.GetCatalogCardSetsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.GetSetsWithProgressUseCase
-import com.heveamobile.setsandsteps.core.domain.usecase.GetUserUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.ToggleSetActiveStateUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -27,7 +26,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SetsViewModel(
-    private val getUserUseCase: GetUserUseCase,
     private val getSetsWithProgressUseCase: GetSetsWithProgressUseCase,
     private val getCatalogCardSetsUseCase: GetCatalogCardSetsUseCase,
     private val cardSetCatalogRepository: CardSetCatalogRepository,
@@ -47,17 +45,6 @@ class SetsViewModel(
 
     init {
         _state.update { it.copy(isLoading = true) }
-
-        viewModelScope.launch {
-            getUserUseCase().collectLatest { user ->
-//                _state.update {
-//                    it.copy(
-//                        availableSteps = user?.availableSteps
-//                            ?: 0L,
-//                    )
-//                }
-            }
-        }
 
         val ownedSetsFlow = getSetsWithProgressUseCase()
         val catalogSetsFlow = getCatalogCardSetsUseCase()
@@ -108,8 +95,12 @@ class SetsViewModel(
                             sets = owned,
                             catalogSets = catalog,
                             updateAvailableSetIds = updateAvailableIds,
-                            expandedSetId = state.expandedSetId
-                                ?: owned.firstOrNull()?.id,
+                            expandedSetId = if (state.sets.isEmpty()) {
+                                state.expandedSetId
+                                    ?: owned.firstOrNull()?.id
+                            } else {
+                                state.expandedSetId
+                            },
                             isLoading = false,
                         )
                     }

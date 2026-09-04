@@ -250,11 +250,7 @@ fun HomeContent(
                     SnackbarHost(
                         hostState = snackbarHostState,
                         snackbar = { snackbarData ->
-                            Snackbar(
-                                snackbarData = snackbarData,
-                                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                                contentColor = MaterialTheme.colorScheme.onSecondary,
-                            )
+                            Snackbar(snackbarData = snackbarData)
                         },
                     )
                 },

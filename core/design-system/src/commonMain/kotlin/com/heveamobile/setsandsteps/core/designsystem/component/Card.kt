@@ -17,8 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.example.test.ic_question_mark
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res
 import com.heveamobile.setsandsteps.core.designsystem.generated.resources.question_mark_icon_description
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
@@ -29,7 +29,8 @@ fun Card(
     modifier: Modifier = Modifier,
     title: String? = null,
     subtitle: String? = null,
-    onExplanationClick: (() -> Unit)? = null,
+    actionIcon: ImageVector? = null,
+    onAction: (() -> Unit)? = null,
     containerColor: Color = MaterialTheme.colorScheme.surfaceContainer,
     content: @Composable () -> Unit,
 ) {
@@ -48,11 +49,12 @@ fun Card(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         ) {
             var topPadding = 0.dp
-            if (title != null || onExplanationClick != null) {
+            if (title != null || onAction != null) {
                 CardHeader(
                     title = title,
                     subtitle = subtitle,
-                    onExplanationClick = onExplanationClick,
+                    actionIcon = actionIcon,
+                    onAction = onAction,
                 )
             } else {
                 topPadding = MaterialTheme.spacing.medium
@@ -72,20 +74,24 @@ fun Card(
 private fun CardHeader(
     title: String? = null,
     subtitle: String? = null,
-    onExplanationClick: (() -> Unit)? = null,
+    actionIcon: ImageVector? = null,
+    onAction: (() -> Unit)? = null,
 ) {
     Row(
-        modifier = Modifier.padding(start = MaterialTheme.spacing.medium),
+        modifier = Modifier.padding(
+            start = MaterialTheme.spacing.medium,
+        ),
         verticalAlignment = Alignment.Top,
     ) {
         Column(
             modifier = Modifier
-                .padding(top = MaterialTheme.spacing.medium)
                 .weight(1F),
         ) {
             if (title != null) {
                 Text(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = MaterialTheme.spacing.small),
                     text = title,
                     style = MaterialTheme.typography.titleLarge.copy(color = MaterialTheme.colorScheme.onPrimaryContainer),
                 )
@@ -98,11 +104,14 @@ private fun CardHeader(
                 )
             }
         }
-        if (onExplanationClick != null) {
-            IconButton(onClick = onExplanationClick) {
+        if (onAction != null && actionIcon != null) {
+            IconButton(
+                onClick = onAction,
+            ) {
                 Icon(
-                    imageVector = ic_question_mark,
+                    imageVector = actionIcon,
                     contentDescription = stringResource(Res.string.question_mark_icon_description),
+                    tint = MaterialTheme.colorScheme.primary,
                 )
             }
         }

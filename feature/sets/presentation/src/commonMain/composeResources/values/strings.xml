@@ -15,6 +15,8 @@
     <string name="sets_update_failed">Failed to update %1$s</string>
     <string name="sets_activate">Activate</string>
     <string name="sets_deactivate">Deactivate</string>
+    <string name="sets_active_snackbar">Set "%1$s" is now tracking steps</string>
+    <string name="sets_inactive_snackbar">Set "%1$s" is no longer tracking steps</string>
     <string name="sets_catalog_empty_state">There are currently no sets available.</string>
     <string name="sets_my_sets_list_footer">Browse the catalog to start collecting for more card sets!</string>
 </resources>

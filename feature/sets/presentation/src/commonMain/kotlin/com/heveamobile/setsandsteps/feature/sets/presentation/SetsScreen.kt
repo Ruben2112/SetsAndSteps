@@ -46,6 +46,8 @@ import com.heveamobile.setsandsteps.core.designsystem.component.KeyValueRow
 import com.heveamobile.setsandsteps.core.designsystem.component.PrimaryButton
 import com.heveamobile.setsandsteps.core.designsystem.component.SecondaryButton
 import com.heveamobile.setsandsteps.core.designsystem.component.SetStatisticsList
+import com.heveamobile.setsandsteps.core.designsystem.icons.ic_footsteps
+import com.heveamobile.setsandsteps.core.designsystem.icons.ic_footsteps_off
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.domain.FormatMode
 import com.heveamobile.setsandsteps.core.domain.formatAmount
@@ -57,11 +59,11 @@ import com.heveamobile.setsandsteps.core.presentation.LocalBottomBarState
 import com.heveamobile.setsandsteps.core.presentation.LocalDrawerState
 import com.heveamobile.setsandsteps.core.presentation.LocalSnackbarHostState
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.Res
-import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_activate
+import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_active_snackbar
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_catalog_empty_state
-import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_deactivate
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_download
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_download_failed
+import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_inactive_snackbar
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_level
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_my_sets_list_footer
 import com.heveamobile.setsandsteps.feature.sets.presentation.generated.resources.sets_purchase_successful
@@ -118,6 +120,13 @@ fun SetsScreen(modifier: Modifier = Modifier) {
                 is SetsEvent.UpdateFailed -> snackbarHostState.showSnackbar(
                     getString(
                         Res.string.sets_update_failed,
+                        event.setName,
+                    ),
+                )
+
+                is SetsEvent.ActiveStateToggled -> snackbarHostState.showSnackbar(
+                    getString(
+                        if (event.isActive) Res.string.sets_active_snackbar else Res.string.sets_inactive_snackbar,
                         event.setName,
                     ),
                 )
@@ -324,6 +333,10 @@ private fun OwnedSetCard(
             Res.string.sets_level,
             userData.currentLevel,
         ),
+        actionIcon = if (userData.isActive) ic_footsteps else ic_footsteps_off,
+        onAction = {
+            onAction(SetsAction.ToggleActiveState(set))
+        },
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -390,20 +403,6 @@ private fun OwnedSetCard(
                         SecondaryButton(label = stringResource(Res.string.sets_update)) {
                             onAction(SetsAction.UpdateSet(set.id))
                         }
-                    }
-                }
-            }
-            if (set.cards.isNotEmpty()) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End,
-                ) {
-                    PrimaryButton(
-                        label = stringResource(
-                            if (userData.isActive) Res.string.sets_deactivate else Res.string.sets_activate,
-                        ),
-                    ) {
-                        onAction(SetsAction.ToggleActiveState(set))
                     }
                 }
             }

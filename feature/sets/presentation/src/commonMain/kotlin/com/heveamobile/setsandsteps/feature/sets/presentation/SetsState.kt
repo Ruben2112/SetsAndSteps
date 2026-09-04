@@ -34,4 +34,8 @@ sealed interface SetsEvent {
     data class PurchaseSucceeded(val setName: String) : SetsEvent
     data class DownloadFailed(val setName: String) : SetsEvent
     data class UpdateFailed(val setName: String) : SetsEvent
+    data class ActiveStateToggled(
+        val setName: String,
+        val isActive: Boolean,
+    ) : SetsEvent
 }

@@ -143,10 +143,9 @@ class SetsViewModel(
                         val previousState = previousDownloadStates[setId]
 
                         if (downloadState == CardSetDownloadState.Failed && previousState != CardSetDownloadState.Failed) {
-                            val setName = (_state.value.sets + _state.value.catalogSets)
-                                .firstOrNull { it.id == setId }
-                                ?.name
-                                ?: return@forEach
+                            val setName =
+                                (_state.value.sets + _state.value.catalogSets).firstOrNull { it.id == setId }?.name
+                                    ?: return@forEach
                             val isOwnedSet = _state.value.sets.any { it.id == setId }
                             pendingPurchaseSetIds.update { it - setId }
                             _events.send(
@@ -190,6 +189,13 @@ class SetsViewModel(
             is SetsAction.ToggleActiveState -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     toggleSetActiveStateUseCase(action.set.id)
+                    _events.send(
+                        SetsEvent.ActiveStateToggled(
+                            setName = action.set.name,
+                            isActive = action.set.userData?.isActive?.not()
+                                ?: true,
+                        ),
+                    )
                 }
             }
         }

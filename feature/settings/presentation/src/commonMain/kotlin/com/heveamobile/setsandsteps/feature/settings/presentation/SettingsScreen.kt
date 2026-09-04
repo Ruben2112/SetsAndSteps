@@ -42,6 +42,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.test.ic_question_mark
 import com.heveamobile.setsandsteps.core.designsystem.component.AlertDialog
 import com.heveamobile.setsandsteps.core.designsystem.component.Card
 import com.heveamobile.setsandsteps.core.designsystem.component.ErrorCard
@@ -233,7 +234,8 @@ private fun ReminderCard(
     val explanation = stringResource(Res.string.settings_daily_reminder_explanation)
     Card(
         title = title,
-        onExplanationClick = {
+        actionIcon = ic_question_mark,
+        onAction = {
             onAction(
                 SettingsAction.ShowExplanationDialog(
                     title = title,
@@ -404,7 +406,8 @@ private fun DistanceMultiplierCard(
     val explanation = stringResource(Res.string.settings_distance_multiplier_explanation)
     Card(
         title = title,
-        onExplanationClick = {
+        actionIcon = ic_question_mark,
+        onAction = {
             onAction(
                 SettingsAction.ShowExplanationDialog(
                     title = title,
@@ -474,7 +477,8 @@ private fun ExportImportDataCard(
     val explanation = stringResource(Res.string.settings_export_import_explanation)
     Card(
         title = title,
-        onExplanationClick = {
+        actionIcon = ic_question_mark,
+        onAction = {
             onAction(
                 SettingsAction.ShowExplanationDialog(
                     title = title,

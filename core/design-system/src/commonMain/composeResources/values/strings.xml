@@ -15,7 +15,7 @@
     <string name="card_image_description">Image of card %1$s</string>
     <string name="card_set_image_description">Back image of card set</string>
     <string name="question_mark_icon_description">Question mark icon</string>
-    <string name="set_statistics_total_label">Cards:</string>
+    <string name="set_statistics_total_label">Progress:</string>
     <string name="card_new">New!</string>
     <string name="unrevealed_card_title">???</string>
     <string name="card_image_loading_failed">Failed to load card image</string>

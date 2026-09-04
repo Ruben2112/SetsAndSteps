@@ -1,6 +1,5 @@
 package com.heveamobile.setsandsteps.core.designsystem.component
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.domain.toTitleCase
 
@@ -43,17 +44,18 @@ fun KeyValueRow(
     Row(
         modifier = modifier.fillMaxWidth(),
     ) {
-        Box(modifier = Modifier.weight(1F)) {
-            key()
-        }
+        key()
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraLarge))
         Column(
+            modifier = Modifier.weight(1F),
             horizontalAlignment = Alignment.End,
         ) {
             values.forEach { value ->
                 Text(
                     text = if (valueTitleCasingEnabled) value.toTitleCase() else value,
                     style = valueStyle,
+                    textAlign = TextAlign.End,
+                    overflow = TextOverflow.Ellipsis,
                 )
             }
         }

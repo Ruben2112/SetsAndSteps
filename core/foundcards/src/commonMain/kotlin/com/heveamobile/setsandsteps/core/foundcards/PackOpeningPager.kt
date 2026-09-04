@@ -21,6 +21,9 @@ import com.heveamobile.setsandsteps.core.designsystem.component.animationTime
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.milliseconds
+
+private const val AUTO_ADVANCE_SUSPENSE_DELAY_MILLIS = 1000L
 
 @Composable
 fun PackOpeningPager(
@@ -98,7 +101,7 @@ private suspend fun awaitAutoAdvanceTarget(
     delayMillis: Long,
 ): Int? {
     if (isRevealing && allRevealedOnCurrentPage && targetPage != null) {
-        delay(delayMillis)
+        delay((delayMillis + AUTO_ADVANCE_SUSPENSE_DELAY_MILLIS).milliseconds)
         return targetPage
     }
     return null

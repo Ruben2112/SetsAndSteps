@@ -398,7 +398,7 @@ private fun DistanceMultiplierCard(
         sliderState.value = distanceMultiplier.toFloat() - 1F
     }
 
-    sliderState.onValueChangeFinished = {
+    LaunchedEffect(sliderState.value) {
         onAction(SettingsAction.UpdateDistanceMultiplier(sliderState.value + 1F))
     }
 

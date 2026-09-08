@@ -17,6 +17,7 @@ data class SetsState(
     val expandedSetId: String? = null,
 
     val availableSteps: Long = 0L,
+    val distanceMultiplier: Double = 1.0,
 
     val isLoading: Boolean = false,
 )

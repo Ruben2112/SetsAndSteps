@@ -3,8 +3,10 @@ package com.heveamobile.setsandsteps.feature.sets.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.heveamobile.setsandsteps.core.domain.manager.CardSetDownloadCoordinator
+import com.heveamobile.setsandsteps.core.domain.model.CardSet
 import com.heveamobile.setsandsteps.core.domain.model.CardSetDownloadState
 import com.heveamobile.setsandsteps.core.domain.repository.CardSetCatalogRepository
+import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
 import com.heveamobile.setsandsteps.core.domain.usecase.GetCatalogCardSetsUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.GetSetsWithProgressUseCase
 import com.heveamobile.setsandsteps.core.domain.usecase.ToggleSetActiveStateUseCase
@@ -31,7 +33,15 @@ class SetsViewModel(
     private val cardSetCatalogRepository: CardSetCatalogRepository,
     private val cardSetDownloadCoordinator: CardSetDownloadCoordinator,
     private val toggleSetActiveStateUseCase: ToggleSetActiveStateUseCase,
+    private val userPreferencesRepository: UserPreferencesRepository,
 ) : ViewModel() {
+
+    private data class InitialData(
+        val owned: List<CardSet>,
+        val catalog: List<CardSet>,
+        val remote: List<CardSet>,
+        val distanceMultiplier: Double,
+    )
 
     private val _state = MutableStateFlow(SetsState())
     val state: StateFlow<SetsState> = _state.asStateFlow()
@@ -48,23 +58,30 @@ class SetsViewModel(
 
         val ownedSetsFlow = getSetsWithProgressUseCase()
         val catalogSetsFlow = getCatalogCardSetsUseCase()
+        val distanceMultiplierFlow = userPreferencesRepository.distanceMultiplier
 
         viewModelScope.launch(Dispatchers.IO) {
             combine(
                 ownedSetsFlow,
                 catalogSetsFlow,
                 cardSetCatalogRepository.getRemoteCardSetsFlow(),
-            ) { owned, catalog, remote ->
-                Triple(
+                distanceMultiplierFlow,
+            ) { owned, catalog, remote, distanceMultiplier ->
+                InitialData(
                     owned,
                     catalog,
                     remote,
+                    distanceMultiplier,
                 )
             }
                 .onStart {
                     _state.update { it.copy(isLoading = true) }
                 }
-                .collectLatest { (owned, catalog, remote) ->
+                .collectLatest { data ->
+                    val owned = data.owned
+                    val catalog = data.catalog
+                    val remote = data.remote
+                    val distanceMultiplier = data.distanceMultiplier
                     val remoteVersionById = remote.associateBy { it.id }
                     val updateAvailableIds = owned
                         .mapNotNull { set ->
@@ -95,6 +112,7 @@ class SetsViewModel(
                             sets = owned,
                             catalogSets = catalog,
                             updateAvailableSetIds = updateAvailableIds,
+                            distanceMultiplier = distanceMultiplier,
                             expandedSetId = if (state.sets.isEmpty()) {
                                 state.expandedSetId
                                     ?: owned.firstOrNull()?.id

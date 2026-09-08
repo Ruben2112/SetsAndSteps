@@ -53,6 +53,7 @@ import com.heveamobile.setsandsteps.core.domain.FormatMode
 import com.heveamobile.setsandsteps.core.domain.formatAmount
 import com.heveamobile.setsandsteps.core.domain.model.CardSet
 import com.heveamobile.setsandsteps.core.domain.model.CardSetDownloadState
+import com.heveamobile.setsandsteps.core.domain.model.costPerPack
 import com.heveamobile.setsandsteps.core.navigation.icons.ic_catalog
 import com.heveamobile.setsandsteps.core.navigation.icons.ic_sets
 import com.heveamobile.setsandsteps.core.presentation.LocalBottomBarState
@@ -268,6 +269,7 @@ private fun SetsContent(
                         ) { set ->
                             CatalogSetCard(
                                 set = set,
+                                state = state,
                                 onAction = onAction,
                             )
                         }
@@ -347,7 +349,7 @@ private fun OwnedSetCard(
                     userData.currentSteps,
                     FormatMode.Long,
                 ) + " / " + formatAmount(
-                    userData.calculatedDistance,
+                    userData.costPerPack(state.distanceMultiplier),
                     FormatMode.Long,
                 ),
                 modifier = Modifier.padding(end = MaterialTheme.spacing.large),
@@ -413,6 +415,7 @@ private fun OwnedSetCard(
 @Composable
 private fun CatalogSetCard(
     set: CardSet,
+    state: SetsState,
     onAction: (SetsAction) -> Unit,
 ) {
     Card(
@@ -424,7 +427,7 @@ private fun CatalogSetCard(
         ) {
             KeyValueRow(
                 value = formatAmount(
-                    set.baseDistance,
+                    (set.baseDistance * state.distanceMultiplier).toLong(),
                     FormatMode.Long,
                 ),
                 modifier = Modifier.padding(end = MaterialTheme.spacing.large),

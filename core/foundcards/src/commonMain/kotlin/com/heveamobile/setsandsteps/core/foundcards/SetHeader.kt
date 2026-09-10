@@ -18,11 +18,11 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun SetHeader(
-    modifier: Modifier = Modifier,
     setName: String,
     packProgressValue: String,
     newCardsCount: Int,
     pointsGained: Int,
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),

@@ -32,11 +32,11 @@ fun PackOpeningSummaryGrid(
     ) {
         packOpeningState.setPages.forEach { setPageUiState ->
             item(span = { GridItemSpan(maxLineSpan) }) {
-                SetHeader(
-                    setName = setPageUiState.cardSet.name,
-                    packProgressValue = setPageUiState.packs.size.toString(),
-                    newCardsCount = setPageUiState.newCardsCount,
+                SummarySetHeader(
+                    cardSet = setPageUiState.cardSet,
+                    packsOpened = setPageUiState.packs.size,
                     pointsGained = setPageUiState.pointsRevealedSoFar,
+                    newCards = setPageUiState.newCardsCount,
                 )
             }
 

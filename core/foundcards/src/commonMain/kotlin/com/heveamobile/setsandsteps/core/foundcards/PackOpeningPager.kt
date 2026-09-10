@@ -174,7 +174,7 @@ private fun SetPage(
             modifier = Modifier.padding(MaterialTheme.spacing.medium),
             setName = setPageUiState.cardSet.name,
             packProgressValue = "${childPagerState.settledPage + 1} / ${packs.size}",
-            newCardsCount = setPageUiState.newCardsCount,
+            newCardsCount = setPageUiState.newCardsCount.values.sum(),
             pointsGained = setPageUiState.pointsRevealedSoFar,
         )
         HorizontalPager(

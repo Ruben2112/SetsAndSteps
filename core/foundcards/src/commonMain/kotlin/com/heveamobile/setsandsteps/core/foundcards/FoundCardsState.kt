@@ -3,6 +3,7 @@ package com.heveamobile.setsandsteps.core.foundcards
 import com.heveamobile.setsandsteps.core.domain.model.CardSet
 import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
 import com.heveamobile.setsandsteps.core.domain.model.FoundCard
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
 
 data class FoundCardsState(
     val isLoading: Boolean = false,
@@ -29,7 +30,12 @@ data class SinglesUiState(
     val isRevealingAll: Boolean = false,
     val mapPointsGained: Int = 0,
     val showResultSummary: Boolean = false,
-)
+) {
+    val newCardsCount: Map<Rarity, Int>
+        get() = Rarity.entries.associateWith { rarity ->
+            foundCards.count { it.isRevealed && it.isNew && it.card.rarity == rarity }
+        }
+}
 
 data class PackOpeningUiState(
     val setPages: List<SetPageUiState>,
@@ -59,8 +65,15 @@ data class SetPageUiState(
     val packs: List<PackUiState>,
     val setPointsGained: Int,
 ) {
-    val newCardsCount: Int
-        get() = packs.sumOf { pack -> pack.cards.count { it.isRevealed && it.isNew } }
+    val newCardsCount: Map<Rarity, Int>
+        get() {
+            val revealedNewCards = packs
+                .flatMap { it.cards }
+                .filter { it.isRevealed && it.isNew }
+            return Rarity.entries.associateWith { rarity ->
+                revealedNewCards.count { it.card.rarity == rarity }
+            }
+        }
 
     val pointsRevealedSoFar: Int
         get() = packs.sumOf { pack ->

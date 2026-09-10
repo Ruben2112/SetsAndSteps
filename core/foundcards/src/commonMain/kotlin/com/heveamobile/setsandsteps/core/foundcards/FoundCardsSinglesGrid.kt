@@ -211,8 +211,8 @@ internal fun SinglesGrid(
                             )
                             Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
                             Text(
-                                text = foundCards
-                                    .count { it.isNew }
+                                text = singlesState.newCardsCount.values
+                                    .sum()
                                     .toString(),
                                 style = MaterialTheme.typography.bodyMedium,
                             )

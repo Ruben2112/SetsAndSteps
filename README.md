@@ -79,7 +79,7 @@ different device as well.
 
 ### Architecture
 
-The app follows Clean Architecture and uses an MVI state management approach.
+The app follows Clean Architecture with SOLID principles and uses an MVI state management approach.
 
 The codebase is split into a feature-first, multi-module structure. Each feature (e.g. cards,
 sets, settings, statistics, set point exchange) lives in its own `feature/<name>` module, depending
@@ -160,11 +160,9 @@ Because this is in the end just a passion project, it can take some time to get 
 not in any particular order.
 
 - More sets
-- Database migrations
 - Visual improvements (especially for leveling up)
 - Unit tests
 - Analytics
-- Crash reporting
 - Play Store release
 - iOS implementation
 - Realtime step tracking

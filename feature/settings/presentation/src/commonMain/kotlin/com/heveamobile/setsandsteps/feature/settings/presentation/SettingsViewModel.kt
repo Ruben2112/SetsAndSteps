@@ -177,6 +177,14 @@ class SettingsViewModel(
                     )
                 }
             }
+
+            is SettingsAction.ShowChangeEmailAddressDialog -> {
+                _state.update {
+                    it.copy(
+                        showChangeEmailAddressDialog = true,
+                    )
+                }
+            }
         }
     }
 }

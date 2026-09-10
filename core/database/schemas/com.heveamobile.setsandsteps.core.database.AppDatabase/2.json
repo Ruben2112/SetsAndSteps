@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "da24f9eb63a9dbee95f5e35ba4062e52",
+    "identityHash": "b1e715339a01e1cc202dee0f09c7de13",
     "entities": [
       {
         "tableName": "StepDataEntity",
@@ -42,13 +42,18 @@
       },
       {
         "tableName": "UserEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `startTime` INTEGER NOT NULL, `lastSyncTime` INTEGER, `totalSteps` INTEGER NOT NULL, `previousTwentyFourHours` INTEGER NOT NULL, `twentyFourHourRecord` INTEGER NOT NULL, `previousSevenDays` INTEGER NOT NULL, `sevenDayRecord` INTEGER NOT NULL, `previousThirtyDays` INTEGER NOT NULL, `thirtyDayRecord` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `emailAddress` TEXT, `startTime` INTEGER NOT NULL, `lastSyncTime` INTEGER, `totalSteps` INTEGER NOT NULL, `previousTwentyFourHours` INTEGER NOT NULL, `twentyFourHourRecord` INTEGER NOT NULL, `previousSevenDays` INTEGER NOT NULL, `sevenDayRecord` INTEGER NOT NULL, `previousThirtyDays` INTEGER NOT NULL, `thirtyDayRecord` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "emailAddress",
+            "columnName": "emailAddress",
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "startTime",
@@ -422,7 +427,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'da24f9eb63a9dbee95f5e35ba4062e52')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b1e715339a01e1cc202dee0f09c7de13')"
     ]
   }
 }

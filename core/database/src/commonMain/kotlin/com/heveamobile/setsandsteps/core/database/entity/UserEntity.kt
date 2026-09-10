@@ -8,6 +8,7 @@ import kotlin.time.Instant
 data class UserEntity(
     @PrimaryKey
     val id: Long = 0L,
+    val emailAddress: String? = null,
     val startTime: Instant,
     val lastSyncTime: Instant? = null,
     val totalSteps: Long = 0,

@@ -10,6 +10,8 @@ data class SettingsState(
     val explanationDialogTitle: String? = null,
     val explanationDialogBody: String? = null,
 
+    val showChangeEmailAddressDialog: Boolean = false,
+
     val distanceMultiplier: Double = 1.0,
     val reminderIsEnabled: Boolean = false,
     val reminderTime: LocalTime = LocalTime(
@@ -43,6 +45,7 @@ sealed interface SettingsAction {
     ) : SettingsAction
 
     data object HideExplanationDialog : SettingsAction
+    data object ShowChangeEmailAddressDialog : SettingsAction
 }
 
 sealed interface SettingsEvent {

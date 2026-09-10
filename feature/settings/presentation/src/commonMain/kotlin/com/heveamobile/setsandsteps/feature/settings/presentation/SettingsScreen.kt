@@ -18,8 +18,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
@@ -36,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -82,6 +86,7 @@ import com.heveamobile.setsandsteps.feature.settings.presentation.generated.reso
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_import_successful
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_notification_permission_request_rationale
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_notification_permission_request_title
+import com.heveamobile.setsandsteps.feature.settings.presentation.icons.ic_edit
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.resources.getString
@@ -181,6 +186,10 @@ private fun SettingsContent(
         )
     }
 
+    if (state.showChangeEmailAddressDialog) {
+        ChangeEmailAddressDialog()
+    }
+
     if (state.showImportConfirmationAlert) {
         ImportConfirmationDialog(onAction = onAction)
     }
@@ -202,6 +211,11 @@ private fun SettingsContent(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
     ) {
         item {
+            AccountSettingsCard(
+                onAction = onAction,
+            )
+        }
+        item {
             ReminderCard(
                 reminderIsEnabled = state.reminderIsEnabled,
                 reminderTime = state.reminderTime,
@@ -218,6 +232,50 @@ private fun SettingsContent(
         }
         item {
             ExportImportDataCard(onAction = onAction)
+        }
+    }
+}
+
+@Composable
+private fun AccountSettingsCard(
+    onAction: (SettingsAction) -> Unit,
+) {
+    val title = "Account settings"
+    val explanation = "Account settings explanation"
+    Card(
+        title = title,
+        actionIcon = ic_question_mark,
+        onAction = {
+            onAction(
+                SettingsAction.ShowExplanationDialog(
+                    title = title,
+                    body = explanation,
+                ),
+            )
+        },
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+            horizontalAlignment = Alignment.End,
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    modifier = Modifier.weight(1F),
+                    text = "No email address registered",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontStyle = FontStyle.Italic),
+                )
+                IconButton(
+                    onClick = { onAction(SettingsAction.ShowChangeEmailAddressDialog) },
+                ) {
+                    Icon(
+                        imageVector = ic_edit,
+                        contentDescription = "",
+                    )
+                }
+            }
         }
     }
 }
@@ -542,4 +600,12 @@ private fun NotificationSettingsDialog(onAction: (SettingsAction) -> Unit) {
             onAction(SettingsAction.DismissNotificationSettingsDialog)
         },
     )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ChangeEmailAddressDialog() {
+    BasicAlertDialog(onDismissRequest = {}) {
+
+    }
 }

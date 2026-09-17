@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -40,10 +41,33 @@ fun PackOpeningSummaryGrid(
                 )
             }
 
+            val allCards = setPageUiState.packs.flatMap { it.cards }
+            val (newCards, oldCards) = allCards.partition { it.isNew }
+
             items(
-                items = setPageUiState.packs
-                    .flatMap { it.cards }
-                    .sortedBy { it.card.rarity },
+                items = newCards.sortedBy { it.card.rarity },
+            ) { foundCard ->
+                CollectableCardLayout(
+                    backsideImageUrl = foundCard.cardSet.backsideImageUrl,
+                    card = foundCard.card,
+                    isRevealed = true,
+                    isNew = foundCard.isNew,
+                    mapPointsGained = foundCard.setPointsGained,
+                    onClick = { onAction(FoundCardsAction.Shared.ToggleCardInfo(foundCard.card)) },
+                )
+            }
+
+            if (newCards.isNotEmpty() && oldCards.isNotEmpty()) {
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    HorizontalDivider(
+                        modifier = Modifier.padding(vertical = MaterialTheme.spacing.small),
+                        color = MaterialTheme.colorScheme.outlineVariant,
+                    )
+                }
+            }
+
+            items(
+                items = oldCards.sortedBy { it.card.rarity },
             ) { foundCard ->
                 CollectableCardLayout(
                     backsideImageUrl = foundCard.cardSet.backsideImageUrl,

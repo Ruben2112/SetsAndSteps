@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import com.heveamobile.setsandsteps.core.data.manager.AndroidDailyReminderManager
 import com.heveamobile.setsandsteps.core.data.manager.AndroidPermissionManager
+import com.heveamobile.setsandsteps.core.data.manager.AndroidVibratorImpl
 import com.heveamobile.setsandsteps.core.data.repository.CardSetRepositoryImpl
 import com.heveamobile.setsandsteps.core.data.repository.CollectableCardRepositoryImpl
 import com.heveamobile.setsandsteps.core.data.repository.StepDataRepositoryImpl
@@ -57,5 +58,6 @@ val coreDataModule = module {
 
     singleOf(::AndroidPermissionManager) { bind<PermissionManager>() }
     singleOf(::AndroidDailyReminderManager) { bind<DailyReminderManager>() }
+    singleOf(::AndroidVibratorImpl) { bind<com.heveamobile.setsandsteps.core.domain.manager.Vibrator>() }
     singleOf(::HealthConnectManager) { bind<HealthDataSource>() }
 }

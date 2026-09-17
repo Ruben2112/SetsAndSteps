@@ -22,16 +22,23 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.heveamobile.setsandsteps.core.designsystem.component.FlipOverTime
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.domain.manager.Vibrator
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
+import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.Res
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.close_screen_button
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.koinInject
 
 @Composable
 fun FoundCardsOverlay(
@@ -39,6 +46,9 @@ fun FoundCardsOverlay(
     state: FoundCardsState,
     onAction: (FoundCardsAction) -> Unit,
 ) {
+    val vibrator = koinInject<Vibrator>()
+    val userPreferencesRepository = koinInject<UserPreferencesRepository>()
+    val vibrationIsEnabled by userPreferencesRepository.isVibrationEnabled.collectAsStateWithLifecycle(true)
 
     Scaffold(
         modifier = modifier
@@ -100,6 +110,28 @@ fun FoundCardsOverlay(
                                     modifier = Modifier.fillMaxSize(),
                                     packOpeningState = packOpeningState,
                                     onAction = onAction,
+                                    onRevealStarted = { card ->
+                                        if (vibrationIsEnabled && card.rarity != Rarity.Common) {
+                                            val timings = mutableListOf<Long>()
+                                            val amplitudes = mutableListOf<Int>()
+
+                                            // The card performs a full 360-degree rotation for each rarity tier
+                                            // below its target, and a final 180-degree flip for the target rarity.
+                                            for (i in 1 until card.rarity.intValue) {
+                                                timings.add(FlipOverTime * 2)
+                                                amplitudes.add(Rarity.fromInt(i).vibrationAmplitude)
+                                            }
+
+                                            // Final half-rotation for the card's actual rarity
+                                            timings.add(FlipOverTime)
+                                            amplitudes.add(card.rarity.vibrationAmplitude)
+
+                                            vibrator.vibrateWaveform(
+                                                timings.toLongArray(),
+                                                amplitudes.toIntArray(),
+                                            )
+                                        }
+                                    },
                                 )
                             }
                         }

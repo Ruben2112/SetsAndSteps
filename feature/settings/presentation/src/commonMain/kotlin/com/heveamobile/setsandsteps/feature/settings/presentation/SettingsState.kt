@@ -21,6 +21,7 @@ data class SettingsState(
     val showNotificationSettingsDialog: Boolean = false,
     val hasRequestedNotificationPermission: Boolean = false,
     val notificationPermissionStatus: PermissionStatus = PermissionStatus.Loading,
+    val vibrationIsEnabled: Boolean = true,
 )
 
 sealed interface SettingsAction {
@@ -37,6 +38,7 @@ sealed interface SettingsAction {
     data object ShowNotificationSettingsDialog : SettingsAction
     data object DismissNotificationSettingsDialog : SettingsAction
     data class UpdateHasRequestedNotificationPermission(val hasRequested: Boolean) : SettingsAction
+    data class UpdateVibrationIsEnabled(val isEnabled: Boolean) : SettingsAction
     data class ShowExplanationDialog(
         val title: String?,
         val body: String?,

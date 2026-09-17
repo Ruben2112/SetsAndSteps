@@ -19,6 +19,8 @@ import androidx.compose.ui.Modifier
 import com.heveamobile.setsandsteps.core.designsystem.component.CircularPackLayout
 import com.heveamobile.setsandsteps.core.designsystem.component.animationTime
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
+import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
@@ -30,6 +32,8 @@ fun PackOpeningPager(
     modifier: Modifier = Modifier,
     packOpeningState: PackOpeningUiState,
     onAction: (FoundCardsAction) -> Unit,
+    onRarityChange: ((Rarity) -> Unit)? = null,
+    onRevealStarted: ((CollectableCard) -> Unit)? = null,
 ) {
     val setPages = packOpeningState.setPages
     val parentPagerState = rememberPagerState(
@@ -85,6 +89,8 @@ fun PackOpeningPager(
             isActiveSet = parentPagerState.settledPage == parentPage,
             revealTargetPackIndex = revealTarget?.takeIf { it.first == parentPage }?.second,
             onAction = onAction,
+            onRarityChange = onRarityChange,
+            onRevealStarted = onRevealStarted,
         )
     }
 }
@@ -114,6 +120,8 @@ private fun SetPage(
     isActiveSet: Boolean,
     revealTargetPackIndex: Int?,
     onAction: (FoundCardsAction) -> Unit,
+    onRarityChange: ((Rarity) -> Unit)? = null,
+    onRevealStarted: ((CollectableCard) -> Unit)? = null,
 ) {
     val isRevealing = packOpeningState.isRevealing
     val setPageUiState = packOpeningState.setPages[setIndex]
@@ -192,6 +200,8 @@ private fun SetPage(
                 packIndex = packPage,
                 packUiState = packs[packPage],
                 onAction = onAction,
+                onRarityChange = onRarityChange,
+                onRevealStarted = onRevealStarted,
             )
         }
     }
@@ -203,10 +213,14 @@ private fun PackPage(
     packIndex: Int,
     packUiState: PackUiState,
     onAction: (FoundCardsAction) -> Unit,
+    onRarityChange: ((Rarity) -> Unit)? = null,
+    onRevealStarted: ((CollectableCard) -> Unit)? = null,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         CircularPackLayout(
             cards = packUiState.cards,
+            onRarityChange = onRarityChange,
+            onRevealStarted = onRevealStarted,
             onCardClick = { card ->
                 val found = packUiState.cards.first { it.card == card }
                 if (found.isRevealed) {

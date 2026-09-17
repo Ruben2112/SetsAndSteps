@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.min
 import com.heveamobile.setsandsteps.core.domain.model.CollectableCard
 import com.heveamobile.setsandsteps.core.domain.model.FoundCard
+import com.heveamobile.setsandsteps.core.domain.model.Rarity
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -20,6 +21,8 @@ fun CircularPackLayout(
     cards: List<FoundCard>,
     onCardClick: (CollectableCard) -> Unit,
     modifier: Modifier = Modifier,
+    onRarityChange: ((Rarity) -> Unit)? = null,
+    onRevealStarted: ((CollectableCard) -> Unit)? = null,
 ) {
     BoxWithConstraints(
         modifier = modifier.fillMaxSize(),
@@ -46,6 +49,8 @@ fun CircularPackLayout(
                 backsideImageUrl = foundCard.cardSet.backsideImageUrl,
                 card = foundCard.card,
                 isRevealed = foundCard.isRevealed,
+                onRarityChange = onRarityChange,
+                onRevealStarted = onRevealStarted,
                 modifier = Modifier
                     .width(cardWidth)
                     .offset {

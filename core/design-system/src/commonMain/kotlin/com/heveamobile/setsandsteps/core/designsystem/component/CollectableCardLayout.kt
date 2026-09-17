@@ -24,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -58,6 +59,11 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import kotlin.math.roundToInt
 
+
+const val FlipOverTime: Long = 400
+val CollectableCard.animationTime: Float
+    get() = ((rarity.intValue - 0.5F) * (FlipOverTime * 2))
+
 @Composable
 fun CollectableCardLayout(
     backsideImageUrl: String?,
@@ -67,6 +73,8 @@ fun CollectableCardLayout(
     isNew: Boolean = false,
     isLarge: Boolean = false,
     mapPointsGained: Int = 0,
+    onRarityChange: ((Rarity) -> Unit)? = null,
+    onRevealStarted: ((CollectableCard) -> Unit)? = null,
     onClick: (() -> Unit)? = null,
 ) {
     val rotationAngle = 180F + (card.rarity.intValue - 1) * 360F
@@ -84,6 +92,16 @@ fun CollectableCardLayout(
     )
     val currentRarity = Rarity.fromInt(currentRarityInt)
     val animatedCard = card.copy(rarity = currentRarity)
+
+    LaunchedEffect(isRevealed) {
+        if (isRevealed) {
+            onRevealStarted?.invoke(card)
+        }
+    }
+
+    LaunchedEffect(currentRarity) {
+        onRarityChange?.invoke(currentRarity)
+    }
 
     Box(
         modifier = modifier
@@ -419,6 +437,3 @@ private fun CardBack(
         )
     }
 }
-
-val CollectableCard.animationTime: Float
-    get() = ((rarity.intValue - 0.5F) * (400 * 2))

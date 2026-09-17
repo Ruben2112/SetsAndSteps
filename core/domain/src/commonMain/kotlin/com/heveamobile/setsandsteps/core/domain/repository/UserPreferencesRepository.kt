@@ -12,6 +12,7 @@ interface UserPreferencesRepository {
     val distanceMultiplier: Flow<Double>
     val hasRequestedNotificationPermission: Flow<Boolean>
     val hasRequestedHealthPermission: Flow<Boolean>
+    val isVibrationEnabled: Flow<Boolean>
 
     suspend fun updateGridSortingOrder(sortingOrder: SortingOrder)
     suspend fun updateHideUndiscovered(hideUndiscovered: Boolean)
@@ -20,4 +21,5 @@ interface UserPreferencesRepository {
     suspend fun updateDistanceMultiplier(distanceMultiplier: Double)
     suspend fun updateHasRequestedNotificationPermission(hasRequested: Boolean)
     suspend fun updateHasRequestedHealthPermission(hasRequested: Boolean)
+    suspend fun updateIsVibrationEnabled(isEnabled: Boolean)
 }

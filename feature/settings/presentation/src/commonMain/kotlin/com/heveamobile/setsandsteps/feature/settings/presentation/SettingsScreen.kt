@@ -82,6 +82,9 @@ import com.heveamobile.setsandsteps.feature.settings.presentation.generated.reso
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_import_successful
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_notification_permission_request_rationale
 import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_notification_permission_request_title
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_vibration_enable
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_vibration_explanation
+import com.heveamobile.setsandsteps.feature.settings.presentation.generated.resources.settings_vibration_title
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.resources.getString
@@ -208,6 +211,12 @@ private fun SettingsContent(
                 notificationPermissionStatus = state.notificationPermissionStatus,
                 onAction = onAction,
                 onPermissionRequest = onPermissionRequest,
+            )
+        }
+        item {
+            VibrationCard(
+                vibrationIsEnabled = state.vibrationIsEnabled,
+                onAction = onAction,
             )
         }
         item {
@@ -465,6 +474,43 @@ private fun DistanceMultiplierCard(
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun VibrationCard(
+    vibrationIsEnabled: Boolean,
+    onAction: (SettingsAction) -> Unit,
+) {
+    val title = stringResource(Res.string.settings_vibration_title)
+    val explanation = stringResource(Res.string.settings_vibration_explanation)
+    Card(
+        title = title,
+        actionIcon = ic_question_mark,
+        onAction = {
+            onAction(
+                SettingsAction.ShowExplanationDialog(
+                    title = title,
+                    body = explanation,
+                ),
+            )
+        },
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large),
+        ) {
+            Text(
+                modifier = Modifier.weight(1F),
+                text = stringResource(Res.string.settings_vibration_enable),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Switch(
+                checked = vibrationIsEnabled,
+                onCheckedChange = { onAction(SettingsAction.UpdateVibrationIsEnabled(it)) },
+            )
         }
     }
 }

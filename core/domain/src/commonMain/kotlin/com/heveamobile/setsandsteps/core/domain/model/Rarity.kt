@@ -2,12 +2,28 @@ package com.heveamobile.setsandsteps.core.domain.model
 
 enum class Rarity(
     val intValue: Int,
+    val vibrationAmplitude: Int,
 ) {
-    Common(1),
-    Uncommon(2),
-    Rare(3),
-    Epic(4),
-    Legendary(5);
+    Common(
+        1,
+        0,
+    ),
+    Uncommon(
+        2,
+        64,
+    ),
+    Rare(
+        3,
+        128,
+    ),
+    Epic(
+        4,
+        192,
+    ),
+    Legendary(
+        5,
+        255,
+    );
 
     companion object {
         fun fromInt(value: Int): Rarity {

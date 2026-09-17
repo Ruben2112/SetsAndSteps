@@ -49,7 +49,8 @@ class SettingsViewModel(
                 userPreferencesRepository.isReminderEnabled,
                 userPreferencesRepository.reminderTime,
                 userPreferencesRepository.hasRequestedNotificationPermission,
-            ) { distanceMultiplier, reminderIsEnabled, reminderTime, hasRequestedNotificationPermission ->
+                userPreferencesRepository.isVibrationEnabled,
+            ) { distanceMultiplier, reminderIsEnabled, reminderTime, hasRequestedNotificationPermission, isVibrationEnabled ->
                 _state.update {
                     it.copy(
                         isLoading = false,
@@ -57,6 +58,7 @@ class SettingsViewModel(
                         reminderIsEnabled = reminderIsEnabled,
                         reminderTime = reminderTime,
                         hasRequestedNotificationPermission = hasRequestedNotificationPermission,
+                        vibrationIsEnabled = isVibrationEnabled,
                     )
                 }
             }.collect()
@@ -157,6 +159,12 @@ class SettingsViewModel(
             is SettingsAction.UpdateHasRequestedNotificationPermission -> {
                 viewModelScope.launch {
                     userPreferencesRepository.updateHasRequestedNotificationPermission(action.hasRequested)
+                }
+            }
+
+            is SettingsAction.UpdateVibrationIsEnabled -> {
+                viewModelScope.launch {
+                    userPreferencesRepository.updateIsVibrationEnabled(action.isEnabled)
                 }
             }
 

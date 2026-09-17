@@ -61,30 +61,33 @@ internal fun SummarySetHeader(
                     showExpandIcon = false,
                     modifier = Modifier.weight(1F),
                 )
-                Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraSmall))
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(
-                        MaterialTheme.spacing.small,
-                    ),
-                ) {
-                    Text(
-                        text = "+${newCards.values.sum()}",
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            color = MaterialTheme
-                                .colorScheme.primary,
+                if (newCards.values.sum() > 0) {
+                    Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraSmall))
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(
+                            MaterialTheme.spacing.small,
                         ),
-                    )
-                    newCards.forEach {
-                        if (it.value > 0) {
-                            Text(
-                                text = "+${it.value}",
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    color =
-                                        MaterialTheme.colorScheme.primary,
-                                ),
-                            )
-                        } else {
-                            Text("")
+                    ) {
+                        Text(
+                            text = "+${newCards.values.sum()}",
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                color = MaterialTheme.colorScheme.primary,
+                            ),
+                        )
+                        newCards.forEach {
+                            if (it.value > 0) {
+                                Text(
+                                    text = "+${it.value}",
+                                    style = MaterialTheme.typography.bodyMedium.copy(
+                                        color = MaterialTheme.colorScheme.primary,
+                                    ),
+                                )
+                            } else {
+                                Text(
+                                    text = "",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            }
                         }
                     }
                 }

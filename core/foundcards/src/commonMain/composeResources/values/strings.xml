@@ -12,4 +12,6 @@
     <string name="overlay_set_points_gained">Set points gained:</string>
     <string name="overlay_hold_to_reveal_button">Hold to reveal</string>
     <string name="overlay_show_summary_button">Show summary</string>
+    <string name="overlay_skip_to_summary_button">Skip to summary</string>
+
 </resources>

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,6 +23,7 @@ import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.Res
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_hold_to_reveal_button
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_show_summary_button
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.overlay_skip_to_summary_button
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -41,8 +43,14 @@ internal fun PackOpeningFloatingActions(
                 .fillMaxSize()
                 .padding(bottom = bottomPadding)
                 .padding(MaterialTheme.spacing.medium),
-            contentAlignment = Alignment.BottomEnd,
         ) {
+            OutlinedButton(
+                onClick = { onAction(FoundCardsAction.PackOpening.SkipPackOpening) },
+                modifier = Modifier.align(Alignment.BottomStart),
+            ) {
+                Text(text = stringResource(Res.string.overlay_skip_to_summary_button))
+            }
+
             val holdInteractionSource = remember { MutableInteractionSource() }
             val isHeld by holdInteractionSource.collectIsPressedAsState()
             LaunchedEffect(isHeld) {
@@ -57,6 +65,7 @@ internal fun PackOpeningFloatingActions(
             Button(
                 interactionSource = holdInteractionSource,
                 onClick = {},
+                modifier = Modifier.align(Alignment.BottomEnd),
             ) {
                 Text(text = stringResource(Res.string.overlay_hold_to_reveal_button))
             }

@@ -179,6 +179,35 @@ internal class FoundCardsPackOpeningController(
                     state.copy(packOpeningState = state.packOpeningState?.copy(showSummaryScreen = true))
                 }
             }
+
+            is FoundCardsAction.PackOpening.SkipPackOpening -> {
+                holdRevealJob?.cancel()
+                holdRevealJob = null
+
+                state.update { state ->
+                    val packOpeningState = state.packOpeningState
+                        ?: return@update state
+                    state.copy(
+                        packOpeningState = packOpeningState.copy(
+                            isRevealing = false,
+                            showSummaryButton = true,
+                            showSummaryScreen = true,
+                            setPages = packOpeningState.setPages.map { setPage ->
+                                setPage.copy(
+                                    packs = setPage.packs.map { pack ->
+                                        pack.copy(
+                                            cards = pack.cards.map { foundCard ->
+                                                foundCard.copy(isRevealed = true)
+                                            },
+                                        )
+                                    },
+                                )
+                            },
+                        ),
+                    )
+                }
+            }
+
         }
     }
 }

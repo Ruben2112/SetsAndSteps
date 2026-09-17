@@ -113,6 +113,7 @@ sealed interface FoundCardsAction {
         data object StartRevealing : PackOpening
         data object StopRevealing : PackOpening
         data object ShowPackOpeningSummary : PackOpening
+        data object SkipPackOpening : PackOpening
         data class UpdateVisiblePack(
             val setIndex: Int,
             val packIndex: Int,

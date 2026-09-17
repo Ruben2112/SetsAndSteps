@@ -27,7 +27,7 @@ class FindCardsUseCase(
             ?: return FindCardsResult()
         val cards = cardSet.cards
 
-        var foundCards = emptyList<FoundCard>()
+        val foundCards = mutableListOf<FoundCard>()
         var levelUpOccurred = false
 
         val updatedCardUserData = mutableMapOf<String, CollectableCardUserData>()
@@ -35,49 +35,51 @@ class FindCardsUseCase(
             ?: card.userData
             ?: CollectableCardUserData()
 
-        run loop@{
-            for (targetRarity in targetRarities) {
-                val filteredCards = cards.filter { card -> card.rarity == targetRarity }
-                if (filteredCards.isEmpty()) continue
+        val cardsByRarity = cards.groupBy { it.rarity }
+        var undiscoveredCount = cards.count { !userDataFor(it).isDiscovered }
 
-                val cardData = filteredCards.random()
-                val previousUserData = userDataFor(cardData)
-                var foundCard = FoundCard(
-                    cardSet = cardSet,
-                    card = cardData,
-                )
+        for (targetRarity in targetRarities) {
+            val filteredCards = cardsByRarity[targetRarity]
+                ?: emptyList()
+            if (filteredCards.isEmpty()) continue
 
-                // Reward set points if the card was already discovered
-                if (previousUserData.isDiscovered) {
-                    val setPointsGained = when (cardData.rarity) {
-                        Rarity.Common -> cardSet.commonValue
-                        Rarity.Uncommon -> cardSet.uncommonValue
-                        Rarity.Rare -> cardSet.rareValue
-                        Rarity.Epic -> cardSet.epicValue
-                        Rarity.Legendary -> cardSet.legendaryValue
-                    }
-                    foundCard = foundCard.copy(
-                        setPointsGained = setPointsGained,
-                        isNew = false,
-                    )
+            val cardData = filteredCards.random()
+            val previousUserData = userDataFor(cardData)
+            var foundCard = FoundCard(
+                cardSet = cardSet,
+                card = cardData,
+            )
+
+            // Reward set points if the card was already discovered
+            if (previousUserData.isDiscovered) {
+                val setPointsGained = when (cardData.rarity) {
+                    Rarity.Common -> cardSet.commonValue
+                    Rarity.Uncommon -> cardSet.uncommonValue
+                    Rarity.Rare -> cardSet.rareValue
+                    Rarity.Epic -> cardSet.epicValue
+                    Rarity.Legendary -> cardSet.legendaryValue
                 }
-
-                val newUserData = previousUserData.copy(
-                    isDiscovered = true,
-                    findCount = previousUserData.findCount + 1,
+                foundCard = foundCard.copy(
+                    setPointsGained = setPointsGained,
+                    isNew = false,
                 )
-                updatedCardUserData[cardData.id] = newUserData
-                foundCard = foundCard.copy(card = cardData.copy(userData = newUserData))
+            } else {
+                undiscoveredCount--
+            }
 
-                foundCards = foundCards + foundCard
+            val newUserData = previousUserData.copy(
+                isDiscovered = true,
+                findCount = previousUserData.findCount + 1,
+            )
+            updatedCardUserData[cardData.id] = newUserData
+            foundCard = foundCard.copy(card = cardData.copy(userData = newUserData))
 
-                // Update Card Set Level when all its cards are discovered
-                if (cards.all { userDataFor(it).isDiscovered }) {
-                    levelUpOccurred = true
+            foundCards.add(foundCard)
 
-                    // Break the loop to prevent finding more cards
-                    return@loop
-                }
+            // Update Card Set Level when all its cards are discovered
+            if (undiscoveredCount == 0) {
+                levelUpOccurred = true
+                break
             }
         }
 

@@ -1,7 +1,6 @@
 package com.heveamobile.setsandsteps.core.domain.usecase
 
 import com.heveamobile.setsandsteps.core.domain.model.CardSetPacksResult
-import com.heveamobile.setsandsteps.core.domain.model.FoundCard
 import com.heveamobile.setsandsteps.core.domain.model.ObtainPacksResult
 import com.heveamobile.setsandsteps.core.domain.model.Rarity
 import com.heveamobile.setsandsteps.core.domain.model.costPerPack
@@ -27,39 +26,33 @@ class SpendStepsUseCase(
             val costPerPack = cardSetUserData.costPerPack(
                 userPreferencesRepository.distanceMultiplier.first(),
             )
-            var packsToReward = cardSetUserData.packsAvailable(costPerPack)
+            val packsToReward = cardSetUserData.packsAvailable(costPerPack)
             if (packsToReward <= 0) return@forEach
 
-            val packs = mutableListOf<List<FoundCard>>()
-            var setPointsGained = 0
-            var levelUpOccurred = false
-
-            while (packsToReward > 0) {
-                val targetRarities = List(5) {
-                    when ((1..10000).random()) {
-                        in 1..8109 -> Rarity.Common
-                        in 8110..9609 -> Rarity.Uncommon
-                        in 9610..9909 -> Rarity.Rare
-                        in 9910..9975 -> Rarity.Epic
-                        else -> Rarity.Legendary
-                    }
+            val totalTargetRarities = List(packsToReward * 5) {
+                when ((1..10000).random()) {
+                    in 1..8109 -> Rarity.Common
+                    in 8110..9609 -> Rarity.Uncommon
+                    in 9610..9909 -> Rarity.Rare
+                    in 9910..9975 -> Rarity.Epic
+                    else -> Rarity.Legendary
                 }
-
-                val packResult = findCardsUseCase(
-                    cardSet = cardSet,
-                    targetRarities = targetRarities,
-                )
-
-                packs += packResult.cards
-                setPointsGained += packResult.setPointsGained
-                levelUpOccurred = levelUpOccurred || packResult.levelUpOccurred
-
-                packsToReward--
             }
 
+            val packResult = findCardsUseCase(
+                cardSet = cardSet,
+                targetRarities = totalTargetRarities,
+            )
+
+            val packs = packResult.cards.chunked(5)
+            val setPointsGained = packResult.setPointsGained
+            val levelUpOccurred = packResult.levelUpOccurred
+
+            val updatedUserData = cardSetRepository.getCardSetById(cardSetUserData.id)?.userData
+                ?: cardSetUserData
+
             cardSetRepository.updateUserData(
-                cardSetUserData.copy(
-                    currentSetPoints = cardSetUserData.currentSetPoints + setPointsGained,
+                updatedUserData.copy(
                     currentSteps = cardSetUserData.currentSteps - (packs.size * costPerPack),
                 ),
             )

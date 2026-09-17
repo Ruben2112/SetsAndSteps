@@ -262,7 +262,7 @@ private fun CardFront(
                                     Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
                                     Text(
                                         stringResource(Res.string.card_image_loading_failed),
-                                        style = MaterialTheme.typography.bodySmall,
+                                        style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurface),
                                         textAlign = TextAlign.Center,
                                     )
                                 }
@@ -424,9 +424,7 @@ private fun CardBack(
                         Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
                         Text(
                             stringResource(Res.string.card_image_loading_failed),
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                color = MaterialTheme.colorScheme.onSurface,
-                            ),
+                            style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurface),
                             textAlign = TextAlign.Center,
                         )
                     }

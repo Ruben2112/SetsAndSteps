@@ -10,15 +10,15 @@ enum class Rarity(
     ),
     Uncommon(
         2,
-        64,
+        40,
     ),
     Rare(
         3,
-        128,
+        80,
     ),
     Epic(
         4,
-        192,
+        160,
     ),
     Legendary(
         5,

@@ -13,5 +13,8 @@
     <string name="overlay_hold_to_reveal_button">Hold to reveal</string>
     <string name="overlay_show_summary_button">Show summary</string>
     <string name="overlay_skip_to_summary_button">Skip to summary</string>
+    <string name="exit_pack_opening_title">Exit pack opening?</string>
+    <string name="exit_pack_opening_body">Are you sure you want to exit the pack opening? The cards will still be added to your sets, but you won't see the result of this pack opening session.</string>
+    <string name="exit_pack_opening_confirm">Exit</string>
 
 </resources>

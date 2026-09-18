@@ -23,6 +23,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,15 +33,22 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.heveamobile.setsandsteps.core.designsystem.component.AlertDialog
+import com.heveamobile.setsandsteps.core.designsystem.component.BackHandler
 import com.heveamobile.setsandsteps.core.designsystem.component.FlipOverTime
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.label_cancel
 import com.heveamobile.setsandsteps.core.designsystem.theme.spacing
 import com.heveamobile.setsandsteps.core.domain.manager.Vibrator
 import com.heveamobile.setsandsteps.core.domain.model.Rarity
 import com.heveamobile.setsandsteps.core.domain.repository.UserPreferencesRepository
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.Res
 import com.heveamobile.setsandsteps.core.foundcards.generated.resources.close_screen_button
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.exit_pack_opening_body
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.exit_pack_opening_confirm
+import com.heveamobile.setsandsteps.core.foundcards.generated.resources.exit_pack_opening_title
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
+import com.heveamobile.setsandsteps.core.designsystem.generated.resources.Res as DesignSystemRes
 
 @Composable
 fun FoundCardsOverlay(
@@ -49,6 +59,33 @@ fun FoundCardsOverlay(
     val vibrator = koinInject<Vibrator>()
     val userPreferencesRepository = koinInject<UserPreferencesRepository>()
     val vibrationIsEnabled by userPreferencesRepository.isVibrationEnabled.collectAsStateWithLifecycle(true)
+
+    var showExitConfirmation by remember { mutableStateOf(false) }
+
+    BackHandler(enabled = state.isVisible) {
+        if (state.cardShown != null) {
+            onAction(FoundCardsAction.Shared.ToggleCardInfo(null))
+        } else if (state.isPackOpening && state.packOpeningState?.showSummaryScreen == false) {
+            showExitConfirmation = true
+        } else {
+            onAction(FoundCardsAction.Shared.CloseFoundCards)
+        }
+    }
+
+    if (showExitConfirmation) {
+        AlertDialog(
+            title = stringResource(Res.string.exit_pack_opening_title),
+            body = stringResource(Res.string.exit_pack_opening_body),
+            onDismissRequest = { showExitConfirmation = false },
+            primaryActionLabel = stringResource(Res.string.exit_pack_opening_confirm),
+            primaryAction = {
+                showExitConfirmation = false
+                onAction(FoundCardsAction.Shared.CloseFoundCards)
+            },
+            secondaryActionLabel = stringResource(DesignSystemRes.string.label_cancel),
+            secondaryAction = { showExitConfirmation = false },
+        )
+    }
 
     Scaffold(
         modifier = modifier
